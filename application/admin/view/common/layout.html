@@ -1,0 +1,68 @@
+<!doctype html>
+<html class="x-admin-sm">
+<head>
+    <meta charset="UTF-8">
+    <title>{block name="title"}后台管理{/block}</title>
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <link rel="stylesheet" href="__ADMIN_CSS__/font.css">
+    <link rel="stylesheet" href="__ADMIN_CSS__/xadmin.css">
+    <!-- <link rel="stylesheet" href="./css/theme5.css"> -->
+    <script src="__COMMON_LIB__/layui/layui.js" charset="utf-8"></script>
+    <script type="text/javascript" src="__ADMIN_JS__/xadmin.js"></script>
+    <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
+    <!--[if lt IE 9]>
+    <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+    <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <script>
+        // 是否开启刷新记忆tab功能
+        // var is_remember = false;
+    </script>
+    {block name="css"}
+        <style id="theme_style"></style>
+
+    {/block}
+</head>
+
+<body class="index">
+{include file="/common/header"/}
+
+<!-- 中部开始 -->
+{include file="/common/nav"/}
+
+<!-- 右侧主体开始 -->
+<div class="page-content">
+    <div class="layui-tab tab" lay-filter="xbs_tab" lay-allowclose="false">
+        <ul class="layui-tab-title">
+            <li class="home">
+                <i class="layui-icon">&#xe68e;</i>我的桌面</li></ul>
+        <div class="layui-unselect layui-form-select layui-form-selected" id="tab_right">
+            <dl>
+                <dd data-type="this">关闭当前</dd>
+                <dd data-type="other">关闭其它</dd>
+                <dd data-type="all">关闭全部</dd></dl>
+        </div>
+        <div class="layui-tab-content">
+            <div class="layui-tab-item layui-show">
+                {block name="content"}
+
+                {/block}
+            </div>
+        </div>
+        <div id="tab_show"></div>
+    </div>
+</div>
+
+<div class="page-content-bg"></div>
+
+<!-- 右侧主体结束 -->
+<!-- 中部结束 -->
+</body>
+
+</html>
+{block name="js"}
+
+{/block}
