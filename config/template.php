@@ -40,6 +40,7 @@ return [
         '__ADMIN_JS__' => '/static/admin/js',
         '__ADMIN_CSS__'=>'/static/admin/css',
         '__ADMIN_FONT'=>'/static/admin/fonts',
-        '__COMMON_LIB__'=>'/static/common/lib',
+        '__ADMIN_LIB__'=>'/static/admin/lib',
+        '__COMMON__'=>'/static/common',
     ]
 ];
