@@ -10,6 +10,9 @@ use think\facade\Config;
 
 class Index extends Base
 {
+    //不需要登录也就不需要在做权限校验
+    protected $noNeedLogin=['LOGIN','LOgin'];
+
     public function __construct(App $app = null) {
         parent::__construct($app);
     }

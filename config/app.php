@@ -130,8 +130,8 @@ return [
     'route_cache_option'     => [],
 
     // 默认跳转页面对应的模板文件
-    'dispatch_success_tmpl'  => Env::get('think_path') . 'tpl/dispatch_jump.tpl',
-    'dispatch_error_tmpl'    => Env::get('think_path') . 'tpl/dispatch_jump.tpl',
+    'dispatch_success_tmpl'  => Env::get('app_path') . 'common/view/tpl/dispatch_jump.tpl',
+    'dispatch_error_tmpl'    => Env::get('app_path') . 'common/view/tpl/dispatch_jump.tpl',
 
     // 异常页面的模板文件
     'exception_tmpl'         => Env::get('think_path') . 'tpl/think_exception.tpl',
@@ -141,8 +141,12 @@ return [
     // 显示错误信息
     'show_error_msg'         => false,
     // 异常处理handle类 留空使用 \think\exception\Handle
-    'exception_handle'       => 'app\common\exception\Handler',
+//    'exception_handle'       => 'app\common\exception\Handler',
     // 显示验证码
     'show_captcha'           =>true,
+    //自定义错误配置页面
+    'http_exception_template'=>[
+        404 =>  Env::get('root_path') . 'public/exception_html/404.html',
+    ]
 
 ];

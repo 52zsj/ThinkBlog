@@ -11,35 +11,42 @@
     <link rel="stylesheet" href="__ADMIN_CSS__/font.css">
     <link rel="stylesheet" href="__ADMIN_CSS__/login.css">
     <link rel="stylesheet" href="__ADMIN_CSS__/xadmin.css">
-    <script type="text/javascript" src="__COMMON__/jquery.min.js"></script>
+    <script type="text/javascript" src="__COMMON__/js/jquery.min.js"></script>
     <script src="__ADMIN_LIB__/layui/layui.js" charset="utf-8"></script>
     <!--[if lt IE 9]>
-    <script src="__COMMON__/html5.min.js"></script>
-    <script src="__COMMON__/respond.min.js"></script>
+    <script src="__COMMON__/js/html5.min.js"></script>
+    <script src="__COMMON__/js/respond.min.js"></script>
     <![endif]-->
 </head>
 <body class="login-bg">
 
 <div class="login layui-anim layui-anim-up">
-    <div class="message">xxx系统 登陆</div>
+    <div class="message">LucklyJack-Blog-登陆</div>
     <div id="darkbannerwrap"></div>
 
     <form method="post" class="layui-form" action="#">
-        <input name="user_name" placeholder="用户名" type="text" lay-verify="required" class="layui-input" value="1">
+        <input name="user_name" placeholder="用户名" type="text" lay-verify="required" class="layui-input">
         <hr class="hr15">
-        <input name="password" lay-verify="required" placeholder="密码" type="password" class="layui-input" value="1">
+        <input name="password" lay-verify="required" placeholder="密码" type="password" class="layui-input">
         <!--验证码-->
         {if $Think.config.show_captcha===true}
+
         <hr class="hr15">
-        <input name="captcha" lay-verify="required|captcha" placeholder="验证码" type="text" class="layui-input" value="1">
-        <hr class="hr15">
-        <img src="{:captcha_src()}" id="captcha" width="100%" height="50px"
-             onclick="this.src = '{:captcha_src()}?r=' + Math.random();" alt="验证码">
+        <div class="layui-input-inline">
+        <input name="captcha" lay-verify="required|captcha" placeholder="验证码" type="text" class="left layui-input " style=" float: left;width: 50%;">
+
+        <img src="{:captcha_src()}" style="float: right;
+            width: 48%;height: 50px;" id="captcha"
+             onclick="this.src = '{:captcha_src()}?r=' + Math.random();" title="点击切换">
+        </div>
         {/if}
 
         <hr class="hr15">
         <input value="登录" lay-submit lay-filter="login" style="width:100%;" type="submit">
         <hr class="hr20">
+        <div style="width: 100%">
+            <label class="layui-form-label-col"style="text-align: center"><a href="javascript:void(0)">技术支持：LucklyJack</a></label>
+        </div>
     </form>
 </div>
 
