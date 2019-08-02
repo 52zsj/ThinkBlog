@@ -19,7 +19,7 @@ class Base extends \Exception
     // 请求URL
     public $reqUrl;
     public $jumpUrl;
-    public function __construct($code = '',$msg='',$data=[],$httpCode='',$jumpUrl='') {
+    public function __construct($msg='',$data = [],$jumpUrl='',$code='',$httpCode='') {
         $this->code = $code;
         $this->msg = $msg;
         $this->httpCode = $httpCode;

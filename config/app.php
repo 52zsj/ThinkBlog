@@ -141,9 +141,9 @@ return [
     // 显示错误信息
     'show_error_msg'         => false,
     // 异常处理handle类 留空使用 \think\exception\Handle
-//    'exception_handle'       => 'app\common\exception\Handler',
+    'exception_handle'       => 'app\common\exception\Handler',
     // 显示验证码
-    'show_captcha'           =>true,
+    'show_captcha'           =>false,
     //自定义错误配置页面
     'http_exception_template'=>[
         404 =>  Env::get('root_path') . 'public/exception_html/404.html',

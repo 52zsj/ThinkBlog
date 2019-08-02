@@ -1,27 +1,13 @@
-<!doctype html>
-<html class="x-admin-sm">
-<head>
-    <meta charset="UTF-8">
-    <title>后台登录-X-admin2.2</title>
-    <meta name="renderer" content="webkit|ie-comp|ie-stand">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta name="viewport"
-          content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi"/>
-    <meta http-equiv="Cache-Control" content="no-siteapp"/>
-    <link rel="stylesheet" href="__ADMIN_CSS__/font.css">
-    <link rel="stylesheet" href="__ADMIN_CSS__/login.css">
-    <link rel="stylesheet" href="__ADMIN_CSS__/xadmin.css">
-    <script type="text/javascript" src="__COMMON__/js/jquery.min.js"></script>
-    <script src="__ADMIN_LIB__/layui/layui.js" charset="utf-8"></script>
-    <!--[if lt IE 9]>
-    <script src="__COMMON__/js/html5.min.js"></script>
-    <script src="__COMMON__/js/respond.min.js"></script>
-    <![endif]-->
-</head>
+{include file="/common/header"/}
+{block name='css'}
+<link rel="stylesheet" href="__ADMIN_CSS__/font.css">
+<link rel="stylesheet" href="__ADMIN_CSS__/login.css">
+<link rel="stylesheet" href="__ADMIN_CSS__/xadmin.css">
+{/block}
 <body class="login-bg">
 
 <div class="login layui-anim layui-anim-up">
-    <div class="message">LucklyJack-Blog-登陆</div>
+    <div class="message">{$title|default=$default_msg}</div>
     <div id="darkbannerwrap"></div>
 
     <form method="post" class="layui-form" action="#">
@@ -30,17 +16,14 @@
         <input name="password" lay-verify="required" placeholder="密码" type="password" class="layui-input">
         <!--验证码-->
         {if $Think.config.show_captcha===true}
-
         <hr class="hr15">
         <div class="layui-input-inline">
         <input name="captcha" lay-verify="required|captcha" placeholder="验证码" type="text" class="left layui-input " style=" float: left;width: 50%;">
-
         <img src="{:captcha_src()}" style="float: right;
             width: 48%;height: 50px;" id="captcha"
              onclick="this.src = '{:captcha_src()}?r=' + Math.random();" title="点击切换">
         </div>
         {/if}
-
         <hr class="hr15">
         <input value="登录" lay-submit lay-filter="login" style="width:100%;" type="submit">
         <hr class="hr20">
@@ -80,12 +63,15 @@
                         //请求成功
                         if (res.code == '000000') {
                             //取消抖动
-                            layer.msg(res.msg,{ shift: -1, time: 2000 ,icon:6},function () {
-                                layer.msg('我已经登录啦',{ shift: -1, time: 2000 ,icon:6});
+                            layer.msg(res.msg, {shift: -1, time: 2000, icon: 6}, function () {
+                                window.location.href = res.jump_url;
                             });
                             return false;
                         } else {
                             layer.msg(res.msg,{ shift: -1, time: 2000 ,icon:5}, function () {
+                                if (res.jump_url != '') {
+                                    window.location.href = res.jump_url;
+                                }
                             });
                             if ($("#captcha").length > 0) {
                                 $("#captcha").trigger('click');
