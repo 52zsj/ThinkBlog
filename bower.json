@@ -1,0 +1,13 @@
+{
+  "name": "jackblog",
+  "homepage": "https://github.com/LucklyJack/myBlog",
+  "description": "",
+  "main": "",
+  "license": "Apache2.0",
+  "private": true,
+  "dependencies": {
+    "jquery": "~2.2.4",
+    "layui": "~2.4.0",
+    "font-awesome": "~4.7.0"
+  }
+}
