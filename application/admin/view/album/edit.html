@@ -78,7 +78,7 @@
                     return '昵称至少得5个字符啊';
                 }
             },
-            password: [/(.+){6,12}$/, '密码必须6到12位'],
+            pass: [/(.+){6,12}$/, '密码必须6到12位'],
             repass: function (value) {
                 if ($('#password').val() != $('#repass').val()) {
                     return '两次密码不一致';

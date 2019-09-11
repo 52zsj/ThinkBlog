@@ -4,10 +4,8 @@
 namespace app\common\model;
 
 
-class Admin extends Base
+class Album extends Base
 {
-    protected $name='admin';
+    protected $name='album';
     protected $autoWriteTimestamp = 'datetime';
-
-
 }

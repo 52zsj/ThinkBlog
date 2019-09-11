@@ -1,0 +1,334 @@
+{include file='/common/header'/}
+{block name='content'}
+<div class="layui-fluid">
+    <div class="layui-row">
+        <form class="layui-form" >
+            <div class="layui-form-item">
+                <label for="user_name" class="layui-form-label">
+                    <span class="x-red">*</span>标题
+                </label>
+                <div class="layui-input-inline">
+                    <input type="text" id="title" name="title" required="" lay-verify="required" autocomplete="off" class="layui-input">
+                </div>
+                <div class="layui-form-mid layui-word-aux">
+                    <span class="x-red">*</span>相册标题--分享时用到
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label for="nick_name" class="layui-form-label">
+                    <span class="x-red"></span>相册简介
+                </label>
+                <div class="layui-input-inline">
+                    <input type="text" id="description" name="description" lay-verify="description"
+                           autocomplete="off" class="layui-input">
+
+                </div>
+                <div class="layui-form-mid layui-word-aux">
+                    <span class="x-red">*</span>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label for="nick_name" class="layui-form-label">
+                    <span class="x-red"></span>相册内容
+                </label>
+                <div class="layui-upload">
+                    <button type="button" class="layui-btn" id="test2">多图片上传</button>
+                    <div class="layui-upload-list" id="demo2"></div>
+                </div>
+                <div class="layui-form-mid layui-word-aux">
+                    <span class="x-red">*</span>
+                </div>
+            </div>
+
+
+
+
+            <div class="layui-form-item">
+                <label for="add" class="layui-form-label">
+                </label>
+                <button class="layui-btn" lay-filter="add" lay-submit="">
+                    增加
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+{/block}
+{block name='js'}
+<script>
+    layui.use(['form', 'layer','upload'],
+    function () {
+        $ = layui.jquery;
+        var form = layui.form,
+            layer = layui.layer,
+            upload = layui.upload;
+
+        upload.render({
+            elem: '#test2'
+            ,url: ''
+            ,multiple: true
+            ,number: 3
+            ,size: 1024
+            ,before: function(obj){
+                //预读本地文件示例，不支持ie8
+                obj.preview(function(index, file, result){
+                    $('#demo2').append('<img style="width: 30%;height:50%;margin-right: 3px;" src="'+ result +'" alt="'+ file.name +'" class="layui-upload-img">')
+                });
+            }
+            ,done: function(res){
+                //上传完毕
+            }
+            ,allDone: function(obj){
+                console.log(obj)
+            }
+        });
+        //监听提交
+        form.on('submit(add)',
+            function (data) {
+                console.log(data);
+                var url = "{:url('add')}";
+                var datas = data.field;
+                $.ajax({
+                    type: 'POST',
+                    url: url,
+                    data: datas,
+                    dataType: 'JSON',
+                    success: function (res) {
+                        console.log(res);
+                        //请求成功
+                        if (res.code == '000000') {
+                            //取消抖动
+                            layer.alert(res.msg, {icon: 6}, function () {
+                                //关闭当前frame
+                                xadmin.close();
+                                // 可以对父窗口进行刷新
+                                xadmin.father_reload();
+                            });
+                            return false;
+                        } else {
+                            layer.msg(res.msg, {shift: -1, time: 2000, icon: 5}, function () {
+                            });
+                            return false;
+                        }
+
+                    },
+                });
+            });
+
+    });
+/*layui.use('upload', function(){
+    var $ = layui.jquery
+        ,upload = layui.upload;
+
+    var uploadInst = upload.render({
+        elem: '#test1'
+        ,url: 'http://httpbin.org/image'
+        ,size: 2000 //限制文件大小，单位 KB
+        //,accept: 'file'
+        ,method: 'get'
+        ,fileAccept: 'image/!*'
+        ,exts: "jpg|png|gif|bmp|jpeg|pdf"
+        ,data: { //额外参数
+            a: 1
+            ,b: function(){
+                return 2
+            }
+        }
+        ,choose: function(){
+            console.log(1)
+        }
+        ,before: function(obj){
+            //预读本地文件示例，不支持ie8
+            obj.preview(function(index, file, result){
+                $('#demo1').attr('src', result); //图片链接（base64）
+            });
+        }
+        ,done: function(res){
+            //如果上传失败
+            if(res.code > 0){
+                return layer.msg('上传失败');
+            }
+            //上传成功
+        }
+        ,error: function(){
+            //演示失败状态，并实现重传
+            var demoText = $('#demoText');
+            demoText.html('<span style="color: #FF5722;">上传失败</span> <a class="layui-btn layui-btn-mini demo-reload">重试</a>');
+            demoText.find('.demo-reload').on('click', function(){
+                uploadInst.upload();
+            });
+        }
+    });
+
+    upload.render({
+        elem: '#test2'
+        ,url: ''
+        ,multiple: true
+        ,number: 3
+        ,size: 1024
+        ,before: function(obj){
+            //预读本地文件示例，不支持ie8
+            obj.preview(function(index, file, result){
+                $('#demo2').append('<img src="'+ result +'" alt="'+ file.name +'" class="layui-upload-img">')
+            });
+        }
+        ,done: function(res){
+            //上传完毕
+        }
+        ,allDone: function(obj){
+            console.log(obj)
+        }
+    });
+
+    //演示多文件列表
+    var demoListView = $('#demoList');
+    var uploadListIns = upload.render({
+        elem: '#testList'
+        ,url: ''
+        ,accept: 'file'
+        ,multiple: true
+        ,number: 3
+        ,auto: false
+        ,bindAction: '#testListAction'
+        ,choose: function(obj){
+            var files = this.files = obj.pushFile(); //将每次选择的文件追加到文件队列
+
+            //读取本地文件
+            obj.preview(function(index, file, result){
+                var tr = $(['<tr id="upload-'+ index +'">'
+                    ,'<td>'+ file.name +'</td>'
+                    ,'<td>'+ (file.size/1014).toFixed(1) +'kb</td>'
+                    ,'<td>等待上传</td>'
+                    ,'<td>'
+                    ,'<button class="layui-btn layui-btn-mini demo-reload layui-hide">重传</button>'
+                    ,'<button class="layui-btn layui-btn-mini layui-btn-danger demo-delete">删除</button>'
+                    ,'</td>'
+                    ,'</tr>'].join(''));
+
+                //单个重传
+                tr.find('.demo-reload').on('click', function(){
+                    obj.upload(index, file);
+                });
+
+                //删除
+                tr.find('.demo-delete').on('click', function(){
+                    delete files[index]; //删除对应的文件
+                    tr.remove();
+                    uploadListIns.config.elem.next()[0].value = ''; //清空 input file 值，以免删除后出现同名文件不可选
+                });
+
+                demoListView.append(tr);
+            });
+        }
+        ,done: function(res, index, upload){
+            if(res.code == 0){ //上传成功
+                var tr = demoListView.find('tr#upload-'+ index)
+                    ,tds = tr.children();
+                tds.eq(2).html('<span style="color: #5FB878;">上传成功</span>');
+                tds.eq(3).html(''); //清空操作
+                delete this.files[index]; //删除文件队列已经上传成功的文件
+                return;
+            }
+            this.error(index, upload);
+        }
+        ,allDone: function(obj){
+            console.log(obj)
+        }
+        ,error: function(index, upload){
+            var tr = demoListView.find('tr#upload-'+ index)
+                ,tds = tr.children();
+            tds.eq(2).html('<span style="color: #FF5722;">上传失败</span>');
+            tds.eq(3).find('.demo-reload').removeClass('layui-hide'); //显示重传
+        }
+    });
+
+
+    upload.render({
+        elem: '.test333'
+        ,url: 'a'
+        ,accept: 'file'
+        ,before: function(obj){
+            console.log(this.item);
+        }
+        ,done: function(res){
+            console.log(res)
+        }
+    });
+
+    upload.render({
+        elem: '.testm'
+        ,done: function(res, index, upload){
+            //获取当前触发上传的元素，一般用于 elem 绑定 class 的情况，注意：此乃 layui 2.1.0 新增
+            var item = this.item;
+        }
+    })
+
+    /!*
+    upload.render({
+      elem: '#test33'
+      ,url: ''
+      ,accept: 'file'
+      ,done: function(res){
+        console.log(res)
+      }
+    });*!/
+
+    upload.render({
+        elem: '#test4'
+        ,url: ''
+        ,accept: 'video'
+        ,done: function(res){
+            console.log(res)
+        }
+    });
+
+    upload.render({
+        elem: '#test5'
+        ,url: ''
+        ,accept: 'audio'
+        ,done: function(res){
+            console.log(res)
+        }
+    });
+
+
+    //手动上传
+    upload.render({
+        elem: '#test6'
+        ,url: ''
+        ,auto: false
+        //,multiple: true
+        ,bindAction: '#test7'
+        ,choose: function(obj){
+            var that = this;
+            obj.preview(function(index, file){
+                obj.resetFile(index, file, '123.jpg');
+            });
+        }
+        ,before: function(){
+            console.log(345);
+        }
+        ,done: function(res){
+            console.log(res);
+        }
+    });
+
+    upload.render({
+        elem: '#test8'
+        ,url: ''
+        ,done: function(res){
+            console.log(res);
+        }
+    });
+
+    upload.render({
+        elem: '#test9'
+        ,url: ''
+        ,done: function(res){
+            console.log(res);
+        }
+    });
+
+});*/
+</script>
+{/block}

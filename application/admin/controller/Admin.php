@@ -15,7 +15,7 @@ class Admin extends Base
 {
     public static $filed = 'id,user_name,nick_name,join_ip,avatar,create_time,update_time,status';
 
-    public function _(App $app = null) {
+    public function __construct(App $app = null) {
         parent::__construct($app);
     }
 
