@@ -8,7 +8,7 @@
                     <span class="x-red">*</span>登录名
                 </label>
                 <div class="layui-input-inline">
-                    <input type="text" id="user_name" name="user_name" required="" lay-verify="required" autocomplete="off" value="{:$row.user_name}" class="layui-input">
+                    <input type="text" id="user_name" name="user_name" required="" lay-verify="required" autocomplete="off" class="layui-input">
                 </div>
                 <div class="layui-form-mid layui-word-aux">
                     <span class="x-red">*</span>将会成为您唯一的登入名
@@ -20,7 +20,7 @@
                 </label>
                 <div class="layui-input-inline">
                     <input type="text" id="nick_name" name="nick_name" required="" lay-verify="nick_name"
-                           value="{:$row.nick_name}"    autocomplete="off" class="layui-input">
+                           autocomplete="off" class="layui-input">
                 </div>
                 <div class="layui-form-mid layui-word-aux">
                     <span class="x-red">*</span>
@@ -39,7 +39,8 @@
                     <span class="x-red">*</span>密码
                 </label>
                 <div class="layui-input-inline">
-                    <input type="password" id="password" name="password" lay-verify="password" autocomplete="off" class="layui-input">
+                    <input type="password" id="password" name="password" required="" lay-verify="password"
+                           autocomplete="off" class="layui-input">
                 </div>
                 <div class="layui-form-mid layui-word-aux">
                     6到16个字符
@@ -50,15 +51,15 @@
                     <span class="x-red">*</span>确认密码
                 </label>
                 <div class="layui-input-inline">
-                    <input type="password" id="repass" name="repass"  lay-verify="repass"
+                    <input type="password" id="repass" name="repass" required="" lay-verify="repass"
                            autocomplete="off" class="layui-input">
                 </div>
             </div>
             <div class="layui-form-item">
-                <label for="edit" class="layui-form-label">
+                <label for="add" class="layui-form-label">
                 </label>
-                <button class="layui-btn" lay-filter="edit" lay-submit="">
-                    修改
+                <button class="layui-btn" lay-filter="add" lay-submit="">
+                    增加
                 </button>
             </div>
         </form>
@@ -87,10 +88,10 @@
         });
 
         //监听提交
-        form.on('submit(edit)',
+        form.on('submit(add)',
             function (data) {
                 console.log(data);
-                var url = "{:url('edit',['id'=>$row.id])}";
+                var url = "{:url('add')}";
                 var datas = data.field;
                 $.ajax({
                     type: 'POST',
