@@ -60,10 +60,9 @@
                             <td>{$item.id}</td>
                             <td>{$item.title}</td>
                             <td>{$item.description}</td>
-                            <td><img src="{$item.cover}" alt=""></td>
+                            <td><img src="{$item.cover}" style="width: 25%" alt=""></td>
                             <td>
-                                <audio src="{$item.music}"></audio></td>
-
+                                <audio src="{$item.music}" controls="controls"></audio>
                             <td class="td-manage">
                                 <a onclick="xadmin.open('详情','{:url(\'detail\',[\'id\'=>$item.id])}')" href="javascript:;" title="详情">
                                     <i class="layui-icon">&#xe601;</i>

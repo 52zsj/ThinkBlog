@@ -4,7 +4,7 @@
     <div class="layui-row">
         <form class="layui-form" >
             <div class="layui-form-item">
-                <label for="user_name" class="layui-form-label">
+                <label for="title" class="layui-form-label">
                     <span class="x-red">*</span>标题
                 </label>
                 <div class="layui-input-inline">
@@ -15,7 +15,7 @@
                 </div>
             </div>
             <div class="layui-form-item">
-                <label for="nick_name" class="layui-form-label">
+                <label for="description" class="layui-form-label">
                     <span class="x-red"></span>相册简介
                 </label>
                 <div class="layui-input-inline">
@@ -28,21 +28,37 @@
                 </div>
             </div>
             <div class="layui-form-item">
-                <label for="nick_name" class="layui-form-label">
+                <label for="upload-cover" class="layui-form-label">
+                    <span class="x-red"></span>相册封面
+                </label>
+                <div class="layui-upload">
+                    <button type="button" class="layui-btn upload" data-div-id="show-cover" data-add-type="img" data-accept="image"  data-acceptMime ="image/*" data-multiple="false" data-number="1" data-hidden-id="cover-path" id="upload-cover">添加封面</button>
+                    <div class="layui-upload-list" id="show-cover"></div>
+                </div>
+                <input type="hidden" name="cover" value="" id="cover-path">
+            </div>
+            <div class="layui-form-item">
+                <label for="upload-music" class="layui-form-label">
+                    <span class="x-red"></span>背景音乐
+                </label>
+                <div class="layui-upload">
+                    <button type="button" class="layui-btn upload" data-div-id="show-music" data-add-type="audio" data-accept="audio"  data-acceptMime ="audio/*" data-multiple="false" data-number="1" data-hidden-id="music-path" id="upload-music">添加背景音乐</button>
+                    <div class="layui-upload-list" id="show-music">
+                        <audio controls="controls"  src="" class="layui-upload-img" id="audio"></audio>
+                    </div>
+                </div>
+                <input type="hidden" name="music" value="" id="music-path">
+            </div>
+            <div class="layui-form-item">
+                <label for="upload-album" class="layui-form-label">
                     <span class="x-red"></span>相册内容
                 </label>
                 <div class="layui-upload">
-                    <button type="button" class="layui-btn" id="test2">多图片上传</button>
-                    <div class="layui-upload-list" id="demo2"></div>
+                    <button type="button" class="layui-btn upload" data-div-id="show-album" data-add-type="img" data-accept="image"  data-acceptMime ="image/*" data-multiple="true" data-number="100" data-hidden-id="full-path"  id="upload-album">添加相册图片</button>
+                    <div class="layui-upload-list" id="show-album"></div>
                 </div>
-                <div class="layui-form-mid layui-word-aux">
-                    <span class="x-red">*</span>
-                </div>
+                <input type="hidden" name="full_path" value="" id="full-path">
             </div>
-
-
-
-
             <div class="layui-form-item">
                 <label for="add" class="layui-form-label">
                 </label>
@@ -56,32 +72,146 @@
 {/block}
 {block name='js'}
 <script>
-    layui.use(['form', 'layer','upload'],
-    function () {
-        $ = layui.jquery;
-        var form = layui.form,
-            layer = layui.layer,
-            upload = layui.upload;
+    layui.use(['form', 'layer','upload','element'],
+        function () {
+            $ = layui.jquery;
+            var form = layui.form,
+                layer = layui.layer,
+                upload = layui.upload,
+                url = "{:url('fileUpload')}",
+                full_path = [],
+                upload_path = [];
+            element = layui.element;
+            $(".upload").each(function (k, v) {
+                var obj = $(v);
+                var div_id = obj.data('div-id');
+                var add_type = obj.data('add-type');
+                var hidden_id = obj.data('hidden-id');
+                var accept = obj.data('accept');
+                var acceptMime = obj.data('acceptMime');
+                var multiple = obj.data('multiple') == true ? true : false;
+                var number = obj.data('number') > 0 ? obj.data('number') : 1;
+                upload.render({
+                    elem: obj
+                    , url: url
+                    , multiple: multiple
+                    , number: number
+                    , accept: accept
+                    , acceptMime: acceptMime
+                    , before: function (obj) {
+                        //预读本地文件示例，不支持ie8
+                        obj.preview(function (index, file, result) {
+                            $('#' + div_id).append('<' + add_type + ' style="width: 30%;height:50%;margin-right: 3px;" src="' + result + '" alt="' + file.name + '" class="layui-upload-img"></' + add_type + '>')
+                        });
+                    }
+                    , done: function (res) {
+                        //上传完毕
+                        if (res.code == '000000') {
+                            upload_path.push(res.data);
+                        } else {
+                            upload_path = [];
+                            console.log('上传失败:' + res.msg)
+                        }
+                    }
+                    , allDone: function (obj) {
+                        console.log(obj);
+                        $("#" + hidden_id).val(upload_path);
+                        upload_path = [];
+                    }
+                    , error: function (index, upload) {
+                        //当上传失败时，你可以生成一个“重新上传”的按钮，点击该按钮时，执行 upload() 方法即可实现重新上传
+                        console.log(index);
+                        console.log(upload);
+                    }
 
-        upload.render({
-            elem: '#test2'
-            ,url: ''
-            ,multiple: true
-            ,number: 3
-            ,size: 1024
-            ,before: function(obj){
+                });
+            });
+      /*  upload.render({
+            elem: '#upload-album'
+            , url: url
+            , multiple: true
+            , number: 30
+            , accept: 'image'
+            , acceptMime: 'image/!*'
+            , before: function (obj) {
                 //预读本地文件示例，不支持ie8
-                obj.preview(function(index, file, result){
-                    $('#demo2').append('<img style="width: 30%;height:50%;margin-right: 3px;" src="'+ result +'" alt="'+ file.name +'" class="layui-upload-img">')
+                obj.preview(function (index, file, result) {
+                    $('#show-album').append('<img style="width: 30%;height:50%;margin-right: 3px;" src="' + result + '" alt="' + file.name + '" class="layui-upload-img">')
                 });
             }
-            ,done: function(res){
+            , done: function (res) {
                 //上传完毕
+                if (res.code == '000000') {
+                    full_path.push(res.data);
+                }else {
+                    console.log('上传失败:'+res.msg)
+                }
             }
-            ,allDone: function(obj){
-                console.log(obj)
+            , allDone: function (obj) {
+                console.log(obj);
+                $("#full-path").val(full_path);
+            }
+            ,error: function(index, upload){
+                //当上传失败时，你可以生成一个“重新上传”的按钮，点击该按钮时，执行 upload() 方法即可实现重新上传
+                console.log(index);
+                console.log(upload);
+            }
+
+        });
+        upload.render({
+            elem: '#upload-cover'
+            , url: url
+            , multiple: false
+            , number: 1
+            , accept: 'image'
+            , acceptMime: 'image/!*'
+            , before: function (obj) {
+                //预读本地文件示例，不支持ie8
+                obj.preview(function (index, file, result) {
+                    $('#show-cover').append('<img style="width: 30%;height:50%;margin-right: 3px;" src="' + result + '" alt="' + file.name + '" class="layui-upload-img">')
+                });
+            }
+            , done: function (res) {
+                //上传完毕
+                if (res.code == '000000') {
+                    $("#cover-path").val(res.data);
+                }else {
+                    console.log('上传失败:'+res.msg);
+                    layer.msg('封面图上传失败额');
+                    return false
+                }
+            }
+            , allDone: function (obj) {
+                console.log(obj);
             }
         });
+        upload.render({
+            elem: '#upload-music'
+            , url: url
+            , multiple: false
+            , number: 1
+            , accept: 'audio'
+            , acceptMime: 'audio/!*'
+            , before: function (obj) {
+                //预读本地文件示例，不支持ie8
+                obj.preview(function (index, file, result) {
+                   $("#audio").attr('src',result)
+                });
+            }
+            , done: function (res) {
+                //上传完毕
+                if (res.code == '000000') {
+                    $("#music-path").val(res.data);
+                }else {
+                    console.log('上传失败:'+res.msg);
+                    layer.msg('封面图上传失败额');
+                    return false
+                }
+            }
+            , allDone: function (obj) {
+                console.log(obj);
+            }
+        });*/
         //监听提交
         form.on('submit(add)',
             function (data) {

@@ -7,3 +7,5 @@ thinkphp
 .DS_Store
 runtime
 public/static/assets/libs
+public/upload
+composer.lock

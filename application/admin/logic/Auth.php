@@ -12,7 +12,7 @@ use think\facade\Session;
 
 class Auth
 {
-    protected static $instance;
+    private static $instance;
     protected $rules = [];
     protected $request;
 
