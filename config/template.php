@@ -41,6 +41,7 @@ return [
         '__ADMIN_CSS__'=>'/static/admin/css',
         '__ADMIN_FONT'=>'/static/admin/fonts',
         '__ADMIN_LIB__'=>'/static/admin/lib',
+        '__ADMIN_IMAGES__'=>'/static/admin/images',
         '__COMMON__'=>'/static/common',
     ]
 ];

@@ -71,14 +71,13 @@ class Oss
             $data['localUrl'] = $filePath . $fileName;
             if (!empty($uploadInfo) && $uploadInfo['info']['http_code'] == 200) {
                 $data['ossUrl'] = $uploadInfo['info']['url'];
-
                 if ($unlink == true) {
                     //删除本地文件  需要先释放$info 因为它正在占用文件 所以导致无法删除
                     if (file_exists($file)) {
                         unlink($file);
                     }
                 }
-                throw new Success('上传成功', $data);
+                return $data;
             }
             throw new Failure('上传失败');
         } catch (OssException $e) {
