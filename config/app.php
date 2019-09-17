@@ -147,6 +147,13 @@ return [
     //自定义错误配置页面
     'http_exception_template'=>[
         404 =>  Env::get('root_path') . 'public/exception_html/404.html',
-    ]
+    ],
+    //alioss配置
+    'alioss' => [
+        'accessKeyId' => 'LTAICl0jhpCWB5El',
+        'accessKeySecret' => '363XukOdOm7sXgqm4WzX3nZ0cBXu1v',
+        'endpoint' => 'oss-cn-beijing.aliyuncs.com',
+        'bucket' => 'lucklyjack-blog',
+    ],
 
 ];

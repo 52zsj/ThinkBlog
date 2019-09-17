@@ -19,9 +19,9 @@ class Handler extends Handle
             return $this->resData($e->code, $e->msg, $e->data, $e->httpCode, $e->jumpUrl);
         } else {
             // 记录异常日志
-            Log::record("未知异常:" . $e->getMessage(), 'error');
+            Log::record("异常信息:" . $e->getMessage(), 'error');
             // 未知异常
-            return $this->resData(Code::UNKNOWN_EXCEPTION, '未知异常', '', Code::HTTP_REQUEST_ERROR_CODE);
+            return $this->resData(Code::UNKNOWN_EXCEPTION, "异常信息:" . $e->getMessage(), '', Code::HTTP_REQUEST_ERROR_CODE);
         }
     }
 

@@ -3,7 +3,8 @@
 
 namespace app\admin\controller;
 
-use app\admin\logic\Upload;
+
+use app\admin\logic\Oss as OssLogic;
 use app\common\exception\Failure;
 use app\common\exception\Success;
 use app\common\model\Album as AlbumModel;
@@ -12,6 +13,7 @@ use think\App;
 use think\Db;
 use think\Exception;
 use think\exception\PDOException;
+use think\facade\Env;
 use think\facade\Log;
 
 
@@ -73,12 +75,20 @@ class Album extends Base
 
     public function fileUpload() {
         $file = $this->request->file('file');
-        $savePath = 'public'.DIRECTORY_SEPARATOR . 'upload' . DIRECTORY_SEPARATOR . 'album' . DIRECTORY_SEPARATOR;//保存路径
-        $info = Upload::instance()->uploadToPath($file, $savePath);
+        $savePath = DIRECTORY_SEPARATOR . 'public' . DIRECTORY_SEPARATOR . 'upload' . DIRECTORY_SEPARATOR . 'album' . DIRECTORY_SEPARATOR;//保存路径
+
+        $rootPath = Env::get('root_path');//根目录
+        $absolutePath = $rootPath . $savePath; //绝对路径
+        $info = $file->move($absolutePath);
         if (!empty($info)) {
-            $saveName = $info->getSaveName();
-            $imgPath = $savePath . $saveName;
-            throw new Success('上传成功', $imgPath);
+            //上传到oss
+            // $fileName = $info->getFilename();//不带日期保存
+            $saveName = $info->getSaveName();//带日期保存
+            unset($info);
+            $ossLogic = new OssLogic($this->ossConfig); //oss对象
+            $result = $ossLogic->uploadToOss($saveName, $rootPath, $savePath, true);
+            unset($ossLogic);
+            throw new Success('上传成功', $result);
         }
         throw new Failure('上传失败');
     }
