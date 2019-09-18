@@ -82,7 +82,7 @@
                         </tr>
                         {empty name="$album_list"}
                         <tr>
-                            <td colspan="6" style=" text-align:center;">
+                            <td colspan="7" style=" text-align:center;">
                                 暂无数据
                             </td>
                         </tr>
@@ -95,14 +95,14 @@
                             <td>{$item.id}</td>
                             <td>{$item.title}</td>
                             <td>{$item.description}</td>
-                            <td><img src="{$item.cover}" style="width: 25%" alt=""></td>
+                            <td><img src="{$item.cover_tmp}" class="to-big" style="width: 25%" alt=""></td>
                             <td>
-                                <audio src="{$item.music}" controls="controls"></audio>
+                                <audio src="{$item.music_tmp}" controls="controls"></audio>
                             <td class="td-manage">
                                 <a onclick="xadmin.open('详情','{:url(\'detail\',[\'id\'=>$item.id])}')" href="javascript:;" title="详情">
                                     <i class="layui-icon">&#xe601;</i>
                                 </a>
-                                <a title="编辑" onclick="xadmin.open('编辑','{:url(\'add\',[\'id\'=>$item.id])}')"
+                                <a title="编辑" onclick="xadmin.open('编辑','{:url(\'edit\',[\'id\'=>$item.id])}')"
                                    href="javascript:;">
                                     <i class="layui-icon">&#xe642;</i>
                                 </a>
@@ -180,6 +180,18 @@
         });
     }
 
-
+    $(document).on('click', '.to-big', function () {
+        var url = $(this).attr('src');
+        var img_html = "<img style='width: 100%' src='" + url + "'/>";
+        layer.open(
+            {
+                type: 1,
+                title: false,
+                content: img_html,
+                closeBtn: 2,
+                anim: 2,
+            }
+        )
+    });
 </script>
 {/block}

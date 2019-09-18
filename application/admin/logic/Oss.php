@@ -63,12 +63,12 @@ class Oss
     }
 
     //上传
-    public function uploadToOss($fileName, $rootPath, $filePath, $unlink = true) {
-        $file = $rootPath . $filePath . $fileName;
+    public function uploadToOss($rootPath, $saveName, $unlink = true) {
+        $file = $rootPath  . $saveName;
         try {
-            $uploadInfo = $this->ossObj->uploadFile($this->bucket, $fileName, $file);
+            $uploadInfo = $this->ossObj->uploadFile($this->bucket, $saveName, $file);
             $data['ossUrl'] = '';
-            $data['localUrl'] = $filePath . $fileName;
+            $data['localUrl'] = $saveName;
             if (!empty($uploadInfo) && $uploadInfo['info']['http_code'] == 200) {
                 $data['ossUrl'] = $uploadInfo['info']['url'];
                 if ($unlink == true) {
@@ -80,6 +80,19 @@ class Oss
                 return $data;
             }
             throw new Failure('上传失败');
+        } catch (OssException $e) {
+            throw new Failure($e->getMessage());
+        }
+    }
+    //获取url
+    public function getFileUrl($object, $timeOut = 3600) {
+        try {
+            if (empty($object)) {
+                return '';
+            }
+            $this->ossObj->setUseSSL(true);
+            $info = $this->ossObj->signUrl($this->bucket, $object, $timeOut);
+            return $info;
         } catch (OssException $e) {
             throw new Failure($e->getMessage());
         }

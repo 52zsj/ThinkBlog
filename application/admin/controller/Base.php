@@ -23,6 +23,8 @@ class Base extends Controller
     protected $title = '欢迎光临LuckLyJack的博客';
     //alioss配置项
     protected $ossConfig=[];
+    //上传文件存放区域
+    protected $uploadPath = 'public' . DIRECTORY_SEPARATOR . 'upload' . DIRECTORY_SEPARATOR;
 
 
     public function __construct(App $app = null) {
