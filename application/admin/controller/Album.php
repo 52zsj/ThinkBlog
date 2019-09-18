@@ -25,7 +25,13 @@ class Album extends Base
     }
 
     public function index() {
-        $albumList = AlbumModel::paginate();
+        $keywords = $this->request->param('keywords', '');
+        $this->assign('keywords', $keywords);
+        $where = [];
+        if (!empty($keywords)) {
+            $where[] = ['title|description', 'like', '%' . $keywords . '%'];
+        }
+        $albumList = AlbumModel::where($where)->paginate(5);
         $pages = $albumList->render();
         $this->assign('page', $pages);
         $this->assign('album_list', $albumList);
@@ -80,6 +86,7 @@ class Album extends Base
         $rootPath = Env::get('root_path');//根目录
         $absolutePath = $rootPath . $savePath; //绝对路径
         $info = $file->move($absolutePath);
+        // throw new Failure('上传失败');
         if (!empty($info)) {
             //上传到oss
             // $fileName = $info->getFilename();//不带日期保存
