@@ -13,6 +13,7 @@ use think\App;
 use think\Db;
 use think\Exception;
 use think\exception\PDOException;
+use think\exception\RouteNotFoundException;
 use think\facade\Env;
 use think\facade\Log;
 
@@ -35,12 +36,15 @@ class Album extends Base
             $where[] = ['title|description', 'like', '%' . $keywords . '%'];
         }
         $albumList = AlbumModel::where($where)->paginate(5);
-        $ossLogic = new OssLogic($this->ossConfig); //oss对象
-        foreach ($albumList as $k => &$v) {
-            $v['music_tmp'] = $ossLogic->getFileUrl($v['music']);
-            $v['cover_tmp'] = $ossLogic->getFileUrl($v['cover']);
+        if ($this->ossConfig['open'] == 1) {
+            $ossLogic = new OssLogic($this->ossConfig); //oss对象
+            foreach ($albumList as $k => &$v) {
+                $v['music_tmp'] = $ossLogic->getFileUrl($v['music']);
+                $v['cover_tmp'] = $ossLogic->getFileUrl($v['cover']);
+            }
+            unset($v);
         }
-        unset($v);
+
         $pages = $albumList->render();
         $this->assign('page', $pages);
         $this->assign('album_list', $albumList);
@@ -89,15 +93,16 @@ class Album extends Base
         if (!$row) {
             throw new Failure('数据已被删除');
         }
-        $ossLogic = new OssLogic($this->ossConfig); //oss对象
         $row['cover_tmp'] = $row['music_tmp'] = '';
-        if (!empty($row['cover'])) {
-            $row['cover_tmp'] = $ossLogic->getFileUrl($row['cover']);
+        if ($this->ossConfig['open'] == 1) {
+            $ossLogic = new OssLogic($this->ossConfig); //oss对象
+            if (!empty($row['cover'])) {
+                $row['cover_tmp'] = $ossLogic->getFileUrl($row['cover']);
+            }
+            if (!empty($row['music'])) {
+                $row['music_tmp'] = $ossLogic->getFileUrl($row['music']);
+            }
         }
-        if (!empty($row['music'])) {
-            $row['music_tmp'] = $ossLogic->getFileUrl($row['music']);
-        }
-
         $this->assign('row', $row);
 
         if ($this->request->isPost()) {
@@ -143,10 +148,13 @@ class Album extends Base
         if (!$row) {
             throw new Failure('数据已被删除');
         }
-        $ossLogic = new OssLogic($this->ossConfig); //oss对象
-        foreach ($row as $k => &$v) {
-            $v['full_path_tmp'] = $ossLogic->getFileUrl($v['full_path']);
+        if ($this->ossConfig['open'] == 1) {
+            $ossLogic = new OssLogic($this->ossConfig); //oss对象
+            foreach ($row as $k => &$v) {
+                $v['full_path_tmp'] = $ossLogic->getFileUrl($v['full_path']);
+            }
         }
+
         if ($this->request->isPost()) {
 
         }
@@ -161,19 +169,56 @@ class Album extends Base
      */
     public function fileUpload() {
         $file = $this->request->file('file');
-        $rootPath = Env::get('root_path');//根目录
-        $absolutePath = $rootPath . $this->savePath; //绝对路径
+        $publicPath = $this->rootPath . 'public' . DIRECTORY_SEPARATOR;//public目录
+        $absolutePath = $publicPath . $this->savePath; //绝对路径
         $info = $file->move($absolutePath, true, false);
         // throw new Failure('上传失败');
         if (!empty($info)) {
             //上传到oss
             $saveName = $this->savePath . $info->getSaveName();//带日期保存
             unset($info);
-            $ossLogic = new OssLogic($this->ossConfig); //oss对象
-            $result = $ossLogic->uploadToOss($rootPath, $saveName);
-            unset($ossLogic);
+            $result['ossUrl'] = '';
+            $result['localUrl'] = $saveName;
+            if ($this->ossConfig['open'] == 1) {
+                $ossLogic = new OssLogic($this->ossConfig); //oss对象
+                $result = $ossLogic->uploadToOss($publicPath, $saveName);
+                unset($ossLogic);
+            }
             throw new Success('上传成功', $result);
         }
         throw new Failure('上传失败');
+    }
+
+    /**
+     * 删除相册内容
+     * @throws Failure
+     * @throws Success
+     */
+    public function delItem() {
+        if ($this->request->isAjax()) {
+
+            $id = $this->request->param('id');
+            if (!$id) {
+                throw new Failure('参数异常');
+            }
+            $row = AlbumItemModel::get($id);
+            if (!$row) {
+                throw new Failure('数据已被删除');
+            }
+            $file = $this->rootPath . 'public' . DIRECTORY_SEPARATOR . $row['full_path'];
+            if ($this->ossConfig['open'] == 1) {
+                //删除OSS数据
+            }
+            $result = $row->delete();
+            unset($row);
+            if ($result) {
+                if (file_exists($file)) {
+                    Log::write('file-：' . $file, 'debug');
+                    @unlink($file);
+                }
+                throw new Success('删除成功');
+            }
+            throw new Failure('删除失败');
+        }
     }
 }

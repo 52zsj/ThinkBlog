@@ -8,6 +8,7 @@ use jack\Tree;
 use think\App;
 use think\Controller;
 use think\facade\Config;
+use think\facade\Env;
 use think\facade\Session;
 
 
@@ -24,11 +25,14 @@ class Base extends Controller
     //alioss配置项
     protected $ossConfig=[];
     //上传文件存放区域
-    protected $uploadPath = 'public' . DIRECTORY_SEPARATOR . 'upload' . DIRECTORY_SEPARATOR;
+    protected $uploadPath = 'upload' . DIRECTORY_SEPARATOR;
+    protected $rootPath ;
 
 
     public function __construct(App $app = null) {
         parent::__construct($app);
+        //根目录
+        $this->rootPath = Env::get('root_path');
         //oss配置项
         $this->ossConfig = Config::get('alioss');
         //当前模块

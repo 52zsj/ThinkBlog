@@ -41,23 +41,25 @@
                         </div>
                     </div>
                     {foreach $row as $k=>$v}
-                    <div class="layui-col-md3">
+                    <div class="layui-col-md3" id="img-box-{$v.id}">
                         <div class="layui-card">
                             <div class="layui-card-body">
-                                <input type="checkbox" data-id="{$v.id}" class="item-checkbox" lay-filter="itemcheckbox"
+                                <input type="checkbox" data-id="{$v.id}" value="{$v.id}" id="checkbox-{$v.id}"
+                                       class="item-checkbox" lay-filter="itemcheckbox"
                                        lay-skin="primary">
-                                <img src="{:$v.full_path_tmp}" style="width: 100px;height: 100px;" class="to-big"
+                                <img src="{if isset($v.full_path_tmp)}{$v.full_path_tmp}{else/}\{$v.full_path}{/if}"
+                                     style="width: 100px;height: 100px;" class="to-big"
                                      alt="">
-                                <button type="button" class="layui-btn layui-btn-sm ">删除</button>
+                                <button type="button" class="layui-btn layui-btn-sm del" data-id="{$v.id}"
+                                        data-checkbox-id="checkbox-{$v.id}">删除
+                                </button>
                             </div>
                         </div>
                     </div>
                     {/foreach}
-
-
                 </div>
             </div>
-            <div class="layui-form-item">
+            <!--<div class="layui-form-item">
                 <label class="layui-form-label">
                     <span class="x-red"></span>相册内容
                 </label>
@@ -79,14 +81,7 @@
 
                 <div class="layui-upload-list" id="show-album"></div>
                 <input type="hidden" name="full_path" value="" id="full-path">
-            </div>
-            <!-- <div class="layui-form-item">
-                 <label for="add" class="layui-form-label">
-                 </label>
-                 <button class="layui-btn" lay-filter="add" lay-submit="">
-                     增加
-                 </button>
-             </div>-->
+            </div>-->
         </form>
     </div>
 </div>
@@ -176,7 +171,7 @@
             }
             form.render();
         });
-
+        //图片放大
         $(document).on('click', '.to-big', function () {
             var url = $(this).attr('src');
             var img_html = "<img id='big-img' style='width: 100%;height: 100%' src='" + url + "'/>";
@@ -188,32 +183,87 @@
                     closeBtn: 2,
                     anim: 2,
                     resize: true,
-                    area: 'auto',
+                    area: ['50%', '60%'],
                 }
             )
         });
+        //单个删除
+        $(document).on('click', '.del', function () {
+            var checkbox_id = $(this).data('checkbox-id');
+            var id = $(this).data('id');
+            if (id == '') {
+                id = $("#" + checkbox_id).val();
+            }
+            var obj = $("#img-box-" + id);
+            console.log(obj);
 
-        $(document).on("mousewheel DOMMouseScroll", "#big-img", function (e) {
+            delItem(id, obj);
+        });
+        //批量删除
+        $("#del-all").click(function () {
+            //获取被选中的checkbox
+            layer.confirm('确定删除选中项吗？', function () {
+                $(".item-checkbox:checked").each(function (k, v) {
+                    var obj = $(v);
+                    var id = obj.val();
+                    var div_obj = $("#img-box-" + id);
+                    delItem(id, div_obj);
+                });
+            })
+
+        });
+        //多个选中 按钮禁用取消
+        form.on('checkbox(itemcheckbox)', function (data) {
+            //判断选中数量是否大于0 大于0 则按钮开放
+            var length = $(".item-checkbox:checked").length;
+            if (length > 0) {
+                $("#del-all").removeClass('layui-btn-disabled');
+            } else {
+                $("#del-all").addClass('layui-btn-disabled');
+            }
+            form.render();
+        });
+        //删除函数
+        function delItem(id, obj) {
+            $.ajax({
+                url: "{:url('delItem')}",
+                type: "POST",
+                data: {id: id},
+                success: function (res) {
+                    if (res.code == '000000') {
+                        layer.msg(res.msg);
+                        obj.remove();
+                    } else {
+                        layer.msg(res.msg);
+                        return false;
+                    }
+                }
+            });
+        }
+        //滚动放大 缩小
+        /*$(document).on("mousewheel DOMMouseScroll", "#big-img", function (e) {
             //"#big-img",
             var parent_width = $(this).parents('.layui-layer-content').width();
             var parent_height = $(this).parents('.layui-layer-content').height();
-
-
-
-
             var type = e.originalEvent.deltaY;
             var data =parseInt(type);
             if (data > 0) {
-                $(this).parents('.layui-layer-content').width(parent_width - 30);
-                $(this).parents('.layui-layer-content').height(parent_height - 30);
+                $(this).parents('.layui-layer-content').width(parent_width -60);
+                $(this).parents('.layui-layer-content').height(parent_height - 60);
             }
             //向上滚动
             if (data < 0) {
-                $(this).parents('.layui-layer-content').width(parent_width + 30);
-                $(this).parents('.layui-layer-content').height(parent_height + 30);
+                $(this).parents('.layui-layer-content').width(parent_width + 60);
+                $(this).parents('.layui-layer-content').height(parent_height + 60);
             }
         });
 
+        function MouseWheelHandler(e, obj) {
+            var e = window.event || e; // old IE support
+            var delta = Math.max(-1, Math.min(1, (e.wheelDelta || -e.detail)));
+            obj.width(Math.max(50, Math.min(1800, obj.width() + (30 * delta))) + "px");
+            return false;
+        }*/
 
     });
 
