@@ -43,5 +43,10 @@ return [
         '__ADMIN_LIB__'=>'/static/admin/lib',
         '__ADMIN_IMAGES__'=>'/static/admin/images',
         '__COMMON__'=>'/static/common',
+        '__INDEX_JS__' => '/static/index/js',
+        '__INDEX_CSS__' => '/static/index/css',
+        '__INDEX_FONT' => '/static/index/fonts',
+        '__INDEX_LIB__' => '/static/index/lib',
+        '__INDEX_IMAGES__' => '/static/index/images',
     ]
 ];
