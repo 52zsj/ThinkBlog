@@ -1,12 +1,21 @@
 <!doctype html>
 <html>
-{include file='/common/mate'/}
+<head>
+    {include file='/common/mate'/}
+    {block name='css'}
+    {/block}
+</head>
 <body>
 {include file='/common/header'/}
 <article>
+
     {block name="content"}
     {/block}
 </article>
 {include file='/common/footer'/}
+{include file='/common/script'/}
 </body>
 </html>
+{block name='js'}
+{/block}
+
