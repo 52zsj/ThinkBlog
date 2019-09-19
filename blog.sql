@@ -1,17 +1,17 @@
 /*
  Navicat Premium Data Transfer
 
- Source Server         : 本地数据库
+ Source Server         : Z本地数据库
  Source Server Type    : MySQL
- Source Server Version : 50726
+ Source Server Version : 50717
  Source Host           : 127.0.0.1:3306
  Source Schema         : blog
 
  Target Server Type    : MySQL
- Target Server Version : 50726
+ Target Server Version : 50717
  File Encoding         : 65001
 
- Date: 11/09/2019 22:17:02
+ Date: 19/09/2019 11:43:10
 */
 
 SET NAMES utf8mb4;
@@ -64,19 +64,27 @@ CREATE TABLE `jack_album`  (
 -- ----------------------------
 -- Records of jack_album
 -- ----------------------------
-INSERT INTO `jack_album` VALUES (1, '新人', '我和傻丫头', '', 1, '', '2019-09-11 21:33:03', '2019-09-11 21:33:06');
+INSERT INTO `jack_album` VALUES (1, '我的日常', '哦吼日常', 'upload\\album\\20190919\\1cfc4493ec49980df73034347c12b514.png', 1, 'upload\\album\\20190919\\46ef2318537409b7f3fe69438a57ade6.mp3', '2019-09-18 15:21:23', '2019-09-19 10:30:41');
 
 -- ----------------------------
--- Table structure for jack_albun_item
+-- Table structure for jack_album_item
 -- ----------------------------
-DROP TABLE IF EXISTS `jack_albun_item`;
-CREATE TABLE `jack_albun_item`  (
-  `id` int(11) NOT NULL COMMENT '图片ID',
+DROP TABLE IF EXISTS `jack_album_item`;
+CREATE TABLE `jack_album_item`  (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '图片ID',
   `albun_id` int(11) NOT NULL COMMENT '相册ID',
   `thumb_path` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '缩略图路径',
   `full_path` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '原始图路径',
+  `name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '文件名',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '相册图片表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 26 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '相册图片表' ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of jack_album_item
+-- ----------------------------
+INSERT INTO `jack_album_item` VALUES (22, 1, '', 'upload\\album\\20190919\\be94492fdb13bfb8c35dce471d9f3610.png', '');
+INSERT INTO `jack_album_item` VALUES (23, 1, '', 'upload\\album\\20190919\\78fc1eeea439897a1813094057c2daa6.png', '');
+INSERT INTO `jack_album_item` VALUES (24, 1, '', 'upload\\album\\20190919\\e4c2752c9ecc68f2315a8fbbbe7ffbda.png', '');
 
 -- ----------------------------
 -- Table structure for jack_group
