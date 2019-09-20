@@ -22,7 +22,7 @@ define(['jquery', 'layer', 'toastr'], function ($, Layer, Toastr) {
         },
         events: {
             //请求成功的回调
-            onAjaxSuccess: function (ret, onAjaxSuccess) {
+            onAjaxSuccess: function (ret, showToastr, onAjaxSuccess) {
                 var data = typeof ret.data !== 'undefined' ? ret.data : null;
                 var msg = typeof ret.msg !== 'undefined' && ret.msg ? ret.msg : '操作成功';
                 if (typeof onAjaxSuccess === 'function') {
@@ -30,10 +30,13 @@ define(['jquery', 'layer', 'toastr'], function ($, Layer, Toastr) {
                     if (result === false)
                         return;
                 }
-                Toastr.success(msg);
+                if (showToastr) {
+                    Toastr.success(msg);
+                }
+
             },
             //请求错误的回调
-            onAjaxError: function (ret, onAjaxError) {
+            onAjaxError: function (ret, showToastr, onAjaxError) {
                 var data = typeof ret.data !== 'undefined' ? ret.data : null;
                 if (typeof onAjaxError === 'function') {
                     var result = onAjaxError.call(this, data, ret);
@@ -41,7 +44,10 @@ define(['jquery', 'layer', 'toastr'], function ($, Layer, Toastr) {
                         return;
                     }
                 }
-                Toastr.error(ret.msg);
+                if (showToastr) {
+                    Toastr.error(ret.msg);
+                }
+
             },
             //服务器响应数据后
             onAjaxResponse: function (response) {
@@ -61,7 +67,7 @@ define(['jquery', 'layer', 'toastr'], function ($, Layer, Toastr) {
 
             },
             //发送Ajax请求
-            ajax: function (options, success, error) {
+            ajax: function (options, showToastr = true, success, error) {
                 options = typeof options === 'string' ? {url: options} : options;
                 var index;
                 if (typeof options.loading === 'undefined' || options.loading) {
@@ -73,16 +79,16 @@ define(['jquery', 'layer', 'toastr'], function ($, Layer, Toastr) {
                     success: function (ret) {
                         index && Layer.close(index);
                         ret = lucklyJack.events.onAjaxResponse(ret);
-                        if (ret.code === 1) {
-                            lucklyJack.events.onAjaxSuccess(ret, success);
+                        if (ret.code === '000000' || ret.code == 1) {
+                            lucklyJack.events.onAjaxSuccess(ret, showToastr, success);
                         } else {
-                            lucklyJack.events.onAjaxError(ret, error);
+                            lucklyJack.events.onAjaxError(ret, showToastr, error);
                         }
                     },
                     error: function (xhr) {
                         index && Layer.close(index);
                         var ret = {code: xhr.status, msg: xhr.statusText, data: null};
-                        lucklyJack.events.onAjaxError(ret, error);
+                        lucklyJack.events.onAjaxError(ret, showToastr, error);
                     }
                 }, options);
                 $.ajax(options);

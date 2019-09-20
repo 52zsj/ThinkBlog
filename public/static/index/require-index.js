@@ -11,8 +11,10 @@ require.config({
         'scrollreveal': '../libs/scrollreveal/dist/scrollreveal',
         'hcsticky': '../libs/hc-sticky/dist/hc-sticky',
         'lucklyJack': 'js/luckly-jack',
-
-        'common': 'js/common'
+        'layui':'../libs/layui/dist/layui.all',
+        'common': 'js/common',
+        'template':'../libs/art-template/lib/template-web',
+        'photor':'../libs/photor/dist/photor'
 
     },
     included: ['css', 'toastr'],
@@ -25,9 +27,11 @@ require.config({
             'css!../libs/bootstrap/dist/css/bootstrap.css',
             'css!../libs/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css',
         ],
+        'layui':{deps: ['css!../libs/layui/dist/css/layui.css'],exports: "layui",},
         'scrollreveal': {exports: 'scrollreveal'},
         'hcsticky': {exports: '$.fn.hcsticky'},
         'toastr': ['css!../libs/toastr/toastr.min.css'],
+        'photor':{deps:['css!../libs/photor/dist/photor.min.css','jquery'],exports:"photor"}
     },
     map: {
         '*': {

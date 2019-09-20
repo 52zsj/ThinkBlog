@@ -24,4 +24,8 @@ class Index extends Base
         $template = rand(1, 3);//随即便换
         return $this->fetch('album_' . $template);
     }
+
+    public function hello() {
+        dump($this->request->param('name'));
+    }
 }

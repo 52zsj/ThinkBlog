@@ -17,6 +17,8 @@ class Base extends Controller
     protected $webKeywords = '个人博客,博客';
     //默认网站说明
     protected $webDescription = '我是一个小菜鸟，整天就知道到敲代码的菜鸟';
+    //模型
+    protected $model = null;
 
     public function __construct(App $app = null) {
         parent::__construct($app);
@@ -36,8 +38,8 @@ class Base extends Controller
         $this->view->assign('config', $config);
     }
 
-    public function assignConfig() {
-
+    public function assignConfig($name,$value='') {
+        $this->view->config = array_merge($this->view->config ? $this->view->config : [], is_array($name) ? $name : [$name => $value]);
     }
 
     /**
