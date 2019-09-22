@@ -43,9 +43,9 @@ class Album extends Base
         }
         $where = ['id' => $id, 'status' => 1];
         $row = $this->model->where($where)->with('item')->find();
-
+        $count = count($row['item']);
         $this->assign('row', $row);
-        $num = rand(1, 3);
-        return $this->fetch('detail_1');
+        $this->assign('count', $count);
+        return $this->fetch('detail');
     }
 }

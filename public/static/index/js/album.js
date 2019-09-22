@@ -7,10 +7,8 @@ define(['jquery', 'scrollreveal', 'layui', 'template'], function ($, scrollrevea
 
         },
         detail: function () {
-            require(['photor'], function (photor) {
-                $('.photor').photor();
-            });
-
+            //引入相册展示插件JS
+            require(['albumplugin'], function (albumplugin) {});
         },
         api: {
             bindevent: function () {
@@ -74,7 +72,8 @@ define(['jquery', 'scrollreveal', 'layui', 'template'], function ($, scrollrevea
                     easing: 'linear',
                     scale: 0.9,
                 });
-            }
+            },
+
         }
     };
 
