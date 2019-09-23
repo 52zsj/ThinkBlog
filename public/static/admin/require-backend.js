@@ -11,12 +11,10 @@ require.config({
         'scrollreveal': '../libs/scrollreveal/dist/scrollreveal',
         'hcsticky': '../libs/hc-sticky/dist/hc-sticky',
         'lucklyJack': '../common/js/luckly-jack',
-        'layui':'../libs/layui/dist/layui.all',
-        'common': 'js/common',
-        'template':'../libs/art-template/lib/template-web',
-        'photor':'../libs/photor/dist/photor',
-        'albumplugin':'js/album-plugin',//相册插件显示内容
-
+        'layui': '../libs/layui/dist/layui.all',
+        'template': '../libs/art-template/lib/template-web',
+        'photor': '../libs/photor/dist/photor',
+        'xadmin': 'js/xadmin'
     },
     included: ['css', 'toastr'],
     shim: {
@@ -28,24 +26,25 @@ require.config({
             'css!../libs/bootstrap/dist/css/bootstrap.css',
             'css!../libs/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css',
         ],
-        'layui':{deps: ['css!../libs/layui/dist/css/layui.css'],exports: "layui",},
+        'layui': {deps: ['css!../libs/layui/dist/css/layui.css'], exports: "layui",},
         'scrollreveal': {exports: 'scrollreveal'},
         'hcsticky': {exports: '$.fn.hcsticky'},
         'toastr': ['css!../libs/toastr/toastr.min.css'],
-        'photor':{deps:['css!../libs/photor/dist/photor.min.css','jquery'],exports:"photor"},
-        'albumplugin':{exports:"albumplugin"},
+        'photor': {deps: ['css!../libs/photor/dist/photor.min.css', 'jquery'], exports: "photor"},
+        'albumplugin': {exports: "albumplugin"},
+        'xadmin': {deps: ['jquery', 'layui'], exports: "xadmin"},
     },
     map: {
         '*': {
             'css': '../libs/require-css/css.min'
         }
     },
-    baseUrl: '/static/index/', //资源基础路径
+    baseUrl: '/static/admin/', //资源基础路径
 });
 //初始化
 require(['jquery'], function ($) {
     $(function () {
-        require(['lucklyJack','common'], function (lucklyJack) {
+        require(['lucklyJack'], function (lucklyJack) {
             //初始配置
             var Config = requirejs.s.contexts._.config.config;
             //渲染至全局

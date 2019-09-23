@@ -37,6 +37,7 @@ return [
     //变量替换
     'tpl_replace_string'  =>  [
         '__STATIC__'=>'/static',
+        '__ADMIN__'=>'/static/admin',
         '__ADMIN_JS__' => '/static/admin/js',
         '__ADMIN_CSS__'=>'/static/admin/css',
         '__ADMIN_FONT'=>'/static/admin/fonts',

@@ -9,17 +9,15 @@
     <meta http-equiv="Cache-Control" content="no-siteapp" />
     <link rel="stylesheet" href="__ADMIN_CSS__/font.css">
     <link rel="stylesheet" href="__ADMIN_CSS__/xadmin.css">
-    <link rel="stylesheet" href="__ADMIN_LIB__/font-awesome/css/font-awesome.css">
-    <!-- <link rel="stylesheet" href="__ADMIN_CSS__//theme5.css"> -->
-    <script type="text/javascript" src="__ADMIN_JS__/jquery.min.js"></script>
-    <script src="__ADMIN_LIB__/layui/layui.js" charset="utf-8"></script>
-    <script type="text/javascript" src="__ADMIN_JS__/xadmin.js"></script>
     <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
     <!--[if lt IE 9]>
     <script src="__COMMON__/js/html5.min.js"></script>
     <script src="__COMMON__/js/respond.min.js"></script>
-
-
     <![endif]-->
+
+    <script type="text/javascript">
+        var require = {config:{:json_encode($config)}};
+    </script>
     <style id="theme_style"></style>
 </head>
+{include file='common/script'/}

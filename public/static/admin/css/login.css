@@ -87,7 +87,7 @@
     width:100%;
 }
 .login hr {
-    background: #fff url() 0 0 no-repeat;
+    background: #fff;
 }
 .login hr.hr15 {
     height: 15px;

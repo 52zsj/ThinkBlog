@@ -41,6 +41,8 @@ class Index extends Base
         if ($isLogin) {
             $this->error('您已登录请勿重复登陆', 'index');
         }
+        $captchaLength = Config::get('captcha.length');
+        $this->assignConfig('captcha_length', $captchaLength);
         if ($this->request->isAjax()) {
             $data = $this->request->param();
             $userName = $data['user_name'];

@@ -17,6 +17,7 @@
     "hc-sticky": "2.1.0",
     "requirejs": "~2.3.6",
     "layui": "~2.4.3",
-    "art-template": "~4.13.2"
+    "art-template": "~4.13.2",
+    "ueditor": "~1.4.3"
   }
 }
