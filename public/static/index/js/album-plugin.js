@@ -157,10 +157,11 @@ $(function() {
     $(".replaybtn2").click(function() {
         $(".endtop").css("display", "none");
         $(".bodymodal").css("display", "none");
-        $(".detail_picbot_mid ul li img[class='selectpic']").removeClass("selectpic");
-        $(".detail_picbot_mid ul li").eq(0).find("img").addClass("selectpic");
-        var bigimgsrc = $(".detail_picbot_mid ul li").eq(0).find("img").attr("bigimg");
+        $(".picmidmid ul li img[class='selectpic']").removeClass("selectpic");
+        $(".picmidmid ul li").eq(0).find("img").addClass("selectpic");
+        var bigimgsrc = $(".picmidmid ul li").eq(0).find("img").attr("bigimg");
         $("#pic1").attr("src", bigimgsrc);
+        $(".picshowtxt_left span").text(1);
         $("#pic1").attr("curindex", 0)
     });
     $(".list").click(function() {

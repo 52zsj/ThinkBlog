@@ -52,6 +52,7 @@ class Admin extends Base
         if (empty($row)) {
             throw new Failure('数据不存在或已被删除');
         }
+        $this->assignConfig('ids',$id);
         if ($this->request->isPost()) {
             $params = $this->request->param();
             $params['avatar'] = '';

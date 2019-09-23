@@ -14,7 +14,8 @@ require.config({
         'layui': '../libs/layui/dist/layui.all',
         'template': '../libs/art-template/lib/template-web',
         'photor': '../libs/photor/dist/photor',
-        'xadmin': 'js/xadmin'
+        'xadmin': 'js/xadmin',
+        'form':'backend-form',//暂时没办法
     },
     included: ['css', 'toastr'],
     shim: {

@@ -89,6 +89,7 @@ class Album extends Base
     }
 
     public function edit($id = '') {
+
         $row = AlbumModel::get($id);
         if (!$row) {
             throw new Failure('数据已被删除');

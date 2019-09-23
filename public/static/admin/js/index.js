@@ -27,13 +27,13 @@ define(['xadmin'], function (xadmin) {
                         url: url,
                         data: datas,
                         dataType: 'JSON'
-                    }, false, function (ret, res) {
+                    }, false, function (data, res) {
                         console.log(res);
                         layer.msg(res.msg, {shift: -1, time: 2000, icon: 6}, function () {
                             window.location.href = res.jump_url;
                         });
                         return false;
-                    }, function (ret, res) {
+                    }, function (data, res) {
                         layer.msg(res.msg, {shift: -1, time: 2000, icon: 5}, function () {
                             if (res.jump_url != '') {
                                 window.location.href = res.jump_url;
@@ -43,18 +43,6 @@ define(['xadmin'], function (xadmin) {
                             $("#captcha").trigger('click');
                         }
                     });
-                    // $.ajax({
-                    //     type: 'POST',
-                    //     url: url,
-                    //     data: datas,
-                    //     dataType: 'JSON',
-                    //     success: function (res) {
-                    //         console.log(res);
-                    //         //请求成功
-                    //
-                    //
-                    //     },
-                    // });
                     return false;
                 });
             });
