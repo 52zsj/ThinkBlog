@@ -41,14 +41,13 @@ return [
         '__ADMIN_JS__' => '/static/admin/js',
         '__ADMIN_CSS__'=>'/static/admin/css',
         '__ADMIN_FONT'=>'/static/admin/fonts',
-        '__ADMIN_LIB__'=>'/static/admin/lib',
         '__ADMIN_IMAGES__'=>'/static/admin/images',
         '__COMMON__'=>'/static/common',
         '__INDEX__'=>'/static/index',
         '__INDEX_JS__' => '/static/index/js',
         '__INDEX_CSS__' => '/static/index/css',
         '__INDEX_FONT' => '/static/index/fonts',
-        '__INDEX_LIB__' => '/static/index/lib',
         '__INDEX_IMAGES__' => '/static/index/images',
+        '__LIBS__'=>'/static/libs'
     ]
 ];

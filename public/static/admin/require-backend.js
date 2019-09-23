@@ -19,6 +19,7 @@ require.config({
     },
     included: ['css', 'toastr'],
     shim: {
+        'jquery':{deps: ['css!../libs/font-awesome/css/font-awesome.css']},
         'validator': ['../libs/nice-validator/dist/jquery.validator.min', 'css!../libs/nice-validator/dist/jquery.validator.css'],
         'citypicker': ['citypicker-data', 'css!../libs/city-picker/dist/css/city-picker.css'],
         'bootstrap': ['jquery'],
