@@ -1,4 +1,4 @@
-define(['xadmin'], function (xadmin) {
+define(['xadmin','form'], function (xadmin,Form) {
     var Controller = {
             index: function () {
                 Controller.api.bindevent();
@@ -6,25 +6,9 @@ define(['xadmin'], function (xadmin) {
             },
             add: function () {
                 Controller.api.bindevent();
-                layui.use(['form', 'layer'], function () {
-                    var form = layui.form,
-                        layer = layui.layer;
-                    form.verify({
-                        nikename: function (value) {
-                            if (value.length < 1) {
-                                return '昵称至少得5个字符啊';
-                            }
-                        },
-                        password: [/(.+){6,16}$/, '密码必须6到16位'],
-                        repass: function (value) {
-                            if ($('#password').val() != $('#repass').val()) {
-                                return '两次密码不一致';
-                            }
-                        }
-                    });
-                    //监听提交
-                    Controller.api.submit(form);
-                });
+
+                    Form.api.bindevent(form);
+
 
             },
             edit: function () {
@@ -43,6 +27,7 @@ define(['xadmin'], function (xadmin) {
             api: {
                 bindevent: function () {
                     Controller.events.to_big();
+
                 },
                 submit: function (form) {
                     form.on('submit(submit)', function (data) {

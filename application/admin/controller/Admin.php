@@ -30,7 +30,7 @@ class Admin extends Base
     }
 
     public function add() {
-        if ($this->request->isPost()) {
+        if ($this->request->isAjax()) {
             $params = $this->request->param();
             $salt = Random::alnum(4);
             $params['join_ip'] = $this->request->ip(1);
