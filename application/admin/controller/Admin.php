@@ -13,7 +13,7 @@ use app\common\model\Admin as AdminModel;
 
 class Admin extends Base
 {
-    public static $filed = 'id,user_name,nick_name,join_ip,avatar,create_time,update_time,status';
+    private static $filed = 'id,user_name,nick_name,join_ip,avatar,create_time,update_time,status';
 
     public function __construct(App $app = null) {
         parent::__construct($app);
@@ -21,10 +21,10 @@ class Admin extends Base
 
 
     public function index() {
-        $adminList = AdminModel::field(self::$filed)->paginate();
-        $pages = $adminList->render();
+        $row = AdminModel::field(self::$filed)->paginate();
+        $pages = $row->render();
         $this->assign('page', $pages);
-        $this->assign('admin_list', $adminList);
+        $this->assign('row', $row);
 
         return $this->fetch();
     }
@@ -52,8 +52,8 @@ class Admin extends Base
         if (empty($row)) {
             throw new Failure('数据不存在或已被删除');
         }
-        $this->assignConfig('ids',$id);
-        if ($this->request->isPost()) {
+        $this->assignConfig('ids', $id);
+        if ($this->request->isAjax()) {
             $params = $this->request->param();
             $params['avatar'] = '';
             if (empty($params['password'])) {
@@ -76,6 +76,21 @@ class Admin extends Base
 
 
         return $this->fetch();
+    }
+
+    public function del($id = '') {
+        if (!$id) {
+            throw new Failure('参数异常');
+        }
+        $row = AdminModel::get($id);
+        if (empty($row)) {
+            throw new Failure('数据已被删除');
+        }
+        $result = $row->delete();
+        if ($result) {
+            throw new Success('删除成功');
+        }
+        throw new Failure('删除失败');
     }
 
 }

@@ -4,6 +4,7 @@ namespace app\admin\controller\general;
 
 use app\admin\controller\Base;
 use app\common\model\Config as ConfigModel;
+use think\App;
 use think\Exception;
 
 /**
@@ -18,8 +19,8 @@ class Config extends Base
 
     protected $model = null;
 
-    public function _initialize() {
-        parent::_initialize();
+    public function __construct(App $app = null) {
+        parent::__construct($app);
         $this->model = new ConfigModel();
     }
 
@@ -64,7 +65,7 @@ class Config extends Base
      * 添加
      */
     public function add() {
-        if ($this->request->isPost()) {
+        if ($this->request->isAjax()) {
             $params = $this->request->post("row/a");
             if ($params) {
                 foreach ($params as $k => &$v) {
@@ -101,7 +102,7 @@ class Config extends Base
      * @param null $ids
      */
     public function edit($ids = NULL) {
-        if ($this->request->isPost()) {
+        if ($this->request->isAjax()) {
             $row = $this->request->post("row/a");
             if ($row) {
                 $configList = [];

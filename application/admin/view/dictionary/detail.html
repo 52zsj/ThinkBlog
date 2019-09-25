@@ -1,0 +1,88 @@
+{include file='/common/header'/}
+{block name='css'}
+<style>
+    .layui-upload-img {
+        width: 92px;
+        height: 92px;
+        margin: 0 10px 10px 0;
+    }
+</style>
+{/block}
+{block name='content'}
+<div class="layui-fluid">
+    <div class="layui-row">
+        <form class="layui-form">
+            <div style="padding: 20px; background-color: #F2F2F2;">
+                <div class="layui-row layui-col-space15">
+                    <!-- <div class="layui-col-md12">
+                         <div class="layui-card">
+                             <div class="layui-card-header">标题</div>
+                             <div class="layui-card-body">
+                                 内容
+                             </div>
+                         </div>
+                     </div>-->
+                    <!--  <div class="layui-col-md6">
+                          <div class="layui-card">
+                              <div class="layui-card-header">卡片面板</div>
+                              <div class="layui-card-body">
+                                  结合 layui 的栅格系统<br>
+                                  轻松实现响应式布局
+                              </div>
+                          </div>
+                      </div>-->
+                    <div class="layui-col-md12">
+                        <div class="layui-card">
+                            <div class="layui-card-header">
+                                <input type="checkbox" lay-skin="primary" lay-filter="checkall" name="all"
+                                       id="check-all">全选
+                                <button type="button" class="layui-btn layui-btn-disabled" id="del-all">删除</button>
+                            </div>
+                        </div>
+                    </div>
+                    {foreach $row as $k=>$v}
+                    <div class="layui-col-md3" id="img-box-{$v.id}">
+                        <div class="layui-card">
+                            <div class="layui-card-body">
+                                <input type="checkbox" data-id="{$v.id}" value="{$v.id}" id="checkbox-{$v.id}"
+                                       class="item-checkbox" lay-filter="itemcheckbox"
+                                       lay-skin="primary">
+                                <img src="{if isset($v.full_path_tmp)}{$v.full_path_tmp}{else/}\{$v.full_path}{/if}"
+                                     style="width: 100px;height: 100px;" class="to-big"
+                                     alt="">
+                                <button type="button" class="layui-btn layui-btn-sm del" data-id="{$v.id}"
+                                        data-checkbox-id="checkbox-{$v.id}">删除
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    {/foreach}
+                </div>
+            </div>
+            <!--<div class="layui-form-item">
+                <label class="layui-form-label">
+                    <span class="x-red"></span>相册内容
+                </label>
+                <div class="layui-upload">
+                    <button type="button" class="layui-btn layui-btn-normal" id="album-list">点击添加</button>
+                    <button type="button" class="layui-btn" id="album-list-action">开始上传</button>
+                    <table id="album-tbale" class="layui-table layui-hide">
+                        <thead>
+                        <tr>
+                            <th>图片</th>
+                            <th>大小</th>
+                            <th>状态</th>
+                            <th>操作</th>
+                        </tr>
+                        </thead>
+                        <tbody id="album-tbale-list"></tbody>
+                    </table>
+                </div>
+
+                <div class="layui-upload-list" id="show-album"></div>
+                <input type="hidden" name="full_path" value="" id="full-path">
+            </div>-->
+        </form>
+    </div>
+</div>
+{/block}

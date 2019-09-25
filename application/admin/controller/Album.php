@@ -35,24 +35,24 @@ class Album extends Base
         if (!empty($keywords)) {
             $where[] = ['title|description', 'like', '%' . $keywords . '%'];
         }
-        $albumList = AlbumModel::where($where)->paginate(5);
+        $row = AlbumModel::where($where)->paginate(5);
         if ($this->ossConfig['open'] == 1) {
             $ossLogic = new OssLogic($this->ossConfig); //oss对象
-            foreach ($albumList as $k => &$v) {
+            foreach ($row as $k => &$v) {
                 $v['music_tmp'] = $ossLogic->getFileUrl($v['music']);
                 $v['cover_tmp'] = $ossLogic->getFileUrl($v['cover']);
             }
             unset($v);
         }
 
-        $pages = $albumList->render();
+        $pages = $row->render();
         $this->assign('page', $pages);
-        $this->assign('album_list', $albumList);
+        $this->assign('row', $row);
         return $this->fetch();
     }
 
     public function add() {
-        if ($this->request->isPost()) {
+        if ($this->request->isAjax()) {
             $param = $this->request->param();
             $fullPath = $param['full_path'];
             unset($param['full_path']);
@@ -106,7 +106,7 @@ class Album extends Base
         }
         $this->assign('row', $row);
 
-        if ($this->request->isPost()) {
+        if ($this->request->isAjax()) {
             $param = $this->request->param();
             $fullPath = $param['full_path'];
             unset($param['full_path']);
@@ -156,7 +156,7 @@ class Album extends Base
             }
         }
 
-        if ($this->request->isPost()) {
+        if ($this->request->isAjax()) {
 
         }
         $this->assign('row', $row);

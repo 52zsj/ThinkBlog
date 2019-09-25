@@ -15,11 +15,16 @@ require.config({
         'template': '../libs/art-template/lib/template-web',
         'photor': '../libs/photor/dist/photor',
         'xadmin': 'js/xadmin',
-        'form':'backend-form',//暂时没办法
+        'form': 'backend-form',
+        'ueditor.config': '../libs/ueditor/ueditor.config',
+        'ueditor': '../libs/ueditor/ueditor.parse',
+        'ueditor.zh-cn': '../libs/ueditor/lang/zh-cn/zh-cn',
+        'zeroclipboard': '../libs/ueditor/third-party/zeroclipboard/ZeroClipboard',
+
     },
     included: ['css', 'toastr'],
     shim: {
-        'jquery':{deps: ['css!../libs/font-awesome/css/font-awesome.css']},
+        'jquery': {deps: ['css!../libs/font-awesome/css/font-awesome.css']},
         'validator': ['../libs/nice-validator/dist/jquery.validator.min', 'css!../libs/nice-validator/dist/jquery.validator.css'],
         'citypicker': ['citypicker-data', 'css!../libs/city-picker/dist/css/city-picker.css'],
         'bootstrap': ['jquery'],
@@ -35,6 +40,8 @@ require.config({
         'photor': {deps: ['css!../libs/photor/dist/photor.min.css', 'jquery'], exports: "photor"},
         'albumplugin': {exports: "albumplugin"},
         'xadmin': {deps: ['jquery', 'layui'], exports: "xadmin"},
+        'ueditor.zh-cn': ['ueditor.config','ueditor'],
+        'ueditor.parse':{deps:['ueditor'],exports:'UE'}
     },
     map: {
         '*': {

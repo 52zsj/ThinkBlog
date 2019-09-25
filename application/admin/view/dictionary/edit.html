@@ -1,0 +1,108 @@
+{include file='/common/header'/}
+{block name='css'}
+<style>
+    .layui-upload-img {
+        width: 92px;
+        height: 92px;
+        margin: 0 10px 10px 0;
+    }
+</style>
+{/block}
+{block name='content'}
+<div class="layui-fluid">
+    <div class="layui-row">
+        <form class="layui-form">
+            <div class="layui-form-item">
+                <label for="title" class="layui-form-label">
+                    <span class="x-red">*</span>标题
+                </label>
+                <div class="layui-input-inline">
+                    <input type="text" id="title" name="title" required="" lay-verify="required" autocomplete="off"
+                           class="layui-input" value="{$row.title}">
+                </div>
+                <div class="layui-form-mid layui-word-aux">
+                    <span class="x-red">*</span>相册标题--分享时用到
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label for="description" class="layui-form-label">
+                    <span class="x-red"></span>相册简介
+                </label>
+                <div class="layui-input-inline">
+                    <input type="text" id="description" name="description" lay-verify="description"
+                           autocomplete="off" class="layui-input" value="{$row.description}">
+
+                </div>
+                <div class="layui-form-mid layui-word-aux">
+                    <span class="x-red">*</span>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label for="cover-upload" class="layui-form-label">
+                    <span class="x-red"></span>相册封面
+                </label>
+                <div class="layui-upload">
+                    <div class="layui-upload-list">
+                        <div>
+                            <img class="layui-upload-img" src="\{:empty($row.cover)?'__ADMIN_IMAGES__/no_img.jpg':$row.cover}" id="cover-upload">
+                            <span id="cover-text"></span>
+                        </div>
+                    </div>
+                    <input type="hidden" name="cover" value="{$row.cover}" id="cover">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label for="upload-music" class="layui-form-label">
+                    <span class="x-red"></span>背景音乐
+                </label>
+
+                <div class="layui-upload">
+                    <div class="layui-upload-list">
+                        <button id="music-upload" type="button" class="layui-btn layui-btn-primary">
+                            <i class="layui-icon">&#xe6fc;</i>上传BGM
+                        </button>
+                    </div>
+                    <div class="layui-upload-list">
+                        <audio src="\{:$row.music}" class="{:empty($row.music)?'layui-hide':''}" controls
+                               id="music-controls"></audio>
+                        <span id="music-text">{:empty($row.music)?'':''}</span>
+
+                    </div>
+                    <input type="hidden" name="music" value="{:$row.music}" id="music">
+                </div>
+
+            </div>
+            <div class="layui-form-item">
+                <label for="upload-album" class="layui-form-label">
+                    <span class="x-red"></span>相册内容
+                </label>
+                <div class="layui-upload">
+                    <button type="button" class="layui-btn layui-btn-normal" id="album-list">点击添加</button>
+                    <button type="button" class="layui-btn" id="album-list-action">开始上传</button>
+                    <table id="album-tbale" class="layui-table layui-hide">
+                        <thead>
+                        <tr>
+                            <th>图片</th>
+                            <th>大小</th>
+                            <th>状态</th>
+                            <th>操作</th>
+                        </tr>
+                        </thead>
+                        <tbody id="album-tbale-list"></tbody>
+                    </table>
+                </div>
+
+                <div class="layui-upload-list" id="show-album"></div>
+                <input type="hidden" name="full_path" value="" id="full-path">
+            </div>
+            <div class="layui-form-item">
+                <label for="edit" class="layui-form-label">
+                </label>
+                <button class="layui-btn" lay-filter="submit" lay-submit="">
+                    更新
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+{/block}

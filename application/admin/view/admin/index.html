@@ -35,9 +35,6 @@
                 <div class="layui-card-body ">
                     <table class="layui-table layui-form">
                         <tr>
-                            <th>
-                                <input type="checkbox" name="" lay-skin="primary">
-                            </th>
                             <th>ID</th>
                             <th>用户名</th>
                             <th>昵称</th>
@@ -47,18 +44,15 @@
                             <th>状态</th>
                             <th>操作</th>
                         </tr>
-                        {empty name="$admin_list"}
+                        {empty name="$row"}
                         <tr>
                             <td colspan="6" style=" text-align:center;">
                                 暂无数据
                             </td>
                         </tr>
                         {else /}
-                        {foreach name="$admin_list" id="item"}
+                        {foreach name="$row" id="item"}
                         <tr>
-                            <td>
-                                <input type="checkbox" name="" lay-skin="primary">
-                            </td>
                             <td>{$item.id}</td>
                             <td>{$item.user_name}</td>
                             <td>{$item.nick_name}</td>
@@ -67,24 +61,22 @@
                             <td>{$item.create_time}</td>
                             <td class="td-status">
                                 {eq name="$item.status" value="1"}
-                                <span class="layui-btn layui-btn-normal layui-btn-mini">已启用</span>
+                                <span class="layui-bg-green">已启用</span>
                                 {else}
-                                <span class="layui-btn layui-btn-danger layui-btn-mini">未启用</span>
+                                <span class="layui-bg-red">未启用</span>
                                 {/eq}
                             </td>
+
                             <td class="td-manage">
-                                <!--                                <a onclick="member_stop(this,'{:$item.id}')" href="javascript:;" title="启用">-->
-                                <!--                                    <i class="layui-icon">&#xe601;</i>-->
-                                <!--                                </a>-->
                                 <a title="编辑" onclick="xadmin.open('编辑','{:url(\'edit\',[\'id\'=>$item.id])}')"
                                    href="javascript:;">
                                     <i class="layui-icon">&#xe642;</i>
                                 </a>
-                                <a title="删除" onclick="member_del(this,'{:url(\'del\',[\'id\'=>$item.id])}')"
-                                   href="javascript:;"><i
-                                        class="layui-icon">&#xe640;</i>
+                                <a title="删除" class="del-data   {if $item.id==1}layui-hide{/if}" data-url="{:url('del')}" data-id="{:$item.id}"
+                                   href="javascript:;"><i class="layui-icon">&#xe640;</i>
                                 </a>
                             </td>
+
                         </tr>
                         {/foreach}
                         {/empty}
