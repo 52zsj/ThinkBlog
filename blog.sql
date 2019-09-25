@@ -11,7 +11,7 @@
  Target Server Version : 50717
  File Encoding         : 65001
 
- Date: 23/09/2019 17:31:18
+ Date: 25/09/2019 18:10:09
 */
 
 SET NAMES utf8mb4;
@@ -34,20 +34,12 @@ CREATE TABLE `jack_admin`  (
   `status` tinyint(1) NULL DEFAULT 1 COMMENT '状态：1正常，0禁用，2删除',
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `userName`(`user_name`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 34 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '管理员表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '管理员表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of jack_admin
 -- ----------------------------
-INSERT INTO `jack_admin` VALUES (1, 'admin', 'f7f11a5b939832d42c2dde28030b3dc2', '2gLv', '最牛逼的大佬', 1, '', '2019-08-02 17:01:11', '2019-09-23 16:40:52', 1);
-INSERT INTO `jack_admin` VALUES (26, 'a', 'dc2af4d59abe725ef26e103bb18ed6b9', 'aS2D', 'a', 2130706433, '', '2019-09-23 11:37:52', '2019-09-23 11:37:52', 1);
-INSERT INTO `jack_admin` VALUES (27, 'aaaaa', '76f702a98eaaaf76a9b3623a4183134b', '8k5K', 'aaaaa', 2130706433, '', '2019-09-23 11:40:19', '2019-09-23 11:40:19', 1);
-INSERT INTO `jack_admin` VALUES (28, 'eeee', '55e039937cac48e8fc6dd0df6446c5b1', '4c6h', 'eee', 2130706433, '', '2019-09-23 11:41:10', '2019-09-23 11:41:10', 1);
-INSERT INTO `jack_admin` VALUES (29, 'aaaa', '3855c83c36515662759b96de387399d0', 'au1c', 'aaaa', 2130706433, '', '2019-09-23 11:41:37', '2019-09-23 11:41:37', 1);
-INSERT INTO `jack_admin` VALUES (30, 'aaaaaa', '73edd29af5f6a0cb1ee8de91e8340c17', 'OmEr', 'aaaaaa', 2130706433, '', '2019-09-23 11:42:07', '2019-09-23 11:42:07', 1);
-INSERT INTO `jack_admin` VALUES (31, 'asdf', '1d1ee0825735fc2d60e66f8aa0a61eca', 'Jcl3', 'asdf', 2130706433, '', '2019-09-23 11:42:49', '2019-09-23 11:42:49', 1);
-INSERT INTO `jack_admin` VALUES (32, 'a', '5dce81756facab6fc862d171338005c3', 'uAl0', '', 2130706433, '', '2019-09-23 14:48:32', '2019-09-23 14:48:32', 1);
-INSERT INTO `jack_admin` VALUES (33, 'ce', 'e7381721395945f13bb9dbf49a3a4144', 'fGM9', 'ceshi', 2130706433, '', '2019-09-23 16:40:27', '2019-09-23 16:40:27', 1);
+INSERT INTO `jack_admin` VALUES (1, 'admin', '83c69fb8d19137202c9f88735b781d4d', 'abcd', 'admin', 0, '', '2019-09-25 15:30:35', '2019-09-25 15:30:35', 1);
 
 -- ----------------------------
 -- Table structure for jack_album
@@ -132,6 +124,22 @@ INSERT INTO `jack_config` VALUES (16, 'mail_verify_type', 'email', 'Mail vertify
 INSERT INTO `jack_config` VALUES (17, 'mail_from', 'email', 'Mail from', '', 'string', '10000@qq.com', '', '', '');
 
 -- ----------------------------
+-- Table structure for jack_dictionary
+-- ----------------------------
+DROP TABLE IF EXISTS `jack_dictionary`;
+CREATE TABLE `jack_dictionary`  (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'id',
+  `name` varchar(25) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '显示名称',
+  `en_name` varchar(25) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '字段标示',
+  `create_time` datetime(0) NULL DEFAULT NULL COMMENT '创建日期',
+  `update_time` datetime(0) NULL DEFAULT NULL COMMENT '更新日期',
+  `value` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '值',
+  `sort` smallint(6) NOT NULL DEFAULT 50 COMMENT '排序',
+  `status` tinyint(1) NOT NULL DEFAULT 1 COMMENT '是否启用1启用0禁用',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
 -- Table structure for jack_group
 -- ----------------------------
 DROP TABLE IF EXISTS `jack_group`;
@@ -189,10 +197,10 @@ INSERT INTO `jack_menu` VALUES (12, 11, 'album/index', '列表', 'fa fa-list', '
 INSERT INTO `jack_menu` VALUES (13, 11, 'album/add', '添加', 'fa fa-cog', '', 0, '2019-07-31 20:46:33', '2019-09-11 21:29:13', 3, 1);
 INSERT INTO `jack_menu` VALUES (14, 11, 'album/edit', '编辑', 'fa fa-edit', '', 0, '2019-07-31 20:46:33', '2019-09-11 21:29:14', 4, 1);
 INSERT INTO `jack_menu` VALUES (15, 11, 'album/del', '删除', 'fa fa-circle-o', '', 0, '2019-07-31 20:47:49', '2019-09-11 21:29:16', 5, 1);
-INSERT INTO `jack_menu` VALUES (16, 0, 'directory', '字典管理', 'fa fa-group', '', 1, '2019-09-23 17:28:39', '2019-09-23 17:30:02', 1, 1);
-INSERT INTO `jack_menu` VALUES (17, 16, 'directory/add', '添加', 'fa fa-cog', '', 0, '2019-09-23 17:28:53', '2019-09-23 17:30:08', 2, 1);
-INSERT INTO `jack_menu` VALUES (18, 16, 'directory/edit', '编辑', 'fa fa-edit', '', 0, '2019-09-23 17:29:23', '2019-09-23 17:29:53', 3, 1);
-INSERT INTO `jack_menu` VALUES (19, 16, 'directory/del', '删除', 'fa fa-circle-o', '', 0, '2019-09-23 17:29:38', '2019-09-23 17:29:58', 4, 1);
+INSERT INTO `jack_menu` VALUES (16, 0, 'dictionary', '字典管理', 'fa fa-group', '', 1, '2019-09-23 17:28:39', '2019-09-25 16:10:43', 1, 1);
+INSERT INTO `jack_menu` VALUES (17, 16, 'dictionary/add', '添加', 'fa fa-cog', '', 0, '2019-09-23 17:28:53', '2019-09-25 16:10:45', 2, 1);
+INSERT INTO `jack_menu` VALUES (18, 16, 'dictionary/edit', '编辑', 'fa fa-edit', '', 0, '2019-09-23 17:29:23', '2019-09-25 16:10:46', 3, 1);
+INSERT INTO `jack_menu` VALUES (19, 16, 'dictionary/del', '删除', 'fa fa-circle-o', '', 0, '2019-09-23 17:29:38', '2019-09-25 16:10:48', 4, 1);
 
 -- ----------------------------
 -- Table structure for tm_auth_rule
