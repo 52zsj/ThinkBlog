@@ -9,4 +9,4 @@ runtime
 public/static/assets/libs
 public/upload
 composer.lock
-extend/lucklyjack
+ueditor

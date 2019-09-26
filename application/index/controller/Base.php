@@ -4,6 +4,8 @@
 namespace app\index\controller;
 
 
+use app\common\library\Enum;
+use app\common\model\Dictionary;
 use think\App;
 use think\Controller;
 use think\facade\Config;
@@ -24,6 +26,9 @@ class Base extends Controller
         parent::__construct($app);
         $this->assignSeoData();
         $this->ossConfig = Config::get('alioss');
+        //获取网站页脚
+        $footer = Dictionary::getValueByEnName(Enum::FOOTER,'value');
+        $this->assign('footer', html_entity_decode($footer[0]['value']));
         $request = Request::instance();
         $moduleName = $request->module();
         $controllerName = $request->controller();
@@ -38,7 +43,7 @@ class Base extends Controller
         $this->view->assign('config', $config);
     }
 
-    public function assignConfig($name,$value='') {
+    public function assignConfig($name, $value = '') {
         $this->view->config = array_merge($this->view->config ? $this->view->config : [], is_array($name) ? $name : [$name => $value]);
     }
 

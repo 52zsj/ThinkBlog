@@ -16,10 +16,11 @@ require.config({
         'photor': '../libs/photor/dist/photor',
         'xadmin': 'js/xadmin',
         'form': 'backend-form',
-        'ueditor.config': '../libs/ueditor/ueditor.config',
-        'ueditor': '../libs/ueditor/ueditor.parse',
-        'ueditor.zh-cn': '../libs/ueditor/lang/zh-cn/zh-cn',
-        'zeroclipboard': '../libs/ueditor/third-party/zeroclipboard/ZeroClipboard',
+        'ueditor': '../other/ueditor/ueditor.all',
+        'ueditor.config': '../other/ueditor/ueditor.config',
+        'ueditor.cn':'../other/ueditor/lang/zh-cn/zh-cn',
+        'zeroclipboard':'../other/ueditor/third-party/zeroclipboard/ZeroClipboard.min'
+        
 
     },
     included: ['css', 'toastr'],
@@ -40,8 +41,16 @@ require.config({
         'photor': {deps: ['css!../libs/photor/dist/photor.min.css', 'jquery'], exports: "photor"},
         'albumplugin': {exports: "albumplugin"},
         'xadmin': {deps: ['jquery', 'layui'], exports: "xadmin"},
-        'ueditor.zh-cn': ['ueditor.config','ueditor'],
-        'ueditor.parse':{deps:['ueditor'],exports:'UE'}
+        'ueditor': {
+            deps: ['zeroclipboard', 'ueditor.config'],
+            exports: 'UE',
+            init: function (ZeroClipboard) {
+                //导出到全局变量，供ueditor使用
+                window.ZeroClipboard = ZeroClipboard;
+            },
+        },
+        'ueditor.cn': ['ueditor']
+
     },
     map: {
         '*': {

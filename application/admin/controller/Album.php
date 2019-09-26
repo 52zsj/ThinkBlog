@@ -58,7 +58,7 @@ class Album extends Base
             unset($param['full_path']);
             Db::startTrans();
             try {
-                $info = AlbumModel::create($param);
+                $info = AlbumModel::create($param,true);
                 $id = $info->id;
                 if (!empty($fullPath)) {
                     $fullPathArray = explode(',', $fullPath);

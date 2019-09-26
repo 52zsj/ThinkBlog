@@ -37,7 +37,7 @@ class Admin extends Base
             $params['avatar'] = '';
             $params['password'] = Auth::instance()->createPassword($params['password'], $salt);
             $params['salt'] = $salt;
-            $result = AdminModel::create($params);
+            $result = AdminModel::create($params,true);
             if ($result) {
                 throw new Success('添加成功');
             } else {

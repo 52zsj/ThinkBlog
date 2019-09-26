@@ -2,23 +2,23 @@
 
 namespace app\api\controller;
 
-use think\addons\Controller;
+
+use think\facade\Env;
 
 /**
  * ueditor接口控制器
  */
-class Api extends Controller
+class Api extends Base
 {
 
+    //貌似没用到 先不管
     public function index()
     {
         //header('Access-Control-Allow-Origin: http://www.baidu.com'); //设置http://www.baidu.com允许跨域访问
         //header('Access-Control-Allow-Headers: X-Requested-With,X_Requested_With'); //设置允许的跨域header
         header("Content-Type: text/html; charset=utf-8");
-
-        $phppath = ADDON_PATH . 'ueditor/library/php/';
+        $phppath = Env::get('root_path').'/static/other/ueditor/library/php/';
         $configpath = $phppath . 'config.json';
-
         $CONFIG = json_decode(preg_replace("/\/\*[\s\S]+?\*\//", "", file_get_contents($configpath)), true);
         $action = $this->request->get('action');
         $callback = $this->request->get('callback');

@@ -77,7 +77,7 @@ class Config extends Base
                     } else {
                         $params['content'] = '';
                     }
-                    $result = $this->model->create($params);
+                    $result = $this->model->create($params,true);
                     if ($result !== false) {
                         try {
                             $this->refreshFile();
