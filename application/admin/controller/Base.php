@@ -2,6 +2,7 @@
 
 namespace app\admin\controller;
 
+use app\admin\library\traits\Backend;
 use app\admin\logic\Auth;
 use app\common\model\Menu;
 use jack\Tree;
@@ -27,11 +28,14 @@ class Base extends Controller
     protected $ossConfig = [];
     //上传文件存放区域
     protected $uploadPath = 'upload' . DIRECTORY_SEPARATOR;
+    //根目录
     protected $rootPath;
+    //模型
+    protected $model=null;
+    //引入
+    use Backend;
 
-
-    public function __construct(App $app = null) {
-        parent::__construct($app);
+    public function initialize() {
         //根目录
         $this->rootPath = Env::get('root_path');
         //oss配置项

@@ -23,8 +23,9 @@ class Album extends Base
 
     protected $savePath = '';
 
-    public function __construct(App $app = null) {
-        parent::__construct($app);
+    public function initialize() {
+        parent::initialize();
+        $this->model = new AlbumModel();
         $this->savePath = $this->uploadPath . 'album' . DIRECTORY_SEPARATOR;
     }
 
@@ -35,7 +36,7 @@ class Album extends Base
         if (!empty($keywords)) {
             $where[] = ['title|description', 'like', '%' . $keywords . '%'];
         }
-        $row = AlbumModel::where($where)->paginate(5);
+        $row = $this->model ->where($where)->paginate(5);
         if ($this->ossConfig['open'] == 1) {
             $ossLogic = new OssLogic($this->ossConfig); //oss对象
             foreach ($row as $k => &$v) {
@@ -58,7 +59,7 @@ class Album extends Base
             unset($param['full_path']);
             Db::startTrans();
             try {
-                $info = AlbumModel::create($param,true);
+                $info = $this->model ->create($param, true);
                 $id = $info->id;
                 if (!empty($fullPath)) {
                     $fullPathArray = explode(',', $fullPath);
@@ -90,7 +91,7 @@ class Album extends Base
 
     public function edit($id = '') {
 
-        $row = AlbumModel::get($id);
+        $row = $this->model ->get($id);
         if (!$row) {
             throw new Failure('数据已被删除');
         }

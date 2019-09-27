@@ -1,17 +1,4 @@
 {include file='/common/header'/}
-{block name='css'}
-<style>
-    .nowarp {
-        border: 1px solid #e3e6e8;
-        height: 38px;
-        line-height: 38px;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-    }
-
-</style>
-{/block}
 {block name='content'}
 <!--<div class="x-nav">
           <span class="layui-breadcrumb">
@@ -42,7 +29,7 @@
                     </form>
                 </div>
                 <div class="layui-card-header">
-                    <button class="layui-btn" onclick="xadmin.open('添加相册','{:url(\'add\')}')"><i
+                    <button class="layui-btn" onclick="xadmin.open('标签','{:url(\'add\')}')"><i
                             class="layui-icon"></i>添加
                     </button>
                 </div>
@@ -50,15 +37,15 @@
                     <table class="layui-table layui-form"  style="table-layout: fixed" >
                         <tr>
                             <th>ID</th>
-                            <th>所属分组</th>
-                            <th>中文</th>
-                            <th>英文</th>
-                            <th>值</th>
+                            <th>名称</th>
+                            <th>状态</th>
+                            <th>排序</th>
+                            <th>创建时间</th>
                             <th>操作</th>
                         </tr>
                         {empty name="$row"}
                         <tr>
-                            <td colspan="7" style=" text-align:center;">
+                            <td colspan="6" style=" text-align:center;">
                                 暂无数据
                             </td>
                         </tr>
@@ -66,10 +53,10 @@
                         {foreach name="$row" id="item"}
                         <tr>
                             <td>{$item.id}</td>
-                            <td>{$item.group}</td>
                             <td>{$item.name}</td>
-                            <td>{$item.en_name}</td>
-                            <td class="nowarp" title="{$item.value}">{$item.value}</td>
+                            <td>{$item.status}</td>
+                            <td>{$item.order_key}</td>
+                            <td>{$item.create_time}</td>
                             <td class="td-manage">
                                 <a title="编辑" onclick="xadmin.open('编辑','{:url(\'edit\',[\'id\'=>$item.id])}')"
                                    href="javascript:;">

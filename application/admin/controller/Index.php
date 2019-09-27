@@ -18,8 +18,8 @@ class Index extends Base
     protected $noNeedLogin = ['login'];
 
 
-    public function __construct(App $app = null) {
-        parent::__construct($app);
+    public function initialize() {
+        parent::initialize();
     }
 
     public function index() {

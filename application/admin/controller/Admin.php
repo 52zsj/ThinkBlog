@@ -13,21 +13,12 @@ use app\common\model\Admin as AdminModel;
 
 class Admin extends Base
 {
-    private static $filed = 'id,user_name,nick_name,join_ip,avatar,create_time,update_time,status';
 
-    public function __construct(App $app = null) {
-        parent::__construct($app);
+    public function initialize() {
+        parent::initialize();
+        $this->model = new AdminModel();
     }
 
-
-    public function index() {
-        $row = AdminModel::field(self::$filed)->paginate();
-        $pages = $row->render();
-        $this->assign('page', $pages);
-        $this->assign('row', $row);
-
-        return $this->fetch();
-    }
 
     public function add() {
         if ($this->request->isAjax()) {
@@ -37,7 +28,7 @@ class Admin extends Base
             $params['avatar'] = '';
             $params['password'] = Auth::instance()->createPassword($params['password'], $salt);
             $params['salt'] = $salt;
-            $result = AdminModel::create($params,true);
+            $result = AdminModel::create($params, true);
             if ($result) {
                 throw new Success('添加成功');
             } else {
@@ -77,20 +68,4 @@ class Admin extends Base
 
         return $this->fetch();
     }
-
-    public function del($id = '') {
-        if (!$id) {
-            throw new Failure('参数异常');
-        }
-        $row = AdminModel::get($id);
-        if (empty($row)) {
-            throw new Failure('数据已被删除');
-        }
-        $result = $row->delete();
-        if ($result) {
-            throw new Success('删除成功');
-        }
-        throw new Failure('删除失败');
-    }
-
 }

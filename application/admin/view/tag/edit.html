@@ -1,0 +1,57 @@
+{include file='/common/header'/}
+{block name='content'}
+<div class="layui-fluid">
+    <div class="layui-row">
+        <form class="layui-form" method="POST">
+
+            <div class="layui-form-item">
+                <label for="title" class="layui-form-label">
+                    <span class="x-red">*</span>标签名称
+                </label>
+                <div class="layui-input-inline">
+                    <input type="text" id="name" name="name" value="{$row.name}" lay-verify="required"
+                           autocomplete="off"
+                           class="layui-input">
+                </div>
+                <div class="layui-form-mid layui-word-aux">
+                    <span class="x-red">*</span>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">单选框</label>
+                <div class="layui-input-block">
+                    <input type="radio" name="status" title="是" value="1" {if $row.status==1} checked{/if}>
+                    <input type="radio" name="status" title="否" value="0" {if $row.status==0} checked{/if}>
+                </div>
+                <div class="layui-form-mid layui-word-aux">
+                    <span class="x-red"></span>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label for="description" class="layui-form-label">
+                    <span class="x-red"></span>排序
+                </label>
+                <div class="layui-input-inline">
+                    <input type="number" id="order_key" name="order_key" min="0" max="9999" autocomplete="off"
+                           class="layui-input order-key" value="{$row.order_key}">
+                </div>
+                <div class="layui-form-mid layui-word-aux">
+                    <span class="x-red">从小到大排序</span>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label for="add" class="layui-form-label">
+                </label>
+                <button class="layui-btn" lay-filter="submit" lay-submit="">
+                    增加
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+{/block}
+{block name='js'}
+<script>
+
+</script>
+{/block}
