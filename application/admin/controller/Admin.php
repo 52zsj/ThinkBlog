@@ -7,8 +7,7 @@ namespace app\admin\controller;
 use app\admin\logic\Auth;
 use app\common\exception\Failure;
 use app\common\exception\Success;
-use app\common\library\Random;
-use think\App;
+use jack\Random;
 use app\common\model\Admin as AdminModel;
 
 class Admin extends Base

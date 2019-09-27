@@ -11,7 +11,7 @@
  Target Server Version : 50717
  File Encoding         : 65001
 
- Date: 27/09/2019 15:58:05
+ Date: 27/09/2019 17:50:56
 */
 
 SET NAMES utf8mb4;
@@ -82,6 +82,31 @@ INSERT INTO `jack_album_item` VALUES (2, 1, '', 'upload\\album\\20190923\\f789fd
 INSERT INTO `jack_album_item` VALUES (4, 1, '', 'upload\\album\\20190923\\22814fd53961ce5a3a9b458cf1e5ee06.png', '');
 INSERT INTO `jack_album_item` VALUES (5, 1, '', 'upload\\album\\20190923\\bc079652fa8a31ba2676337d12c28e6e.png', '');
 INSERT INTO `jack_album_item` VALUES (6, 1, '', 'upload\\album\\20190923\\2f9c6d1dbc6e294ae332a855cb87a9f6.png', '');
+
+-- ----------------------------
+-- Table structure for jack_column
+-- ----------------------------
+DROP TABLE IF EXISTS `jack_column`;
+CREATE TABLE `jack_column`  (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '分类名称',
+  `pid` int(11) NOT NULL DEFAULT 0 COMMENT '上级分类 0顶级',
+  `status` tinyint(1) NOT NULL DEFAULT 1 COMMENT '是否显示 1是 0 否',
+  `create_time` datetime(0) NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `update_time` datetime(0) NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP(0) COMMENT '更新时间',
+  `order_key` smallint(6) NOT NULL DEFAULT 50 COMMENT '排序',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of jack_column
+-- ----------------------------
+INSERT INTO `jack_column` VALUES (1, '情感天地', 0, 1, '2019-09-27 16:32:06', '2019-09-27 16:32:06', 1);
+INSERT INTO `jack_column` VALUES (2, '学习天地', 0, 1, '2019-09-27 17:16:14', '2019-09-27 17:16:18', 2);
+INSERT INTO `jack_column` VALUES (3, '古典文学', 0, 1, '2019-09-27 17:16:25', '2019-09-27 17:16:25', 3);
+INSERT INTO `jack_column` VALUES (4, '恋爱', 1, 1, '2019-09-27 17:16:40', '2019-09-27 17:16:40', 1);
+INSERT INTO `jack_column` VALUES (5, '古风', 2, 1, '2019-09-27 17:16:51', '2019-09-27 17:16:51', 2);
+INSERT INTO `jack_column` VALUES (6, '文学', 3, 1, '2019-09-27 17:16:59', '2019-09-27 17:16:59', 4);
 
 -- ----------------------------
 -- Table structure for jack_config
@@ -197,11 +222,11 @@ INSERT INTO `jack_menu` VALUES (2, 1, 'admin/index', '列表', 'fa fa-list', '',
 INSERT INTO `jack_menu` VALUES (3, 1, 'admin/add', '添加', 'fa fa-cog', '', 0, '2019-07-31 20:46:33', '2019-08-02 16:41:34', 3, 1);
 INSERT INTO `jack_menu` VALUES (4, 1, 'admin/edit', '编辑', 'fa fa-edit', '', 0, '2019-07-31 20:46:33', '2019-08-02 16:41:36', 4, 1);
 INSERT INTO `jack_menu` VALUES (5, 1, 'admin/del', '删除', 'fa fa-circle-o', '', 0, '2019-07-31 20:47:49', '2019-08-02 16:41:39', 5, 1);
-INSERT INTO `jack_menu` VALUES (6, 0, 'foot', '页脚管理', 'fa fa-group', '', 1, '2019-07-31 20:45:48', '2019-08-02 16:36:49', 1, 1);
-INSERT INTO `jack_menu` VALUES (7, 6, 'foot/index', '列表', 'fa fa-list', '', 0, '2019-07-31 20:46:33', '2019-08-02 16:36:51', 2, 1);
-INSERT INTO `jack_menu` VALUES (8, 6, 'foot/add', '添加', 'fa fa-cog', '', 0, '2019-07-31 20:46:33', '2019-08-02 16:36:54', 3, 1);
-INSERT INTO `jack_menu` VALUES (9, 6, 'foot/edit', '编辑', 'fa fa-edit', '', 0, '2019-07-31 20:46:33', '2019-08-02 16:36:57', 4, 1);
-INSERT INTO `jack_menu` VALUES (10, 6, 'foot/del', '删除', 'fa fa-circle-o', '', 0, '2019-07-31 20:47:49', '2019-08-02 16:36:58', 5, 1);
+INSERT INTO `jack_menu` VALUES (6, 0, 'column', '栏目管理', 'fa fa-group', '', 1, '2019-07-31 20:45:48', '2019-09-27 16:00:59', 1, 1);
+INSERT INTO `jack_menu` VALUES (7, 6, 'column/index', '列表', 'fa fa-list', '', 0, '2019-07-31 20:46:33', '2019-09-27 16:01:01', 2, 1);
+INSERT INTO `jack_menu` VALUES (8, 6, 'column/add', '添加', 'fa fa-cog', '', 0, '2019-07-31 20:46:33', '2019-09-27 16:01:02', 3, 1);
+INSERT INTO `jack_menu` VALUES (9, 6, 'column/edit', '编辑', 'fa fa-edit', '', 0, '2019-07-31 20:46:33', '2019-09-27 16:01:04', 4, 1);
+INSERT INTO `jack_menu` VALUES (10, 6, 'column/del', '删除', 'fa fa-circle-o', '', 0, '2019-07-31 20:47:49', '2019-09-27 16:01:06', 5, 1);
 INSERT INTO `jack_menu` VALUES (11, 0, 'album', '相册管理', 'fa fa-group', '', 1, '2019-07-31 20:45:48', '2019-09-11 21:28:44', 1, 1);
 INSERT INTO `jack_menu` VALUES (12, 11, 'album/index', '列表', 'fa fa-list', '', 0, '2019-07-31 20:46:33', '2019-09-11 21:29:11', 2, 1);
 INSERT INTO `jack_menu` VALUES (13, 11, 'album/add', '添加', 'fa fa-cog', '', 0, '2019-07-31 20:46:33', '2019-09-11 21:29:13', 3, 1);

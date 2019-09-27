@@ -1,0 +1,13 @@
+{
+  "name": "treetable-lay",
+  "_release": "318fa266d4",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "318fa266d4cd5d1659b7145267759652a72a6e62"
+  },
+  "_source": "https://gitee.com/whvse/treetable-lay.git",
+  "_target": "*",
+  "_originalSource": "https://gitee.com/whvse/treetable-lay.git",
+  "_direct": true
+}
