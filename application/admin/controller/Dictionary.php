@@ -16,6 +16,8 @@ class Dictionary extends Base
 {
     public function __construct(App $app = null) {
         parent::__construct($app);
+        $group= DictionaryModel::group('group')->column('group');
+        $this->assign('group',$group);
     }
 
     public function index() {

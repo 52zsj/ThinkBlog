@@ -1,8 +1,8 @@
 
     <meta charset="utf-8">
-    <title>{$title}</title>
-    <meta name="keywords" content="{$webKeywords}"/>
-    <meta name="description" content="{$webDescription}"/>
+    <title>{$web_data.title|default=$title}</title>
+    <meta name="keywords" content="{$web_data.web_keywords|default=$webKeywords}"/>
+    <meta name="description" content="{$web_data.web_description|default=$webDescription}"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!--js-->
     <link href="__INDEX_CSS__/base.css" rel="stylesheet">

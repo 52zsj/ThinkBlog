@@ -9,13 +9,13 @@ define(['jquery', 'layui'], function ($, layui) {
             //编辑器
             ueditor: function () {
                 if ($(".myeditor").length > 0) {
-                    console.log('执行了myeditor');
+
                     window.UEDITOR_HOME_URL = "/static/other/ueditor/";
                     require(['ueditor', 'ueditor.cn'], function (UE, undefined) {
                         var ueditor = [];
                         $(".myeditor").each(function () {
                             var id = $(this).attr("id");
-                            console.log(id);
+
                             ueditor[id] = UE.getEditor(id, {
                                 // serverUrl: Fast.api.fixurl('/addons/ueditor/api/'),
                                 allowDivTransToP: false, //阻止div自动转p标签
@@ -25,7 +25,7 @@ define(['jquery', 'layui'], function ($, layui) {
                                 outputXssFilter: false,
                                 inputXssFilter: false
                             });
-                            console.log(ueditor[id]);
+
                         });
 
                     });

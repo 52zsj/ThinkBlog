@@ -1,10 +1,8 @@
 {include file='/common/header'/}
 {block name='css'}
 <style>
-    .layui-upload-img {
-        width: 92px;
-        height: 92px;
-        margin: 0 10px 10px 0;
+    .can-click {
+        cursor: pointer;
     }
 </style>
 {/block}
@@ -13,11 +11,29 @@
     <div class="layui-row">
         <form class="layui-form" method="POST">
             <div class="layui-form-item">
+                <label for="group" class="layui-form-label">
+                    <span class="x-red"></span>所属组别
+                </label>
+                <div class="layui-input-inline">
+                    <input type="text" id="group" name="group" value="{$row.group}" placeholder="不需要组别的留空即可"
+                           autocomplete="off"
+                           class="layui-input">
+                </div>
+                <div class="layui-form-mid layui-word-aux">
+                    <div class="x-red" style="width: 500px;height: 100%">
+                        {foreach $group as $k=>$v}
+                        <span class="can-click" title="{$v}" data-value="{$v}">{$v}</span>
+                        {/foreach}
+                    </div>
+                </div>
+            </div>
+            <div class="layui-form-item">
                 <label for="title" class="layui-form-label">
                     <span class="x-red">*</span>标题
                 </label>
                 <div class="layui-input-inline">
-                    <input type="text" id="name" value="{$row.name}" name="name" lay-verify="required" autocomplete="off"
+                    <input type="text" id="name" value="{$row.name}" name="name" lay-verify="required"
+                           autocomplete="off"
                            class="layui-input">
                 </div>
                 <div class="layui-form-mid layui-word-aux">
@@ -29,14 +45,25 @@
                     <span class="x-red"></span>英文名
                 </label>
                 <div class="layui-input-inline">
-                    <input type="text" id="en_name" value="{$row.en_name}" name="en_name" lay-verify="required" autocomplete="off"
+                    <input type="text" id="en_name" value="{$row.en_name}" name="en_name" lay-verify="required"
+                           autocomplete="off"
                            class="layui-input">
                 </div>
                 <div class="layui-form-mid layui-word-aux">
                     <span class="x-red">*</span>
                 </div>
             </div>
+
             <div class="layui-form-item">
+                <label for="ueditor" class="layui-form-label">
+                    <span class="x-red"></span>显示
+                </label>
+                <div class="layui-input-block">
+                    <input type="checkbox" id="use-editor" lay-filter="check"lay-skin="primary" title="使用编辑器">
+                </div>
+            </div>
+
+            <div class="layui-form-item layui-hide show-editor-text" id="check-editor">
                 <label for="description" class="layui-form-label">
                     <span class="x-red"></span>值
                 </label>
@@ -44,12 +71,22 @@
                     <textarea name="value" id="value" class="myeditor" cols="30" rows="10">{$row.value|html_entity_decode}</textarea>
                 </div>
             </div>
+
+            <div class="layui-form-item show-editor-text" id="check-input">
+                <label for="description" class="layui-form-label">
+                    <span class="x-red"></span>值
+                </label>
+                <div class="layui-input-inline">
+                    <input type="text" name="value" class="layui-input" value="{$row.value|html_entity_decode}">
+                </div>
+            </div>
+
             <div class="layui-form-item">
                 <label for="description" class="layui-form-label">
                     <span class="x-red"></span>排序
                 </label>
                 <div class="layui-input-inline">
-                    <input type="number" id="order_key" name="order_key"  min="0" max="999" autocomplete="off"
+                    <input type="number" id="order_key" name="order_key" min="0" max="999" autocomplete="off"
                            class="layui-input order-key" value="{$row.order_key}">
                 </div>
                 <div class="layui-form-mid layui-word-aux">
@@ -60,8 +97,9 @@
                 <label for="add" class="layui-form-label">
                 </label>
                 <button class="layui-btn" lay-filter="submit" lay-submit="">
-                    增加
+                    更新
                 </button>
+
             </div>
         </form>
     </div>

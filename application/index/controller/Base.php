@@ -27,8 +27,10 @@ class Base extends Controller
         $this->assignSeoData();
         $this->ossConfig = Config::get('alioss');
         //获取网站页脚
-        $footer = Dictionary::getValueByEnName(Enum::FOOTER,'value');
-        $this->assign('footer', html_entity_decode($footer[0]['value']));
+        $web = Dictionary::getValueByGroup(Enum::DIDCTIONARY_WEB);
+        $web_data = array_column($web->toArray(), 'value', 'en_name');
+        $this->assign('web_data', $web_data);
+
         $request = Request::instance();
         $moduleName = $request->module();
         $controllerName = $request->controller();

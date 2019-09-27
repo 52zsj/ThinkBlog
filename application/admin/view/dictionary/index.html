@@ -49,10 +49,8 @@
                 <div class="layui-card-body">
                     <table class="layui-table layui-form"  style="table-layout: fixed" >
                         <tr>
-                            <th>
-                                <input type="checkbox" name="" lay-skin="primary">
-                            </th>
                             <th>ID</th>
+                            <th>所属分组</th>
                             <th>中文</th>
                             <th>英文</th>
                             <th>值</th>
@@ -67,10 +65,8 @@
                         {else /}
                         {foreach name="$row" id="item"}
                         <tr>
-                            <td>
-                                <input type="checkbox" name="" lay-skin="primary">
-                            </td>
                             <td>{$item.id}</td>
+                            <td>{$item.group}</td>
                             <td>{$item.name}</td>
                             <td>{$item.en_name}</td>
                             <td class="nowarp" title="{$item.value}">{$item.value}</td>
