@@ -11,7 +11,7 @@
  Target Server Version : 50717
  File Encoding         : 65001
 
- Date: 27/09/2019 17:50:56
+ Date: 29/09/2019 16:41:29
 */
 
 SET NAMES utf8mb4;
@@ -163,7 +163,7 @@ CREATE TABLE `jack_dictionary`  (
   `status` tinyint(1) NOT NULL DEFAULT 1 COMMENT '是否启用1启用0禁用',
   `group` varchar(25) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '组别',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of jack_dictionary
@@ -253,13 +253,154 @@ CREATE TABLE `jack_tag`  (
   `order_key` smallint(6) NULL DEFAULT 50 COMMENT '排序',
   `create_time` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 148 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of jack_tag
 -- ----------------------------
-INSERT INTO `jack_tag` VALUES (1, 'PHP', 1, 50, '2019-09-27 15:53:20');
-INSERT INTO `jack_tag` VALUES (2, 'javascript', 1, 1, '2019-09-27 15:54:14');
+INSERT INTO `jack_tag` VALUES (1, '我是大帅比', 1, 222, '2019-09-27 15:53:20');
+INSERT INTO `jack_tag` VALUES (2, 'javascriptd', 1, 2, '2019-09-27 15:54:14');
+INSERT INTO `jack_tag` VALUES (3, 'PHP', 1, 3, '2019-09-27 15:53:20');
+INSERT INTO `jack_tag` VALUES (4, 'PHP', 1, 4, '2019-09-27 15:53:20');
+INSERT INTO `jack_tag` VALUES (5, 'PHP', 1, 5, '2019-09-27 15:53:20');
+INSERT INTO `jack_tag` VALUES (6, 'PHP', 1, 6, '2019-09-27 15:53:20');
+INSERT INTO `jack_tag` VALUES (7, 'PHP', 1, 7, '2019-09-27 15:53:20');
+INSERT INTO `jack_tag` VALUES (8, 'PHP', 1, 8, '2019-09-27 15:53:20');
+INSERT INTO `jack_tag` VALUES (9, 'PHP', 1, 50, '2019-09-27 15:53:20');
+INSERT INTO `jack_tag` VALUES (12, 'PHP', 1, 50, '2019-09-27 15:53:20');
+INSERT INTO `jack_tag` VALUES (13, 'PHP', 1, 50, '2019-09-27 15:53:20');
+INSERT INTO `jack_tag` VALUES (14, 'PHP', 1, 50, '2019-09-27 15:53:20');
+INSERT INTO `jack_tag` VALUES (15, 'PHP', 1, 50, '2019-09-27 15:53:20');
+INSERT INTO `jack_tag` VALUES (16, 'PHP', 1, 50, '2019-09-27 15:53:20');
+INSERT INTO `jack_tag` VALUES (17, 'PHP', 1, 50, '2019-09-27 15:53:20');
+INSERT INTO `jack_tag` VALUES (18, 'PHP', 1, 50, '2019-09-27 15:53:20');
+INSERT INTO `jack_tag` VALUES (19, 'PHP', 1, 50, '2019-09-27 15:53:20');
+INSERT INTO `jack_tag` VALUES (20, 'PHP', 1, 50, '2019-09-27 15:53:20');
+INSERT INTO `jack_tag` VALUES (21, 'PHP', 1, 50, '2019-09-27 15:53:20');
+INSERT INTO `jack_tag` VALUES (23, 'PHP', 1, 50, '2019-09-27 15:53:20');
+INSERT INTO `jack_tag` VALUES (24, 'PHP', 1, 50, '2019-09-27 15:53:20');
+INSERT INTO `jack_tag` VALUES (25, 'PHP', 1, 50, '2019-09-27 15:53:20');
+INSERT INTO `jack_tag` VALUES (26, 'PHP', 1, 50, '2019-09-27 15:53:20');
+INSERT INTO `jack_tag` VALUES (27, 'PHP', 1, 50, '2019-09-27 15:53:20');
+INSERT INTO `jack_tag` VALUES (28, 'PHP', 1, 50, '2019-09-27 15:53:20');
+INSERT INTO `jack_tag` VALUES (29, 'PHP', 1, 50, '2019-09-27 15:53:20');
+INSERT INTO `jack_tag` VALUES (30, 'PHP', 1, 50, '2019-09-27 15:53:20');
+INSERT INTO `jack_tag` VALUES (31, 'PHP', 1, 50, '2019-09-27 15:53:20');
+INSERT INTO `jack_tag` VALUES (32, 'PHP', 1, 50, '2019-09-27 15:53:20');
+INSERT INTO `jack_tag` VALUES (33, 'PHP', 1, 50, '2019-09-27 15:53:20');
+INSERT INTO `jack_tag` VALUES (34, 'PHP', 1, 50, '2019-09-27 15:53:20');
+INSERT INTO `jack_tag` VALUES (35, 'PHP', 1, 50, '2019-09-27 15:53:20');
+INSERT INTO `jack_tag` VALUES (36, 'PHP', 1, 50, '2019-09-27 15:53:20');
+INSERT INTO `jack_tag` VALUES (37, 'PHP', 1, 50, '2019-09-27 15:53:20');
+INSERT INTO `jack_tag` VALUES (38, 'PHP', 1, 50, '2019-09-27 15:53:20');
+INSERT INTO `jack_tag` VALUES (39, 'PHP', 1, 50, '2019-09-27 15:53:20');
+INSERT INTO `jack_tag` VALUES (40, 'PHP', 1, 50, '2019-09-27 15:53:20');
+INSERT INTO `jack_tag` VALUES (41, 'PHP', 1, 50, '2019-09-27 15:53:20');
+INSERT INTO `jack_tag` VALUES (42, 'PHP', 1, 50, '2019-09-27 15:53:20');
+INSERT INTO `jack_tag` VALUES (43, 'PHP', 1, 50, '2019-09-27 15:53:20');
+INSERT INTO `jack_tag` VALUES (44, 'PHP', 1, 50, '2019-09-27 15:53:20');
+INSERT INTO `jack_tag` VALUES (45, 'PHP', 1, 50, '2019-09-27 15:53:20');
+INSERT INTO `jack_tag` VALUES (46, 'PHP', 1, 50, '2019-09-27 15:53:20');
+INSERT INTO `jack_tag` VALUES (47, 'PHP', 1, 50, '2019-09-27 15:53:20');
+INSERT INTO `jack_tag` VALUES (48, 'PHP', 1, 50, '2019-09-27 15:53:20');
+INSERT INTO `jack_tag` VALUES (49, 'PHP', 1, 50, '2019-09-27 15:53:20');
+INSERT INTO `jack_tag` VALUES (50, 'PHP', 1, 50, '2019-09-27 15:53:20');
+INSERT INTO `jack_tag` VALUES (51, 'PHP', 1, 50, '2019-09-27 15:53:20');
+INSERT INTO `jack_tag` VALUES (52, 'PHP', 1, 50, '2019-09-27 15:53:20');
+INSERT INTO `jack_tag` VALUES (53, 'PHP', 1, 50, '2019-09-27 15:53:20');
+INSERT INTO `jack_tag` VALUES (54, 'PHP', 1, 50, '2019-09-27 15:53:20');
+INSERT INTO `jack_tag` VALUES (55, 'PHP', 1, 50, '2019-09-27 15:53:20');
+INSERT INTO `jack_tag` VALUES (56, 'PHP', 1, 50, '2019-09-27 15:53:20');
+INSERT INTO `jack_tag` VALUES (57, 'PHP', 1, 50, '2019-09-27 15:53:20');
+INSERT INTO `jack_tag` VALUES (58, 'PHP', 1, 50, '2019-09-27 15:53:20');
+INSERT INTO `jack_tag` VALUES (59, 'PHP', 1, 50, '2019-09-27 15:53:20');
+INSERT INTO `jack_tag` VALUES (60, 'PHP', 1, 50, '2019-09-27 15:53:20');
+INSERT INTO `jack_tag` VALUES (61, 'PHP', 1, 50, '2019-09-27 15:53:20');
+INSERT INTO `jack_tag` VALUES (62, 'PHP', 1, 50, '2019-09-27 15:53:20');
+INSERT INTO `jack_tag` VALUES (63, 'PHP', 1, 50, '2019-09-27 15:53:20');
+INSERT INTO `jack_tag` VALUES (64, 'PHP', 1, 50, '2019-09-27 15:53:20');
+INSERT INTO `jack_tag` VALUES (65, 'PHP', 1, 50, '2019-09-27 15:53:20');
+INSERT INTO `jack_tag` VALUES (66, 'PHP', 1, 50, '2019-09-27 15:53:20');
+INSERT INTO `jack_tag` VALUES (67, 'PHP', 1, 50, '2019-09-27 15:53:20');
+INSERT INTO `jack_tag` VALUES (68, 'PHP', 1, 50, '2019-09-27 15:53:20');
+INSERT INTO `jack_tag` VALUES (69, 'PHP', 1, 50, '2019-09-27 15:53:20');
+INSERT INTO `jack_tag` VALUES (70, 'PHP', 1, 50, '2019-09-27 15:53:20');
+INSERT INTO `jack_tag` VALUES (71, 'PHP', 1, 50, '2019-09-27 15:53:20');
+INSERT INTO `jack_tag` VALUES (72, 'PHP', 1, 50, '2019-09-27 15:53:20');
+INSERT INTO `jack_tag` VALUES (73, 'PHP', 1, 50, '2019-09-27 15:53:20');
+INSERT INTO `jack_tag` VALUES (74, 'PHP', 1, 50, '2019-09-27 15:53:20');
+INSERT INTO `jack_tag` VALUES (75, 'PHP', 1, 50, '2019-09-27 15:53:20');
+INSERT INTO `jack_tag` VALUES (76, 'PHP', 1, 50, '2019-09-27 15:53:20');
+INSERT INTO `jack_tag` VALUES (77, 'PHP', 1, 50, '2019-09-27 15:53:20');
+INSERT INTO `jack_tag` VALUES (78, 'PHP', 1, 50, '2019-09-27 15:53:20');
+INSERT INTO `jack_tag` VALUES (79, 'PHP', 1, 50, '2019-09-27 15:53:20');
+INSERT INTO `jack_tag` VALUES (80, 'PHP', 1, 50, '2019-09-27 15:53:20');
+INSERT INTO `jack_tag` VALUES (81, 'PHP', 1, 50, '2019-09-27 15:53:20');
+INSERT INTO `jack_tag` VALUES (82, 'PHP', 1, 50, '2019-09-27 15:53:20');
+INSERT INTO `jack_tag` VALUES (83, 'PHP', 1, 50, '2019-09-27 15:53:20');
+INSERT INTO `jack_tag` VALUES (84, 'PHP', 1, 50, '2019-09-27 15:53:20');
+INSERT INTO `jack_tag` VALUES (85, 'PHP', 1, 50, '2019-09-27 15:53:20');
+INSERT INTO `jack_tag` VALUES (86, 'PHP', 1, 50, '2019-09-27 15:53:20');
+INSERT INTO `jack_tag` VALUES (87, 'PHP', 1, 50, '2019-09-27 15:53:20');
+INSERT INTO `jack_tag` VALUES (88, 'PHP', 1, 50, '2019-09-27 15:53:20');
+INSERT INTO `jack_tag` VALUES (89, 'PHP', 1, 50, '2019-09-27 15:53:20');
+INSERT INTO `jack_tag` VALUES (90, 'PHP', 1, 50, '2019-09-27 15:53:20');
+INSERT INTO `jack_tag` VALUES (91, 'PHP', 1, 50, '2019-09-27 15:53:20');
+INSERT INTO `jack_tag` VALUES (92, 'PHP', 1, 50, '2019-09-27 15:53:20');
+INSERT INTO `jack_tag` VALUES (93, 'PHP', 1, 50, '2019-09-27 15:53:20');
+INSERT INTO `jack_tag` VALUES (94, 'PHP', 1, 50, '2019-09-27 15:53:20');
+INSERT INTO `jack_tag` VALUES (95, 'PHP', 1, 50, '2019-09-27 15:53:20');
+INSERT INTO `jack_tag` VALUES (96, 'PHP', 1, 50, '2019-09-27 15:53:20');
+INSERT INTO `jack_tag` VALUES (97, 'PHP', 1, 50, '2019-09-27 15:53:20');
+INSERT INTO `jack_tag` VALUES (98, 'PHP', 1, 50, '2019-09-27 15:53:20');
+INSERT INTO `jack_tag` VALUES (99, 'PHP', 1, 50, '2019-09-27 15:53:20');
+INSERT INTO `jack_tag` VALUES (100, 'PHP', 1, 50, '2019-09-27 15:53:20');
+INSERT INTO `jack_tag` VALUES (101, 'PHP', 1, 50, '2019-09-27 15:53:20');
+INSERT INTO `jack_tag` VALUES (102, 'PHP', 1, 50, '2019-09-27 15:53:20');
+INSERT INTO `jack_tag` VALUES (103, 'PHP', 1, 50, '2019-09-27 15:53:20');
+INSERT INTO `jack_tag` VALUES (104, 'PHP', 1, 50, '2019-09-27 15:53:20');
+INSERT INTO `jack_tag` VALUES (105, 'PHP', 1, 50, '2019-09-27 15:53:20');
+INSERT INTO `jack_tag` VALUES (106, 'PHP', 1, 50, '2019-09-27 15:53:20');
+INSERT INTO `jack_tag` VALUES (107, 'PHP', 1, 50, '2019-09-27 15:53:20');
+INSERT INTO `jack_tag` VALUES (108, 'PHP', 1, 50, '2019-09-27 15:53:20');
+INSERT INTO `jack_tag` VALUES (109, 'PHP', 1, 50, '2019-09-27 15:53:20');
+INSERT INTO `jack_tag` VALUES (110, 'PHP', 1, 50, '2019-09-27 15:53:20');
+INSERT INTO `jack_tag` VALUES (111, 'PHP', 1, 50, '2019-09-27 15:53:20');
+INSERT INTO `jack_tag` VALUES (112, 'PHP', 1, 50, '2019-09-27 15:53:20');
+INSERT INTO `jack_tag` VALUES (113, 'PHP', 1, 50, '2019-09-27 15:53:20');
+INSERT INTO `jack_tag` VALUES (114, 'PHP', 1, 50, '2019-09-27 15:53:20');
+INSERT INTO `jack_tag` VALUES (115, 'PHP', 1, 50, '2019-09-27 15:53:20');
+INSERT INTO `jack_tag` VALUES (116, 'PHP', 1, 50, '2019-09-27 15:53:20');
+INSERT INTO `jack_tag` VALUES (117, 'PHP', 1, 50, '2019-09-27 15:53:20');
+INSERT INTO `jack_tag` VALUES (118, 'PHP', 1, 50, '2019-09-27 15:53:20');
+INSERT INTO `jack_tag` VALUES (119, 'PHP', 1, 50, '2019-09-27 15:53:20');
+INSERT INTO `jack_tag` VALUES (120, 'PHP', 1, 50, '2019-09-27 15:53:20');
+INSERT INTO `jack_tag` VALUES (121, 'PHP', 1, 50, '2019-09-27 15:53:20');
+INSERT INTO `jack_tag` VALUES (122, 'PHP', 1, 50, '2019-09-27 15:53:20');
+INSERT INTO `jack_tag` VALUES (123, 'PHP', 1, 50, '2019-09-27 15:53:20');
+INSERT INTO `jack_tag` VALUES (124, 'PHP', 1, 50, '2019-09-27 15:53:20');
+INSERT INTO `jack_tag` VALUES (125, 'PHP', 1, 50, '2019-09-27 15:53:20');
+INSERT INTO `jack_tag` VALUES (126, 'PHP', 1, 50, '2019-09-27 15:53:20');
+INSERT INTO `jack_tag` VALUES (127, 'PHP', 1, 50, '2019-09-27 15:53:20');
+INSERT INTO `jack_tag` VALUES (128, 'PHP', 1, 50, '2019-09-27 15:53:20');
+INSERT INTO `jack_tag` VALUES (129, 'PHP', 1, 50, '2019-09-27 15:53:20');
+INSERT INTO `jack_tag` VALUES (130, 'PHP', 1, 50, '2019-09-27 15:53:20');
+INSERT INTO `jack_tag` VALUES (131, 'PHP', 1, 50, '2019-09-27 15:53:20');
+INSERT INTO `jack_tag` VALUES (133, 'PHP', 1, 50, '2019-09-27 15:53:20');
+INSERT INTO `jack_tag` VALUES (134, 'PHP', 1, 50, '2019-09-27 15:53:20');
+INSERT INTO `jack_tag` VALUES (135, 'PHP', 1, 50, '2019-09-27 15:53:20');
+INSERT INTO `jack_tag` VALUES (136, 'PHP', 1, 50, '2019-09-27 15:53:20');
+INSERT INTO `jack_tag` VALUES (137, 'PHP', 1, 50, '2019-09-27 15:53:20');
+INSERT INTO `jack_tag` VALUES (138, 'PHP', 1, 50, '2019-09-27 15:53:20');
+INSERT INTO `jack_tag` VALUES (139, 'PHP', 1, 50, '2019-09-27 15:53:20');
+INSERT INTO `jack_tag` VALUES (140, 'PHP', 1, 50, '2019-09-27 15:53:20');
+INSERT INTO `jack_tag` VALUES (141, 'PHP', 1, 50, '2019-09-27 15:53:20');
+INSERT INTO `jack_tag` VALUES (142, 'PHP', 1, 50, '2019-09-27 15:53:20');
+INSERT INTO `jack_tag` VALUES (143, 'PHP', 1, 50, '2019-09-27 15:53:20');
+INSERT INTO `jack_tag` VALUES (144, 'PHP', 1, 50, '2019-09-27 15:53:20');
+INSERT INTO `jack_tag` VALUES (145, 'PHP', 1, 50, '2019-09-27 15:53:20');
+INSERT INTO `jack_tag` VALUES (146, 'PHP', 1, 50, '2019-09-27 15:53:20');
+INSERT INTO `jack_tag` VALUES (147, 'PHP', 1, 50, '2019-09-27 15:53:20');
 
 -- ----------------------------
 -- Table structure for tm_auth_rule
