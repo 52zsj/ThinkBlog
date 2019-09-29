@@ -11,7 +11,7 @@ define(['xadmin', 'form', 'jack.table'], function (xadmin, Form, Table) {
                     elem: '#table',
                     url: 'tag/index',//数据接口
                     title: '标签',
-                    toolbar:'#tool-bar',
+                    toolbar: '#tool-bar',
                     cols: [[ //表头
                         {type: 'checkbox', width: '5%'},
                         {field: 'id', title: 'ID'},
@@ -19,7 +19,7 @@ define(['xadmin', 'form', 'jack.table'], function (xadmin, Form, Table) {
                         {field: 'status', title: '状态'},
                         {field: 'order_key', title: '排序', edit: 'number'},
                         {field: 'create_time', title: '创建时间'},
-                        {field: 'right', title: '操作', toolbar: '#operate'},
+                        {field: 'right', title: '操作', toolbar: '#operate', fixed: 'right'},
                     ]]
                 };
                 Table.api.bindevent(option);
@@ -40,10 +40,7 @@ define(['xadmin', 'form', 'jack.table'], function (xadmin, Form, Table) {
                     Form.api.bindevent();
                 },
             },
-            events: {
-
-
-            }
+            events: {}
 
         }
     ;

@@ -111,25 +111,33 @@ define(['jquery', 'layui'], function ($, layui) {
                         layer.msg(res.msg, {icon: 5});
                     });
                 });
+                //编辑
                 table.on('toolbar(table)', function (obj) {
                     //获取选中
-                    var check_status = table.checkStatus(obj.config.id);
-                    if (check_status.isAll == true) {
-                        $('.jack-edit .jack-edit').removeClass('layui-btn-disabled');
-                    }
-                    return false;
+                    console.log(obj.event);
                     switch (obj.event) {
                         case 'add':
                             var url = options.url_list.add_url;
                             xadmin.open('添加', url);
                             break;
-                        case 'delete':
-
+                        case 'del---':
+                            console.log('del');
                             break;
-                        case 'update':
+                        case 'edit---':
+                            console.log('edit');
                             break;
                     }
                     ;
+                });
+                //状态选择
+                table.on('checkbox(table)', function (obj) {
+                    //判断当前是全选还是单选则
+                    var length = $("input[name='layTableCheckbox']:checked").length;
+                    if (length > 0) {
+                        $("#jack-edit,#jack-del").removeClass('layui-btn-disabled').attr('disabled', false);
+                    } else {
+                        $("#jack-edit,#jack-del").addClass('layui-btn-disabled').attr('disabled', true);
+                    }
                 });
 
                 return table;
