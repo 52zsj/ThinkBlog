@@ -18,9 +18,10 @@ require.config({
         'form': 'backend-form',
         'ueditor': '../other/ueditor/ueditor.all',
         'ueditor.config': '../other/ueditor/ueditor.config',
-        'ueditor.cn':'../other/ueditor/lang/zh-cn/zh-cn',
-        'zeroclipboard':'../other/ueditor/third-party/zeroclipboard/ZeroClipboard.min'
-        
+        'ueditor.cn': '../other/ueditor/lang/zh-cn/zh-cn',
+        'zeroclipboard': '../other/ueditor/third-party/zeroclipboard/ZeroClipboard.min',
+        'jack.table': 'backend-table'
+
 
     },
     included: ['css', 'toastr'],
@@ -49,7 +50,7 @@ require.config({
                 window.ZeroClipboard = ZeroClipboard;
             },
         },
-        'ueditor.cn': ['ueditor']
+        'ueditor.cn': ['ueditor'],
 
     },
     map: {
