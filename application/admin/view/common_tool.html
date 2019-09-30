@@ -14,8 +14,10 @@
 </script>
 <script type="text/html" id="status">
     {{#  if(d.status ==1){ }}
-    <span style="color: #009688;">已启用/状态为1</span>
-    {{#  } else { }}
-    <span style="color: #b13518;">已禁用/状态为0</span>
-    {{#  } }}
+    <span style="color: #009688;">已启用/显示</span>
+    {{#  } else if(d.status==0){ }}
+    <span style="color: #b13518;">已禁用/不显示</span>
+    {{#  }else{ }}
+    <span style="color: #ff00fa;">未知状态：{{d.status}}</span>
+    {{# } }}
 </script>

@@ -1,6 +1,33 @@
-define(['xadmin', 'form'], function (xadmin, Form) {
+define(['xadmin', 'form', 'jack.table'], function (xadmin, Form, Table) {
     var Controller = {
             index: function () {
+                var option = {
+                    url_list: {
+                        index_url: 'dictionary/index',
+                        add_url: 'dictionary/add',
+                        edit_url: 'dictionary/edit',
+                        del_url: 'dictionary/del',
+                    },
+                    elem: '#table',
+                    url: 'dictionary/index',//数据接口
+                    title: '相册',
+                    toolbar: '#tool-bar',
+                    cols: [[ //表头
+                        {type: 'checkbox', width: '5%'},
+                        {field: 'id', title: 'ID'},
+                        {field: 'name', title: '显示名', edit: 'text'},
+                        {field: 'en_name', title: '标识', edit: 'text'},
+                        {field: 'value', title: '值', edit: 'text'},
+                        {field: 'order_key', title: '排序', edit: 'text'},
+                        {field: 'status', title: '状态',templet: '#status'},
+                        {field: 'group', title: '分组', edit: 'text'},
+                        {field: 'create_time', title: '创建时间'},
+                        {field: 'update_time', title: '创建时间'},
+                        {field: 'right', title: '操作', toolbar: '#operate', fixed: 'right'},
+                    ]]
+                };
+                Table.api.bindevent(option);
+
                 Controller.api.bindevent();
             },
             add: function () {

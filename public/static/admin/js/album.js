@@ -1,6 +1,33 @@
-define(['xadmin'], function (xadmin) {
+define(['xadmin', 'form', 'jack.table'], function (xadmin, Form, Table) {
     var Controller = {
         index: function () {
+            var option = {
+                url_list: {
+                    index_url: 'album/index',
+                    add_url: 'album/add',
+                    edit_url: 'album/edit',
+                    del_url: 'album/del',
+                    detail_url: 'album/detail'
+                },
+                elem: '#table',
+                url: 'album/index',//数据接口
+                title: '相册',
+                toolbar: '#tool-bar',
+                size:'lg',
+                cols: [[ //表头
+                    {type: 'checkbox', width: '5%'},
+                    {field: 'id', title: 'ID'},
+                    {field: 'title', title: '标题', edit: 'text'},
+                    {field: 'description', title: '简介', edit: 'text'},
+                    {field: 'cover', title: '封面图', templet: '#cover'},
+                    {field: 'music', title: '背景音乐',templet:'#music'},
+                    {field: 'status', title: '状态', templet: '#status'},
+                    {field: 'create_time', title: '创建时间'},
+                    {field: 'update_time', title: '创建时间'},
+                    {field: 'right', title: '操作', toolbar: '#album-operate', fixed: 'right'},
+                ]]
+            };
+            Table.api.bindevent(option);
             Controller.api.bindevent();
 
         },
@@ -346,7 +373,7 @@ define(['xadmin'], function (xadmin) {
 
 
         },
-        detail:function(){
+        detail: function () {
             layui.use(['form', 'layer', 'upload', 'element'], function () {
                 $ = layui.jquery;
                 var form = layui.form,

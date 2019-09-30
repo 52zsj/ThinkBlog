@@ -29,29 +29,6 @@ class Album extends Base
         $this->savePath = $this->uploadPath . 'album' . DIRECTORY_SEPARATOR;
     }
 
-    public function index() {
-        $keywords = $this->request->param('keywords', '');
-        $this->assign('keywords', $keywords);
-        $where = [];
-        if (!empty($keywords)) {
-            $where[] = ['title|description', 'like', '%' . $keywords . '%'];
-        }
-        $row = $this->model ->where($where)->paginate(5);
-        if ($this->ossConfig['open'] == 1) {
-            $ossLogic = new OssLogic($this->ossConfig); //oss对象
-            foreach ($row as $k => &$v) {
-                $v['music_tmp'] = $ossLogic->getFileUrl($v['music']);
-                $v['cover_tmp'] = $ossLogic->getFileUrl($v['cover']);
-            }
-            unset($v);
-        }
-
-        $pages = $row->render();
-        $this->assign('page', $pages);
-        $this->assign('row', $row);
-        return $this->fetch();
-    }
-
     public function add() {
         if ($this->request->isAjax()) {
             $param = $this->request->param();
@@ -59,12 +36,12 @@ class Album extends Base
             unset($param['full_path']);
             Db::startTrans();
             try {
-                $info = $this->model ->create($param, true);
+                $info = $this->model->create($param, true);
                 $id = $info->id;
                 if (!empty($fullPath)) {
                     $fullPathArray = explode(',', $fullPath);
                     foreach ($fullPathArray as $k => $v) {
-                        $fullPathTmp['albun_id'] = $id;
+                        $fullPathTmp['album_id'] = $id;
                         $fullPathTmp['full_path'] = $v;
                         $fullPathTmp['thumb_path'] = '';
                         $fullPathList [] = $fullPathTmp;
@@ -91,7 +68,7 @@ class Album extends Base
 
     public function edit($id = '') {
 
-        $row = $this->model ->get($id);
+        $row = $this->model->get($id);
         if (!$row) {
             throw new Failure('数据已被删除');
         }
@@ -117,7 +94,7 @@ class Album extends Base
                 if (!empty($fullPath)) {
                     $fullPathArray = explode(',', $fullPath);
                     foreach ($fullPathArray as $k => $v) {
-                        $fullPathTmp['albun_id'] = $id;
+                        $fullPathTmp['album_id'] = $id;
                         $fullPathTmp['full_path'] = $v;
                         $fullPathTmp['thumb_path'] = '';
                         $fullPathList [] = $fullPathTmp;
@@ -146,7 +123,7 @@ class Album extends Base
     }
 
     public function detail($id = '') {
-        $row = AlbumItemModel::where('albun_id', $id)->select();
+        $row = AlbumItemModel::where('album_id', $id)->select();
         if (!$row) {
             throw new Failure('数据已被删除');
         }

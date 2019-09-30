@@ -68,7 +68,7 @@ INSERT INTO `jack_album` VALUES (1, '全新后台JS测试', '全新后台JS测�
 DROP TABLE IF EXISTS `jack_album_item`;
 CREATE TABLE `jack_album_item`  (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '图片ID',
-  `albun_id` int(11) NOT NULL COMMENT '相册ID',
+  `album_id` int(11) NOT NULL COMMENT '相册ID',
   `thumb_path` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '缩略图路径',
   `full_path` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '原始图路径',
   `name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '文件名',

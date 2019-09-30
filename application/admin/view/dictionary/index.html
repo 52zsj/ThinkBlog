@@ -26,69 +26,12 @@
     <div class="layui-row layui-col-space15">
         <div class="layui-col-md12">
             <div class="layui-card">
-                <div class="layui-card-body ">
-                    <a class="layui-btn layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right"
-                       onclick="location.reload()" title="刷新">
-                        <i class="layui-icon layui-icon-refresh" style="line-height:30px"></i></a>
-                    <form class="layui-form layui-col-space5">
-                        <div class="layui-inline layui-show-xs-block">
-                            <input type="text" name="keywords" value="" placeholder="请输入标题|简介" autocomplete="off"
-                                   class="layui-input">
-                        </div>
-                        <div class="layui-inline layui-show-xs-block">
-                            <button class="layui-btn" lay-submit="" lay-filter="sreach">
-                                <i class="layui-icon">&#xe615;</i></button>
-                        </div>
-                    </form>
-                </div>
-                <div class="layui-card-header">
-                    <button class="layui-btn" onclick="xadmin.open('添加相册','{:url(\'add\')}')"><i
-                            class="layui-icon"></i>添加
-                    </button>
-                </div>
+
+
                 <div class="layui-card-body">
-                    <table class="layui-table layui-form"  style="table-layout: fixed" >
-                        <tr>
-                            <th>ID</th>
-                            <th>所属分组</th>
-                            <th>中文</th>
-                            <th>英文</th>
-                            <th>值</th>
-                            <th>操作</th>
-                        </tr>
-                        {empty name="$row"}
-                        <tr>
-                            <td colspan="7" style=" text-align:center;">
-                                暂无数据
-                            </td>
-                        </tr>
-                        {else /}
-                        {foreach name="$row" id="item"}
-                        <tr>
-                            <td>{$item.id}</td>
-                            <td>{$item.group}</td>
-                            <td>{$item.name}</td>
-                            <td>{$item.en_name}</td>
-                            <td class="nowarp" title="{$item.value}">{$item.value}</td>
-                            <td class="td-manage">
-                                <a title="编辑" onclick="xadmin.open('编辑','{:url(\'edit\',[\'id\'=>$item.id])}')"
-                                   href="javascript:;">
-                                    <i class="layui-icon">&#xe642;</i>
-                                </a>
-                                <a title="删除" class="del-data" data-url="{:url('del')}" data-id="{:$item.id}"
-                                   href="javascript:;"><i class="layui-icon">&#xe640;</i>
-                                </a>
-                            </td>
-                        </tr>
-                        {/foreach}
-                        {/empty}
-                    </table>
+                    <table id="table" class="layui-hide" lay-filter="table"></table>
                 </div>
-                <div class="layui-card-body ">
-                    <div class="page">
-                        {:$page;}
-                    </div>
-                </div>
+
             </div>
         </div>
     </div>

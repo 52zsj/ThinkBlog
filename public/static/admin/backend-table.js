@@ -53,7 +53,8 @@ define(['jquery', 'layui'], function ($, layui) {
                 var options = Table.merage_config(defaults);
                 table.render(options);
                 //编辑删除等吧
-                table.on('tool(table)', function (obj) {
+                console.log(options.id);
+                table.on('tool('+options.id+')', function (obj) {
                     var event = obj.event;
                     var id = obj.data.id;
                     switch (event) {
@@ -100,7 +101,7 @@ define(['jquery', 'layui'], function ($, layui) {
                     }
                 });
                 //行内编辑
-                table.on('edit(table)', function (obj) {
+                table.on('edit('+options.id+')', function (obj) {
                     var value = obj.value, //得到修改后的值
                         id = obj.data.id,
                         field = obj.field; //得到字段
@@ -112,7 +113,7 @@ define(['jquery', 'layui'], function ($, layui) {
                     });
                 });
                 //左侧toolbar
-                table.on('toolbar(table)', function (obj) {
+                table.on('toolbar('+options.id+')', function (obj) {
                     //获取选中
                     var check_status = table.checkStatus(obj.config.id);
                     var ids = Table.events.get_select_ids(check_status.data, options.pk);
@@ -157,7 +158,7 @@ define(['jquery', 'layui'], function ($, layui) {
                     }
                 });
                 //状态选择
-                table.on('checkbox(table)', function (obj) {
+                table.on('checkbox('+options.id+')', function (obj) {
                     //判断当前是全选还是单选则
                     var length = $("input[name='layTableCheckbox']:checked").length;
                     if (length > 0) {
