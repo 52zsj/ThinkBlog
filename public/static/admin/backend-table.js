@@ -9,6 +9,12 @@ define(['jquery', 'layui'], function ($, layui) {
                 del_url: '',
                 detail_url: '',
             },
+            treeColIndex: 2,          // 树形图标显示在第几列
+            treeSpid: 0,             // 最上级的父级id
+            treeIdName: 'id',       // id字段的名称
+            treePidName: 'pid',     // pid字段的名称
+            treeDefaultClose: true,   // 是否默认折叠
+            treeLinkage: true,        // 父级展开时是否自动展开所有子级
             pk: 'id',
             elem: '#table',
             url: '',
@@ -33,7 +39,7 @@ define(['jquery', 'layui'], function ($, layui) {
             cols: [],
             even: true,
             size: '',
-
+            is_tree: false,
             done: function (res, curr, count) {
                 //如果是异步请求数据方式，res即为你接口返回的信息。
                 //如果是直接赋值的方式，res即为：{data: [], count: 99} data为当前页数据、count为数据总长度
@@ -50,11 +56,24 @@ define(['jquery', 'layui'], function ($, layui) {
         api: {
             bindevent: function (defaults) {
                 var table = Table.init();
+                var tree_table;
                 var options = Table.merage_config(defaults);
-                table.render(options);
+                if (options.is_tree == true) {
+                    layui.config({
+                        base: '../static/other/module/' //你存放新模块的目录，注意，不是layui的模块目录
+                    }).extend({
+                        treetable: 'treetable-lay/treetable',
+                    }).use('treetable', function () {
+                        tree_table = layui.treetable;
+                        tree_table.render(options);
+                    });
+                } else {
+                    table.render(options);
+                }
+
                 //编辑删除等吧
                 console.log(options.id);
-                table.on('tool('+options.id+')', function (obj) {
+                table.on('tool(' + options.id + ')', function (obj) {
                     var event = obj.event;
                     var id = obj.data.id;
                     switch (event) {
@@ -101,7 +120,7 @@ define(['jquery', 'layui'], function ($, layui) {
                     }
                 });
                 //行内编辑
-                table.on('edit('+options.id+')', function (obj) {
+                table.on('edit(' + options.id + ')', function (obj) {
                     var value = obj.value, //得到修改后的值
                         id = obj.data.id,
                         field = obj.field; //得到字段
@@ -113,7 +132,7 @@ define(['jquery', 'layui'], function ($, layui) {
                     });
                 });
                 //左侧toolbar
-                table.on('toolbar('+options.id+')', function (obj) {
+                table.on('toolbar(' + options.id + ')', function (obj) {
                     //获取选中
                     var check_status = table.checkStatus(obj.config.id);
                     var ids = Table.events.get_select_ids(check_status.data, options.pk);
@@ -158,7 +177,7 @@ define(['jquery', 'layui'], function ($, layui) {
                     }
                 });
                 //状态选择
-                table.on('checkbox('+options.id+')', function (obj) {
+                table.on('checkbox(' + options.id + ')', function (obj) {
                     //判断当前是全选还是单选则
                     var length = $("input[name='layTableCheckbox']:checked").length;
                     if (length > 0) {

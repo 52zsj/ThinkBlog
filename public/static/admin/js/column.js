@@ -1,11 +1,31 @@
-define(['xadmin', 'form'], function (xadmin, Form) {
+define(['xadmin', 'form', 'jack.table'], function (xadmin, Form, Table) {
     var Controller = {
             index: function () {
                 Controller.api.bindevent();
-                var cateIds = [];
-                $("tbody.x-cate tr[fid!='0']").hide();
-                // 栏目多级显示效果
-                Controller.events.show_change();
+
+                var option = {
+                    url_list: {
+                        index_url: 'column/index',
+                        add_url: 'column/add',
+                        edit_url: 'column/edit',
+                        del_url: 'column/del',
+                    },
+                    elem: '#table',
+                    url: 'column/index',//数据接口
+                    is_tree: true,
+                    title: '分类',
+                    toolbar: '#tool-bar',
+                    page: false,
+                    cols: [[ //表头
+                        {type: 'checkbox', width: '5%'},
+                        {field: 'id', title: 'ID'},
+                        {field: 'name', title: '名称',edit:'text'},
+                        {field: 'status', title: '状态', toolbar: '#status'},
+                        {field: 'order_key', title: '排序', edit: 'text'},
+                        {field: 'right', title: '操作', toolbar: '#operate', fixed: 'right'},
+                    ]]
+                };
+                Table.api.bindevent(option);
             },
             add: function () {
                 Controller.api.bindevent();
@@ -20,35 +40,7 @@ define(['xadmin', 'form'], function (xadmin, Form) {
                     Form.api.bindevent();
                 },
             },
-            events: {
-                //列表页数显示树状
-                get_cate_id: function (cateIds = [], cateId) {
-                    $("tbody tr[fid=" + cateId + "]").each(function (index, el) {
-                        id = $(el).attr('cate-id');
-                        cateIds.push(id);
-                        Controller.events.get_cate_id(cateIds, id);
-                    });
-                },
-                show_change: function () {
-                    $('.x-show').click(function () {
-                        if ($(this).attr('status') == 'true') {
-                            $(this).html('&#xe625;');
-                            $(this).attr('status', 'false');
-                            cateId = $(this).parents('tr').attr('cate-id');
-                            $("tbody tr[fid=" + cateId + "]").show();
-                        } else {
-                            cateIds = [];
-                            $(this).html('&#xe623;');
-                            $(this).attr('status', 'true');
-                            cateId = $(this).parents('tr').attr('cate-id');
-                            Controller.events.get_cate_id(cateIds, cateId);
-                            for (var i in cateIds) {
-                                $("tbody tr[cate-id=" + cateIds[i] + "]").hide().find('.x-show').html('&#xe623;').attr('status', 'true');
-                            }
-                        }
-                    });
-                }
-            }
+            events: {}
 
         }
     ;
