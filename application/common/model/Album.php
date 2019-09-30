@@ -9,6 +9,6 @@ class Album extends Base
     protected $autoWriteTimestamp = 'datetime';
 
     public function item() {
-        return $this->hasMany('AlbumItem','albun_id','id');
+        return $this->hasMany('AlbumItem','album_id','id');
     }
 }
