@@ -25,7 +25,7 @@ define(['jquery', 'layui'], function ($, layui) {
             },
             loading: true,
             title: '',
-            text: '',
+            text: {'none': '暂无数据', 'error': '数据异常'},
             autoSort: true,
             initSort: '',
             id: 'table',
@@ -37,13 +37,13 @@ define(['jquery', 'layui'], function ($, layui) {
             done: function (res, curr, count) {
                 //如果是异步请求数据方式，res即为你接口返回的信息。
                 //如果是直接赋值的方式，res即为：{data: [], count: 99} data为当前页数据、count为数据总长度
+                console.log('----------表格回调开始----------');
                 console.log(res);
-
                 //得到当前页码
-                console.log(curr);
-
+                console.log('当前页码：' + curr);
                 //得到数据总量
-                console.log(count);
+                console.log('总数据量:' + count);
+                console.log('----------表格回调结束----------');
             }
         },
         //字段列表
@@ -111,23 +111,50 @@ define(['jquery', 'layui'], function ($, layui) {
                         layer.msg(res.msg, {icon: 5});
                     });
                 });
-                //编辑
+                //左侧toolbar
                 table.on('toolbar(table)', function (obj) {
                     //获取选中
-                    console.log(obj.event);
+                    var check_status = table.checkStatus(obj.config.id);
+                    var ids = Table.events.get_select_ids(check_status.data, options.pk);
                     switch (obj.event) {
                         case 'add':
-                            var url = options.url_list.add_url;
-                            xadmin.open('添加', url);
+                            xadmin.open('添加', options.url_list.add_url);
                             break;
-                        case 'del---':
-                            console.log('del');
+                        case 'del':
+                            layer.confirm('确认要删除选中项目吗？', function (index) {
+                                lucklyJack.api.ajax({
+                                    type: 'POST',
+                                    url: options.url_list.del_url,
+                                    data: {id: ids},
+                                    dataType: 'JSON'
+                                }, false, function (data, res) {
+                                    layer.msg(res.msg, {icon: 6}, function () {
+                                        if (res.jump_url != '') {
+                                            window.location.href = res.jump_url;
+                                        }
+                                        //关闭当前frame
+                                        xadmin.close();
+                                        table.reload('table', {
+                                            page: {
+                                                curr: 1 //重新从第 1 页开始
+                                            }
+                                        });
+                                    });
+                                }, function (data, res) {
+                                    layer.msg(res.msg, {shift: -1, icon: 5}, function () {
+                                        if (res.jump_url != '') {
+                                            window.location.href = res.jump_url;
+                                        }
+                                    });
+                                    return false;
+                                });
+                                return false;
+
+                            });
                             break;
-                        case 'edit---':
-                            console.log('edit');
+                        default:
                             break;
                     }
-                    ;
                 });
                 //状态选择
                 table.on('checkbox(table)', function (obj) {
@@ -139,8 +166,16 @@ define(['jquery', 'layui'], function ($, layui) {
                         $("#jack-edit,#jack-del").addClass('layui-btn-disabled').attr('disabled', true);
                     }
                 });
-
                 return table;
+            }
+        },
+        events: {
+            get_select_ids: function (data = [], pk) {
+                var pks = [];
+                $.each(data, function (k, v) {
+                    pks.push(v[pk]);
+                })
+                return pks;
             }
         },
         merage_config: function (defaults) {
@@ -155,6 +190,7 @@ define(['jquery', 'layui'], function ($, layui) {
             });
             return table;
         }
+
     };
     return Table;
 

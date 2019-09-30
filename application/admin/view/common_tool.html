@@ -6,8 +6,16 @@
 <script type="text/html" id="tool-bar">
     <div class="layui-btn-container">
         <button class="layui-btn layui-btn-sm" id="jack-add" lay-event="add">添加</button>
-        <button class="layui-btn layui-btn-sm layui-btn-disabled" id="jack-edit" disabled lay-event="edit">编辑</button>
-        <button class="layui-btn layui-btn-sm layui-btn-danger layui-btn-disabled " id="jack-del" disabled lay-event="del">删除
+        <!--  <button class="layui-btn layui-btn-sm layui-btn-disabled" id="jack-edit" disabled lay-event="edit">编辑</button>-->
+        <button class="layui-btn layui-btn-sm layui-btn-danger layui-btn-disabled " id="jack-del" disabled
+                lay-event="del">删除
         </button>
     </div>
+</script>
+<script type="text/html" id="status">
+    {{#  if(d.status ==1){ }}
+    <span style="color: #009688;">已启用/状态为1</span>
+    {{#  } else { }}
+    <span style="color: #b13518;">已禁用/状态为0</span>
+    {{#  } }}
 </script>
