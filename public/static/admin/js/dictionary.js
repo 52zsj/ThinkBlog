@@ -10,7 +10,7 @@ define(['xadmin', 'form', 'jack.table'], function (xadmin, Form, Table) {
                     },
                     elem: '#table',
                     url: 'dictionary/index',//数据接口
-                    title: '相册',
+                    title: '字典',
                     toolbar: '#tool-bar',
                     cols: [[ //表头
                         {type: 'checkbox', width: '5%'},

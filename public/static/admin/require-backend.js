@@ -13,7 +13,6 @@ require.config({
         'lucklyJack': '../common/js/luckly-jack',
         'layui': '../libs/layui/dist/layui.all',
         'template': '../libs/art-template/lib/template-web',
-        'photor': '../libs/photor/dist/photor',
         'xadmin': 'js/xadmin',
         'form': 'backend-form',
         'ueditor': '../other/ueditor/ueditor.all',
@@ -39,7 +38,6 @@ require.config({
         'scrollreveal': {exports: 'scrollreveal'},
         'hcsticky': {exports: '$.fn.hcsticky'},
         'toastr': ['css!../libs/toastr/toastr.min.css'],
-        'photor': {deps: ['css!../libs/photor/dist/photor.min.css', 'jquery'], exports: "photor"},
         'albumplugin': {exports: "albumplugin"},
         'xadmin': {deps: ['jquery', 'layui'], exports: "xadmin"},
         'ueditor': {

@@ -46,6 +46,10 @@ define(['jquery', 'layui'], function ($, layui) {
                     });
                 }
 
+            },
+            //selectpage
+            selectpage:function () {
+
             }
         },
 

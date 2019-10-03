@@ -21,7 +21,7 @@ define(['jquery', 'layui'], function ($, layui) {
             toolbar: true,
             width: '',
             height: '',
-            cellMinWidth: '60',
+            cellMinWidth: 80,
             page: {
                 layout: ['limit', 'count', 'prev', 'page', 'next', 'skip'],
                 first: false,

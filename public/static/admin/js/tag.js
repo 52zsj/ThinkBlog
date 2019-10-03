@@ -16,7 +16,7 @@ define(['xadmin', 'form', 'jack.table'], function (xadmin, Form, Table) {
                         {type: 'checkbox', width: '5%'},
                         {field: 'id', title: 'ID'},
                         {field: 'name', title: '名称', edit: 'text'},
-                        {field: 'status', title: '状态',templet: '#status'},
+                        {field: 'status', title: '状态', templet: '#status'},
                         {field: 'order_key', title: '排序', edit: 'number'},
                         {field: 'create_time', title: '创建时间'},
                         {field: 'right', title: '操作', toolbar: '#operate', fixed: 'right'},

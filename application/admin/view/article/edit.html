@@ -1,0 +1,83 @@
+{include file='/common/header'/}
+{block name='content'}
+<div class="layui-fluid">
+    <div class="layui-row">
+        <form class="layui-form">
+            <div class="layui-form-item">
+                <label for="column_id" class="layui-form-label">
+                    <span class="x-red">*</span>所属分类
+                </label>
+                <div class="layui-input-inline">
+                    <select name="column_id" id="column_id" lay-verify="required">
+                        <option value="">--请选择--</option>
+                        {foreach $column_tree_list as $k=>$v}
+                        <option value="{$v.id}" {if $row.column_id== $v.id}selected {/if}>{$v.name|raw}</option>
+                        {/foreach}
+                    </select>
+                </div>
+                <div class="layui-form-mid layui-word-aux">
+                    <span class="x-red">*</span>
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <label for="user_name" class="layui-form-label">
+                    <span class="x-red">*</span>文章标题
+                </label>
+                <div class="layui-input-inline">
+                    <input type="text" id="title" name="title" lay-verify="required" autocomplete="off"
+                           class="layui-input">
+                </div>
+                <div class="layui-form-mid layui-word-aux">
+                    <span class="x-red">*</span>文章的标题啦
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label for="cover-upload" class="layui-form-label">
+                    <span class="x-red"></span>文章封面
+                </label>
+                <div class="layui-upload">
+                    <div class="layui-upload-list">
+                        <div>
+                            <img class="layui-upload-img" src="__ADMIN_IMAGES__/no_img.jpg" id="cover-upload">
+                            <span id="cover-text"></span>
+                        </div>
+                    </div>
+                    <input type="hidden" name="cover" value="" id="cover">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label for="tag_ids" class="layui-form-label">
+                    <span class="x-red">*</span>标签
+                </label>
+                <div class="layui-input-inline">
+                    <input type="text" id="tag_ids" name="tag_ids" lay-verify="required" autocomplete="off"  class="layui-input">
+                </div>
+                <div class="layui-form-mid layui-word-aux">
+                    <span class="x-red">*</span>
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <label for="content" class="layui-form-label">
+                    <span class="x-red"></span>文章内容
+                </label>
+                <div class="layui-input-block">
+                    <textarea name="content" id="content" class="myeditor" cols="30" rows="10"></textarea>
+                </div>
+                <div class="layui-form-mid layui-word-aux">
+                    <span class="x-red">*</span>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label for="add" class="layui-form-label">
+                </label>
+                <button class="layui-btn" lay-filter="submit" lay-submit="">
+                    增加
+                </button>
+            </div>
+
+        </form>
+    </div>
+</div>
+{/block}
