@@ -122,15 +122,28 @@
             </div>
 
             <div class="layui-form-item">
+            <label for="user_name" class="layui-form-label">
+                <span class="x-red">*</span>文章标题
+            </label>
+            <div class="layui-input-inline">
+                <input type="text" id="title" name="title" lay-verify="required" autocomplete="off"
+                       class="layui-input">
+            </div>
+            <div class="layui-form-mid layui-word-aux">
+                <span class="x-red">*</span>文章的标题啦
+            </div>
+        </div>
+
+            <div class="layui-form-item">
                 <label for="user_name" class="layui-form-label">
-                    <span class="x-red">*</span>文章标题
+                    <span class="x-red">*</span>作者
                 </label>
                 <div class="layui-input-inline">
-                    <input type="text" id="title" name="title" lay-verify="required" autocomplete="off"
+                    <input type="text" id="author" name="author" lay-verify="required" autocomplete="off"
                            class="layui-input">
                 </div>
                 <div class="layui-form-mid layui-word-aux">
-                    <span class="x-red">*</span>文章的标题啦
+                    <span class="x-red">*</span>作者或者来源
                 </div>
             </div>
             <!--标签-->
@@ -161,6 +174,7 @@
                     </div>
                 </div>
             </div>
+            <!--标签结束-->
             <div class="layui-form-item">
                 <label for="cover-upload" class="layui-form-label">
                     <span class="x-red"></span>文章封面
@@ -183,6 +197,16 @@
                 </label>
                 <div class="layui-input-block">
                     <textarea name="content" id="content" class="myeditor" cols="30" rows="10"></textarea>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">发布/启用</label>
+                <div class="layui-input-block">
+                    <input type="radio" name="status" title="是" value="1">
+                    <input type="radio" name="status" title="否" value="0" checked>
+                </div>
+                <div class="layui-form-mid layui-word-aux">
+                    <span class="x-red"></span>
                 </div>
             </div>
             <div class="layui-form-item">

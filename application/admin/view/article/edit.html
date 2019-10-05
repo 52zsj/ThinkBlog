@@ -1,8 +1,109 @@
 {include file='/common/header'/}
+{block name='css'}
+<style type="text/css">
+    body {
+        padding: 0;
+        margin: 0;
+        color: #444;
+        background: #f2f2f2;
+    }
+
+    * {
+        padding: 0;
+        margin: 0;
+        border: 0;
+        list-style: none;
+        text-decoration: none;
+    }
+
+    .wrap {
+        width: 50%;
+        max-width: 600px;
+        margin: 0 auto;
+    }
+
+    .label-selected {
+        width: 100%;
+        min-height: 38px;
+        margin: 10px 0;
+        border: 1px solid #ccc;
+        background-color: #fff;
+    }
+
+
+    .label-selected li {
+        display: inline-block;
+        height: 27px;
+        line-height: 27px;
+        font-size: .8rem;
+        padding: 0 1rem;
+        border: 1px solid #e6e6e6;
+        border-radius: 2px;
+        cursor: pointer;
+        margin: 4px 2px;
+        color: #666;
+    }
+
+    #label-item {
+        margin-bottom: 10px;
+        display: none;
+    }
+
+    .label-item {
+        border: 1px solid #e6e6e6;
+        padding: 10px;
+        border-radius: 0 2px 2px 0;
+        position: relative;
+        overflow: hidden;
+        background: #fff;
+        min-height: 38px;
+    }
+
+    .label-item li {
+        display: inline-block;
+        height: 27px;
+        line-height: 27px;
+        font-size: .8rem;
+        padding: 0 1rem;
+        border: 1px solid #e6e6e6;
+        border-radius: 2px;
+        cursor: pointer;
+        margin-bottom: 5px;
+        margin-left: 2px;
+        color: #666;
+    }
+
+    .label-item .selected {
+        color: #ccc;
+    }
+
+    .a-style {
+        float: right;
+        margin: 4px;
+        line-height: 30px;
+    }
+
+    .enter-input {
+        width: 100%;
+        min-height: 36px;
+        margin-top: -8px;
+        margin-bottom: 2px;
+        padding: 1px
+    }
+
+    .replace-lable {
+        position: absolute;
+        right: 1rem;
+        bottom: .75rem;
+        color: #1994dc
+    }
+</style>
+{/block}
+
 {block name='content'}
 <div class="layui-fluid">
     <div class="layui-row">
-        <form class="layui-form">
+        <form class="layui-form" >
             <div class="layui-form-item">
                 <label for="column_id" class="layui-form-label">
                     <span class="x-red">*</span>所属分类
@@ -11,7 +112,7 @@
                     <select name="column_id" id="column_id" lay-verify="required">
                         <option value="">--请选择--</option>
                         {foreach $column_tree_list as $k=>$v}
-                        <option value="{$v.id}" {if $row.column_id== $v.id}selected {/if}>{$v.name|raw}</option>
+                        <option value="{$v.id}" {if $v.id==$row.column_id} selected {/if}>{$v.name|raw}</option>
                         {/foreach}
                     </select>
                 </div>
@@ -25,13 +126,56 @@
                     <span class="x-red">*</span>文章标题
                 </label>
                 <div class="layui-input-inline">
-                    <input type="text" id="title" name="title" lay-verify="required" autocomplete="off"
-                           class="layui-input">
+                    <input type="text" id="title" name="title" lay-verify="required" autocomplete="off" class="layui-input" value="{$row.title}">
                 </div>
                 <div class="layui-form-mid layui-word-aux">
                     <span class="x-red">*</span>文章的标题啦
                 </div>
             </div>
+            <div class="layui-form-item">
+                <label for="user_name" class="layui-form-label">
+                    <span class="x-red">*</span>作者
+                </label>
+                <div class="layui-input-inline">
+                    <input type="text" id="author" name="author" lay-verify="required" autocomplete="off"
+                          value="{$row.author}" class="layui-input">
+                </div>
+                <div class="layui-form-mid layui-word-aux">
+                    <span class="x-red">*</span>作者或者来源
+                </div>
+            </div>
+            <!--标签-->
+            <div class="layui-form-item">
+                <label class="layui-form-label">
+                    <span class="x-red">*</span>文章标签
+                </label>
+                <div class="layui-input-block wrap">
+                    <div class="label-selected">
+                        <a href="javascript:;" style="display: block"
+                           class="layui-btn layui-btn-sm show-labelitem a-style">展开标签库 </a>
+                        <a href="javascript:;" style=" display: none"
+                           class="layui-btn layui-btn-sm hide-labelitem a-style"
+                        >收起标签库 </a>
+                        <input type="hidden" id="hidden-val" name="tag_ids" value="{$row.tag_ids}">
+                        <ul id="label-selected-ul">
+                            <!--这里存放值-->
+                            {foreach $tag as $k=>$v}
+                            <li data="{$k}">x {$v}</li>
+                            {/foreach}
+                        </ul>
+                    </div>
+                    <input type="text" class="enter-input" placeholder="输入后回车添加">
+                    <div class="layui-col-md12" id="label-item">
+                        <div class="label-item">
+                            <a href="javascript:;" class="replace-lable" onselectstart="return false">换一批</a>
+                            <ul id="label-item-ul">
+
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--标签结束-->
             <div class="layui-form-item">
                 <label for="cover-upload" class="layui-form-label">
                     <span class="x-red"></span>文章封面
@@ -43,37 +187,34 @@
                             <span id="cover-text"></span>
                         </div>
                     </div>
-                    <input type="hidden" name="cover" value="" id="cover">
+                    <input type="hidden" name="cover" value="{$row.cover}" id="cover">
                 </div>
             </div>
-            <div class="layui-form-item">
-                <label for="tag_ids" class="layui-form-label">
-                    <span class="x-red">*</span>标签
-                </label>
-                <div class="layui-input-inline">
-                    <input type="text" id="tag_ids" name="tag_ids" lay-verify="required" autocomplete="off"  class="layui-input">
-                </div>
-                <div class="layui-form-mid layui-word-aux">
-                    <span class="x-red">*</span>
-                </div>
-            </div>
+
 
             <div class="layui-form-item">
                 <label for="content" class="layui-form-label">
                     <span class="x-red"></span>文章内容
                 </label>
                 <div class="layui-input-block">
-                    <textarea name="content" id="content" class="myeditor" cols="30" rows="10"></textarea>
+                    <textarea name="content" id="content" class="myeditor" cols="30" rows="10">{:$row.content}</textarea>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">发布/启用</label>
+                <div class="layui-input-block">
+                    <input type="radio" name="status" title="是" value="1" {if $row.status==1} checked {/if}>
+                    <input type="radio" name="status" title="否" value="0" {if $row.status==0} checked {/if}>
                 </div>
                 <div class="layui-form-mid layui-word-aux">
-                    <span class="x-red">*</span>
+                    <span class="x-red"></span>
                 </div>
             </div>
             <div class="layui-form-item">
                 <label for="add" class="layui-form-label">
                 </label>
-                <button class="layui-btn" lay-filter="submit" lay-submit="">
-                    增加
+                <button class="layui-btn" type="button" lay-filter="submit" lay-submit="">
+                    编辑
                 </button>
             </div>
 

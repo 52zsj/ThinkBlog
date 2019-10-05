@@ -8,4 +8,5 @@ class Article extends Base
 {
     protected $name='article';
     protected $autoWriteTimestamp = 'datetime';
+
 }

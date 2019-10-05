@@ -18,7 +18,7 @@ define(['xadmin', 'form', 'jack.table'], function (xadmin, Form, Table) {
                         {field: 'title', title: '标题', edit: 'text'},
                         {field: 'author', title: '作者', edit: 'text'},
                         {field: 'status', title: '状态', templet: '#status'},
-                        {field: 'conver', title: '缩略图'},
+                        {field: 'cover', title: '缩略图'},
                         {field: 'create_time', title: '创建时间'},
                         {field: 'right', title: '操作', toolbar: '#operate', fixed: 'right'},
                     ]]
@@ -113,14 +113,6 @@ define(['xadmin', 'form', 'jack.table'], function (xadmin, Form, Table) {
                     $(".replace-lable").on("click", function () {
                         Controller.events.get_tag();
                     });
-                    //获取标签
-                    $("#cell").on("click", function () {
-                        if ($("input[name='label']").val() == "") {
-                            return false;
-                        } else {
-                            layer.msg("标签内容为：" + $("input[name='label']").val());
-                        }
-                    })
                     //新增标签
                     $(".enter-input").on('keyup', function (event) {
                         console.log(event);
