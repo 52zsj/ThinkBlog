@@ -30,16 +30,6 @@
         background-color: #fff;
     }
 
-    .cell {
-        display: block;
-        width: 90px;
-        height: 28px;
-        line-height: 28px;
-        border: 3px;
-        background: #009688;
-        color: #fff;
-        text-align: center;
-    }
 
     .label-selected li {
         display: inline-block;
@@ -54,7 +44,7 @@
         color: #666;
     }
 
-    #labelItem {
+    #label-item {
         margin-bottom: 10px;
         display: none;
     }
@@ -66,6 +56,7 @@
         position: relative;
         overflow: hidden;
         background: #fff;
+        min-height: 38px;
     }
 
     .label-item li {
@@ -85,13 +76,34 @@
     .label-item .selected {
         color: #ccc;
     }
+
+    .a-style {
+        float: right;
+        margin: 4px;
+        line-height: 30px;
+    }
+
+    .enter-input {
+        width: 100%;
+        min-height: 36px;
+        margin-top: -8px;
+        margin-bottom: 2px;
+        padding: 1px
+    }
+
+    .replace-lable {
+        position: absolute;
+        right: 1rem;
+        bottom: .75rem;
+        color: #1994dc
+    }
 </style>
 {/block}
 
 {block name='content'}
 <div class="layui-fluid">
     <div class="layui-row">
-        <form class="layui-form">
+        <form class="layui-form" >
             <div class="layui-form-item">
                 <label for="column_id" class="layui-form-label">
                     <span class="x-red">*</span>所属分类
@@ -121,18 +133,32 @@
                     <span class="x-red">*</span>文章的标题啦
                 </div>
             </div>
+            <!--标签-->
             <div class="layui-form-item">
-                <label for="" class="layui-form-label">
-                    <span class="x-red">*</span>标签
+                <label class="layui-form-label">
+                    <span class="x-red">*</span>文章标签
                 </label>
+                <div class="layui-input-block wrap">
+                    <div class="label-selected">
+                        <a href="javascript:;" style="display: block"
+                           class="layui-btn layui-btn-sm show-labelitem a-style">展开标签库 </a>
+                        <a href="javascript:;" style=" display: none"
+                           class="layui-btn layui-btn-sm hide-labelitem a-style"
+                        >收起标签库 </a>
+                        <input type="hidden" id="hidden-val" name="tag_ids">
+                        <ul id="label-selected-ul">
+                            <!--这里存放值-->
+                        </ul>
+                    </div>
+                    <input type="text" class="enter-input" placeholder="输入后回车添加">
+                    <div class="layui-col-md12" id="label-item">
+                        <div class="label-item">
+                            <a href="javascript:;" class="replace-lable" onselectstart="return false">换一批</a>
+                            <ul id="label-item-ul">
 
-                <div class="layui-input-inline">
-                    <ul id="myTags">
-
-                    </ul>
-                </div>
-                <div class="layui-form-mid layui-word-aux">
-                    <span class="x-red">*</span>标签
+                            </ul>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="layui-form-item">
@@ -162,7 +188,7 @@
             <div class="layui-form-item">
                 <label for="add" class="layui-form-label">
                 </label>
-                <button class="layui-btn" lay-filter="submit" lay-submit="">
+                <button class="layui-btn" type="button" lay-filter="submit" lay-submit="">
                     增加
                 </button>
             </div>

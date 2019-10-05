@@ -40,8 +40,9 @@ trait Backend
         if ($this->request->isAjax()) {
             $params = $this->request->param();
             $result = $this->model->allowField(true)->save($params);
+            $pk = $this->model->getpk();
             if ($result) {
-                throw new Success('添加成功');
+                throw new Success('添加成功',$this->model->$pk);
             } else {
                 throw new Failure('添加失败');
             }
