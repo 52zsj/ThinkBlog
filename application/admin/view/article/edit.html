@@ -97,6 +97,11 @@
         bottom: .75rem;
         color: #1994dc
     }
+    .layui-upload-img {
+        width: 92px;
+        height: 92px;
+        margin: 0 10px 10px 0;
+    }
 </style>
 {/block}
 
@@ -183,7 +188,7 @@
                 <div class="layui-upload">
                     <div class="layui-upload-list">
                         <div>
-                            <img class="layui-upload-img" src="__ADMIN_IMAGES__/no_img.jpg" id="cover-upload">
+                            <img class="layui-upload-img" src="{if $row.cover}\{$row.cover}{else/}__ADMIN_IMAGES__/no_img.jpg{/if}" id="cover-upload">
                             <span id="cover-text"></span>
                         </div>
                     </div>
@@ -214,7 +219,7 @@
                 <label for="add" class="layui-form-label">
                 </label>
                 <button class="layui-btn" type="button" lay-filter="submit" lay-submit="">
-                    编辑
+                   提交
                 </button>
             </div>
 

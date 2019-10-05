@@ -27,12 +27,111 @@ define(['xadmin', 'form', 'jack.table'], function (xadmin, Form, Table) {
                 Controller.api.bindevent();
             },
             add: function () {
+                layui.use(['upload'], function () {
+                    var upload = layui.upload,
+                        url = "/admin/article/fileUpload";
+                    var base64_result;
+                    //封面上传
+                    var uploadInst = upload.render({
+                        elem: '#cover-upload'
+                        , url: url
+                        , multiple: false
+                        , number: 1
+                        , accept: 'images'
+                        , acceptMime: 'image/*'
+                        , before: function (obj) {
+                            //预读本地文件示例，不支持ie8
+                            console.log(obj);
+                            obj.preview(function (index, file, result) {
+                                // $('#cover-upload').attr('src', result); //图片链接（base64）
+                                base64_result = result;
+                            });
+
+                        }
+                        , done: function (res, index, upload) {
+                            var cover_text = $('#cover-text');
+                            if (res.code != '000000') {
+                                cover_text.css('color', '#FF5722').css('position', 'relative').css('left', '-100px').prop('id', 'cover-reload').html('上传失败');
+                                cover_text.find('#cover-reload').on('click', function () {
+                                    uploadInst.upload();
+                                });
+                                return false;
+                            } else {
+                                // 表示上传成功
+                                cover_text.css('color', '#FF5722').css('position', 'relative').css('left', '-100px').html('点击可重新上传');
+                                var local_url = res.data.localUrl;
+                                $("#cover").val(local_url);
+                                $('#cover-upload').attr('src', base64_result);
+                                base64_result = '';
+                            }
+                            //上传成功
+                        }
+                        , error: function () {
+                            //演示失败状态，并实现重传
+                            // var demo_text = $('#cover-text');
+                            // demo_text.html('<span style="color: #FF5722;">上传失败</span> <a class="layui-btn layui-btn-xs demo-reload">重试</a>');
+                            // demo_text.find('.demo-reload').on('click', function () {
+                            //     uploadInst.upload();
+                            // });
+                        }
+                    });
+                });
                 Controller.events.tag();
                 Controller.events.get_tag();
                 Controller.api.bindevent();
 
+
             },
             edit: function () {
+                layui.use(['upload'], function () {
+                    var upload = layui.upload,
+                        url = "/admin/article/fileUpload";
+                    var base64_result;
+                    //封面上传
+                    var uploadInst = upload.render({
+                        elem: '#cover-upload'
+                        , url: url
+                        , multiple: false
+                        , number: 1
+                        , accept: 'images'
+                        , acceptMime: 'image/*'
+                        , before: function (obj) {
+                            //预读本地文件示例，不支持ie8
+                            console.log(obj);
+                            obj.preview(function (index, file, result) {
+                                // $('#cover-upload').attr('src', result); //图片链接（base64）
+                                base64_result = result;
+                            });
+
+                        }
+                        , done: function (res, index, upload) {
+                            var cover_text = $('#cover-text');
+                            if (res.code != '000000') {
+                                cover_text.css('color', '#FF5722').css('position', 'relative').css('left', '-100px').prop('id', 'cover-reload').html('上传失败');
+                                cover_text.find('#cover-reload').on('click', function () {
+                                    uploadInst.upload();
+                                });
+                                return false;
+                            } else {
+                                // 表示上传成功
+                                cover_text.css('color', '#FF5722').css('position', 'relative').css('left', '-100px').html('点击可重新上传');
+                                var local_url = res.data.localUrl;
+                                $("#cover").val(local_url);
+                                $('#cover-upload').attr('src', base64_result);
+                                base64_result = '';
+                            }
+                            //上传成功
+                        }
+                        , error: function () {
+                            //演示失败状态，并实现重传
+                            // var demo_text = $('#cover-text');
+                            // demo_text.html('<span style="color: #FF5722;">上传失败</span> <a class="layui-btn layui-btn-xs demo-reload">重试</a>');
+                            // demo_text.find('.demo-reload').on('click', function () {
+                            //     uploadInst.upload();
+                            // });
+                        }
+                    });
+                });
                 Controller.events.tag();
                 Controller.events.get_tag();
                 Controller.api.bindevent();
