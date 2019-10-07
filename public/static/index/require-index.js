@@ -14,7 +14,6 @@ require.config({
         'layui':'../libs/layui/dist/layui.all',
         'common': 'js/common',
         'template':'../libs/art-template/lib/template-web',
-        'photor':'../libs/photor/dist/photor',
         'albumplugin':'js/album-plugin',//相册插件显示内容
 
     },
@@ -32,7 +31,6 @@ require.config({
         'scrollreveal': {exports: 'scrollreveal'},
         'hcsticky': {exports: '$.fn.hcsticky'},
         'toastr': ['css!../libs/toastr/toastr.min.css'],
-        'photor':{deps:['css!../libs/photor/dist/photor.min.css','jquery'],exports:"photor"},
         'albumplugin':{exports:"albumplugin"},
     },
     map: {

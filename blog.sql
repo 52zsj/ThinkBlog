@@ -11,7 +11,7 @@
  Target Server Version : 50726
  File Encoding         : 65001
 
- Date: 05/10/2019 13:16:55
+ Date: 07/10/2019 21:02:41
 */
 
 SET NAMES utf8mb4;
@@ -91,7 +91,7 @@ CREATE TABLE `jack_article`  (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'id',
   `title` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '标题',
   `content` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '内容',
-  `conver` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '封面',
+  `cover` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '封面',
   `like` int(11) NOT NULL DEFAULT 10 COMMENT '点赞数',
   `dislike` int(11) NOT NULL DEFAULT 0 COMMENT '点踩数量',
   `share_count` int(11) NOT NULL DEFAULT 2 COMMENT '分享次数',
@@ -101,16 +101,62 @@ CREATE TABLE `jack_article`  (
   `author` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '作者',
   `column_id` int(11) NOT NULL COMMENT '分类ID',
   `tag_ids` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '拥有的标签',
+  `count` int(11) NOT NULL DEFAULT 10 COMMENT '查看人数',
+  `is_recommend` tinyint(1) NOT NULL DEFAULT 0 COMMENT '是否推荐 0否 1是',
+  `order_key` smallint(6) NOT NULL COMMENT '排序',
+  `is_top` tinyint(1) NOT NULL DEFAULT 0 COMMENT '置顶 0否 1是',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = MyISAM AUTO_INCREMENT = 9 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 53 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of jack_article
 -- ----------------------------
-INSERT INTO `jack_article` VALUES (1, ' 有关PHP的内容', '拉拉阿拉', '', 10, 0, 2, NULL, NULL, 1, '张世杰', 0, '');
-INSERT INTO `jack_article` VALUES (8, 'aaa', '&lt;p&gt;wo shi yige bing&amp;nbsp;&lt;/p&gt;', '', 10, 0, 2, '2019-10-05 13:15:21', '2019-10-05 13:15:21', 0, '', 1, '36,18,28,7');
-INSERT INTO `jack_article` VALUES (7, '', '', '', 10, 0, 2, '2019-10-04 20:18:11', '2019-10-04 20:18:11', 0, '', 0, '');
-INSERT INTO `jack_article` VALUES (6, '', '', '', 10, 0, 2, '2019-10-04 20:18:09', '2019-10-04 20:18:09', 0, '', 0, '');
+INSERT INTO `jack_article` VALUES (1, '添加文章封面1', '&lt;p&gt;拉拉阿拉&lt;/p&gt;', '', 10, 0, 2, NULL, '2019-10-05 20:20:49', 1, '张世杰', 4, '33,37', 10, 0, 0, 0);
+INSERT INTO `jack_article` VALUES (8, '添加文章封面2', '&lt;p&gt;wo shi yige bing&amp;nbsp;&lt;/p&gt;', '', 10, 0, 2, '2019-10-05 13:15:21', '2019-10-05 20:20:49', 1, '张世杰', 1, '10,24,21,8,4,7,6,3,20,17', 10, 0, 0, 0);
+INSERT INTO `jack_article` VALUES (9, '添加文章封面3', '&lt;p&gt;我是一个兵。来自远方的兵&lt;/p&gt;', 'upload\\article\\20191005\\3fd96f4e191dfb862f01baff176ebe41.jpg', 10, 0, 2, '2019-10-05 19:39:13', '2019-10-05 20:20:49', 1, '张世杰', 1, '35,29,5,38', 10, 0, 0, 0);
+INSERT INTO `jack_article` VALUES (10, '添加文章封面4', '&lt;p&gt;我是一个兵。来自远方的兵&lt;/p&gt;', 'upload\\article\\20191005\\3fd96f4e191dfb862f01baff176ebe41.jpg', 10, 0, 2, '2019-10-05 19:39:13', '2019-10-05 20:20:49', 1, '张世杰', 1, '35,29,5,38', 10, 0, 0, 0);
+INSERT INTO `jack_article` VALUES (11, '添加文章封面5', '&lt;p&gt;我是一个兵。来自远方的兵&lt;/p&gt;', 'upload\\article\\20191005\\3fd96f4e191dfb862f01baff176ebe41.jpg', 10, 0, 2, '2019-10-05 19:39:13', '2019-10-05 20:20:49', 1, '张世杰', 1, '35,29,5,38', 10, 0, 0, 0);
+INSERT INTO `jack_article` VALUES (12, '添加文章封面6', '&lt;p&gt;我是一个兵。来自远方的兵&lt;/p&gt;', 'upload\\article\\20191005\\3fd96f4e191dfb862f01baff176ebe41.jpg', 10, 0, 2, '2019-10-05 19:39:13', '2019-10-05 20:20:49', 1, '张世杰', 1, '35,29,5,38', 10, 0, 0, 0);
+INSERT INTO `jack_article` VALUES (13, '添加文章封面7', '&lt;p&gt;我是一个兵。来自远方的兵&lt;/p&gt;', 'upload\\article\\20191005\\3fd96f4e191dfb862f01baff176ebe41.jpg', 10, 0, 2, '2019-10-05 19:39:13', '2019-10-05 20:20:49', 1, '张世杰', 1, '35,29,5,38', 10, 0, 0, 0);
+INSERT INTO `jack_article` VALUES (14, '添加文章封面8', '&lt;p&gt;我是一个兵。来自远方的兵&lt;/p&gt;', 'upload\\article\\20191005\\3fd96f4e191dfb862f01baff176ebe41.jpg', 10, 0, 2, '2019-10-05 19:39:13', '2019-10-05 20:20:49', 1, '张世杰', 1, '35,29,5,38', 10, 0, 0, 0);
+INSERT INTO `jack_article` VALUES (15, '添加文章封面9', '&lt;p&gt;我是一个兵。来自远方的兵&lt;/p&gt;', 'upload\\article\\20191005\\3fd96f4e191dfb862f01baff176ebe41.jpg', 10, 0, 2, '2019-10-05 19:39:13', '2019-10-05 20:20:49', 1, '张世杰', 1, '35,29,5,38', 10, 0, 0, 0);
+INSERT INTO `jack_article` VALUES (16, '添加文章封面10', '&lt;p&gt;我是一个兵。来自远方的兵&lt;/p&gt;', 'upload\\article\\20191005\\3fd96f4e191dfb862f01baff176ebe41.jpg', 10, 0, 2, '2019-10-05 19:39:13', '2019-10-05 20:20:49', 1, '张世杰', 1, '35,29,5,38', 10, 0, 0, 0);
+INSERT INTO `jack_article` VALUES (17, '添加文章封面11', '&lt;p&gt;我是一个兵。来自远方的兵&lt;/p&gt;', 'upload\\article\\20191005\\3fd96f4e191dfb862f01baff176ebe41.jpg', 10, 0, 2, '2019-10-05 19:39:13', '2019-10-05 20:20:49', 1, '张世杰', 1, '35,29,5,38', 10, 0, 0, 0);
+INSERT INTO `jack_article` VALUES (18, '添加文章封面12', '&lt;p&gt;我是一个兵。来自远方的兵&lt;/p&gt;', 'upload\\article\\20191005\\3fd96f4e191dfb862f01baff176ebe41.jpg', 10, 0, 2, '2019-10-05 19:39:13', '2019-10-05 20:20:49', 1, '张世杰', 1, '35,29,5,38', 10, 0, 0, 0);
+INSERT INTO `jack_article` VALUES (19, '添加文章封面13', '&lt;p&gt;我是一个兵。来自远方的兵&lt;/p&gt;', 'upload\\article\\20191005\\3fd96f4e191dfb862f01baff176ebe41.jpg', 10, 0, 2, '2019-10-05 19:39:13', '2019-10-05 20:20:49', 1, '张世杰', 1, '35,29,5,38', 10, 0, 0, 0);
+INSERT INTO `jack_article` VALUES (20, '添加文章封面14', '&lt;p&gt;我是一个兵。来自远方的兵&lt;/p&gt;', 'upload\\article\\20191005\\3fd96f4e191dfb862f01baff176ebe41.jpg', 10, 0, 2, '2019-10-05 19:39:13', '2019-10-05 20:20:49', 1, '张世杰', 1, '35,29,5,38', 10, 0, 0, 0);
+INSERT INTO `jack_article` VALUES (21, '添加文章封面15', '&lt;p&gt;我是一个兵。来自远方的兵&lt;/p&gt;', 'upload\\article\\20191005\\3fd96f4e191dfb862f01baff176ebe41.jpg', 10, 0, 2, '2019-10-05 19:39:13', '2019-10-05 20:20:49', 1, '张世杰', 1, '35,29,5,38', 10, 0, 0, 0);
+INSERT INTO `jack_article` VALUES (22, '添加文章封面16', '&lt;p&gt;我是一个兵。来自远方的兵&lt;/p&gt;', 'upload\\article\\20191005\\3fd96f4e191dfb862f01baff176ebe41.jpg', 10, 0, 2, '2019-10-05 19:39:13', '2019-10-05 20:20:49', 1, '张世杰', 1, '35,29,5,38', 10, 0, 0, 0);
+INSERT INTO `jack_article` VALUES (23, '添加文章封面17', '&lt;p&gt;我是一个兵。来自远方的兵&lt;/p&gt;', 'upload\\article\\20191005\\3fd96f4e191dfb862f01baff176ebe41.jpg', 10, 0, 2, '2019-10-05 19:39:13', '2019-10-05 20:20:49', 1, '张世杰', 1, '35,29,5,38', 10, 0, 0, 0);
+INSERT INTO `jack_article` VALUES (24, '添加文章封面18', '&lt;p&gt;我是一个兵。来自远方的兵&lt;/p&gt;', 'upload\\article\\20191005\\3fd96f4e191dfb862f01baff176ebe41.jpg', 10, 0, 2, '2019-10-05 19:39:13', '2019-10-05 20:20:49', 1, '张世杰', 1, '35,29,5,38', 10, 0, 0, 0);
+INSERT INTO `jack_article` VALUES (25, '添加文章封面19', '&lt;p&gt;我是一个兵。来自远方的兵&lt;/p&gt;', 'upload\\article\\20191005\\3fd96f4e191dfb862f01baff176ebe41.jpg', 10, 0, 2, '2019-10-05 19:39:13', '2019-10-05 20:20:49', 1, '张世杰', 1, '35,29,5,38', 10, 0, 0, 0);
+INSERT INTO `jack_article` VALUES (26, '添加文章封面20', '&lt;p&gt;我是一个兵。来自远方的兵&lt;/p&gt;', 'upload\\article\\20191005\\3fd96f4e191dfb862f01baff176ebe41.jpg', 10, 0, 2, '2019-10-05 19:39:13', '2019-10-05 20:20:49', 1, '张世杰', 1, '35,29,5,38', 10, 0, 0, 0);
+INSERT INTO `jack_article` VALUES (27, '添加文章封面21', '&lt;p&gt;我是一个兵。来自远方的兵&lt;/p&gt;', 'upload\\article\\20191005\\3fd96f4e191dfb862f01baff176ebe41.jpg', 10, 0, 2, '2019-10-05 19:39:13', '2019-10-05 20:20:49', 1, '张世杰', 1, '35,29,5,38', 10, 0, 0, 0);
+INSERT INTO `jack_article` VALUES (28, '添加文章封面22', '&lt;p&gt;我是一个兵。来自远方的兵&lt;/p&gt;', 'upload\\article\\20191005\\3fd96f4e191dfb862f01baff176ebe41.jpg', 10, 0, 2, '2019-10-05 19:39:13', '2019-10-05 20:20:49', 1, '张世杰', 1, '35,29,5,38', 10, 0, 0, 0);
+INSERT INTO `jack_article` VALUES (29, '添加文章封面23', '&lt;p&gt;我是一个兵。来自远方的兵&lt;/p&gt;', 'upload\\article\\20191005\\3fd96f4e191dfb862f01baff176ebe41.jpg', 10, 0, 2, '2019-10-05 19:39:13', '2019-10-05 20:20:49', 1, '张世杰', 1, '35,29,5,38', 10, 0, 0, 0);
+INSERT INTO `jack_article` VALUES (30, '添加文章封面24', '&lt;p&gt;我是一个兵。来自远方的兵&lt;/p&gt;', 'upload\\article\\20191005\\3fd96f4e191dfb862f01baff176ebe41.jpg', 10, 0, 2, '2019-10-05 19:39:13', '2019-10-05 20:20:49', 1, '张世杰', 1, '35,29,5,38', 10, 0, 0, 0);
+INSERT INTO `jack_article` VALUES (31, '添加文章封面25', '&lt;p&gt;我是一个兵。来自远方的兵&lt;/p&gt;', 'upload\\article\\20191005\\3fd96f4e191dfb862f01baff176ebe41.jpg', 10, 0, 2, '2019-10-05 19:39:13', '2019-10-05 20:20:49', 1, '张世杰', 1, '35,29,5,38', 10, 0, 0, 0);
+INSERT INTO `jack_article` VALUES (32, '添加文章封面26', '&lt;p&gt;我是一个兵。来自远方的兵&lt;/p&gt;', 'upload\\article\\20191005\\3fd96f4e191dfb862f01baff176ebe41.jpg', 10, 0, 2, '2019-10-05 19:39:13', '2019-10-05 20:20:49', 1, '张世杰', 1, '35,29,5,38', 10, 0, 0, 0);
+INSERT INTO `jack_article` VALUES (33, '添加文章封面27', '&lt;p&gt;我是一个兵。来自远方的兵&lt;/p&gt;', 'upload\\article\\20191005\\3fd96f4e191dfb862f01baff176ebe41.jpg', 10, 0, 2, '2019-10-05 19:39:13', '2019-10-05 20:20:49', 1, '张世杰', 1, '35,29,5,38', 10, 0, 0, 0);
+INSERT INTO `jack_article` VALUES (34, '添加文章封面28', '&lt;p&gt;我是一个兵。来自远方的兵&lt;/p&gt;', 'upload\\article\\20191005\\3fd96f4e191dfb862f01baff176ebe41.jpg', 10, 0, 2, '2019-10-05 19:39:13', '2019-10-05 20:20:49', 1, '张世杰', 1, '35,29,5,38', 10, 0, 0, 0);
+INSERT INTO `jack_article` VALUES (35, '添加文章封面29', '&lt;p&gt;我是一个兵。来自远方的兵&lt;/p&gt;', 'upload\\article\\20191005\\3fd96f4e191dfb862f01baff176ebe41.jpg', 10, 0, 2, '2019-10-05 19:39:13', '2019-10-05 20:20:49', 1, '张世杰', 1, '35,29,5,38', 10, 0, 0, 0);
+INSERT INTO `jack_article` VALUES (36, '添加文章封面30', '&lt;p&gt;我是一个兵。来自远方的兵&lt;/p&gt;', 'upload\\article\\20191005\\3fd96f4e191dfb862f01baff176ebe41.jpg', 10, 0, 2, '2019-10-05 19:39:13', '2019-10-05 20:20:49', 1, '张世杰', 1, '35,29,5,38', 10, 0, 0, 0);
+INSERT INTO `jack_article` VALUES (37, '添加文章封面31', '&lt;p&gt;我是一个兵。来自远方的兵&lt;/p&gt;', 'upload\\article\\20191005\\3fd96f4e191dfb862f01baff176ebe41.jpg', 10, 0, 2, '2019-10-05 19:39:13', '2019-10-05 20:20:49', 1, '张世杰', 1, '35,29,5,38', 10, 0, 0, 0);
+INSERT INTO `jack_article` VALUES (38, '添加文章封面32', '&lt;p&gt;我是一个兵。来自远方的兵&lt;/p&gt;', 'upload\\article\\20191005\\3fd96f4e191dfb862f01baff176ebe41.jpg', 10, 0, 2, '2019-10-05 19:39:13', '2019-10-05 20:20:49', 1, '张世杰', 1, '35,29,5,38', 10, 0, 0, 0);
+INSERT INTO `jack_article` VALUES (39, '添加文章封面33', '&lt;p&gt;我是一个兵。来自远方的兵&lt;/p&gt;', 'upload\\article\\20191005\\3fd96f4e191dfb862f01baff176ebe41.jpg', 10, 0, 2, '2019-10-05 19:39:13', '2019-10-05 20:20:49', 1, '张世杰', 1, '35,29,5,38', 10, 0, 0, 0);
+INSERT INTO `jack_article` VALUES (40, '添加文章封面34', '&lt;p&gt;我是一个兵。来自远方的兵&lt;/p&gt;', 'upload\\article\\20191005\\3fd96f4e191dfb862f01baff176ebe41.jpg', 10, 0, 2, '2019-10-05 19:39:13', '2019-10-05 20:20:49', 1, '张世杰', 1, '35,29,5,38', 10, 0, 0, 0);
+INSERT INTO `jack_article` VALUES (41, '添加文章封面35', '&lt;p&gt;我是一个兵。来自远方的兵&lt;/p&gt;', 'upload\\article\\20191005\\3fd96f4e191dfb862f01baff176ebe41.jpg', 10, 0, 2, '2019-10-05 19:39:13', '2019-10-05 20:20:49', 1, '张世杰', 1, '35,29,5,38', 10, 0, 0, 0);
+INSERT INTO `jack_article` VALUES (42, '添加文章封面36', '&lt;p&gt;我是一个兵。来自远方的兵&lt;/p&gt;', 'upload\\article\\20191005\\3fd96f4e191dfb862f01baff176ebe41.jpg', 10, 0, 2, '2019-10-05 19:39:13', '2019-10-05 20:20:49', 1, '张世杰', 1, '35,29,5,38', 10, 0, 0, 0);
+INSERT INTO `jack_article` VALUES (43, '添加文章封面37', '&lt;p&gt;我是一个兵。来自远方的兵&lt;/p&gt;', 'upload\\article\\20191005\\3fd96f4e191dfb862f01baff176ebe41.jpg', 10, 0, 2, '2019-10-05 19:39:13', '2019-10-05 20:20:49', 1, '张世杰', 1, '35,29,5,38', 10, 0, 0, 0);
+INSERT INTO `jack_article` VALUES (44, '添加文章封面38', '&lt;p&gt;我是一个兵。来自远方的兵&lt;/p&gt;', 'upload\\article\\20191005\\3fd96f4e191dfb862f01baff176ebe41.jpg', 10, 0, 2, '2019-10-05 19:39:13', '2019-10-05 20:20:49', 1, '张世杰', 1, '35,29,5,38', 10, 0, 0, 0);
+INSERT INTO `jack_article` VALUES (45, '添加文章封面39', '&lt;p&gt;我是一个兵。来自远方的兵&lt;/p&gt;', 'upload\\article\\20191005\\3fd96f4e191dfb862f01baff176ebe41.jpg', 10, 0, 2, '2019-10-05 19:39:13', '2019-10-05 20:20:49', 1, '张世杰', 1, '35,29,5,38', 10, 0, 0, 0);
+INSERT INTO `jack_article` VALUES (46, '添加文章封面40', '&lt;p&gt;我是一个兵。来自远方的兵&lt;/p&gt;', 'upload\\article\\20191005\\3fd96f4e191dfb862f01baff176ebe41.jpg', 10, 0, 2, '2019-10-05 19:39:13', '2019-10-05 20:20:49', 1, '张世杰', 1, '35,29,5,38', 10, 0, 0, 0);
+INSERT INTO `jack_article` VALUES (47, '添加文章封面41', '&lt;p&gt;我是一个兵。来自远方的兵&lt;/p&gt;', 'upload\\article\\20191005\\3fd96f4e191dfb862f01baff176ebe41.jpg', 10, 0, 2, '2019-10-05 19:39:13', '2019-10-05 20:20:50', 1, '张世杰', 1, '35,29,5,38', 10, 0, 0, 0);
+INSERT INTO `jack_article` VALUES (48, '添加文章封面42', '&lt;p&gt;我是一个兵。来自远方的兵&lt;/p&gt;', 'upload\\article\\20191005\\3fd96f4e191dfb862f01baff176ebe41.jpg', 10, 0, 2, '2019-10-05 19:39:13', '2019-10-05 20:20:50', 1, '张世杰', 1, '35,29,5,38', 10, 0, 0, 0);
+INSERT INTO `jack_article` VALUES (49, '添加文章封面43', '&lt;p&gt;我是一个兵。来自远方的兵&lt;/p&gt;', 'upload\\article\\20191005\\3fd96f4e191dfb862f01baff176ebe41.jpg', 10, 0, 2, '2019-10-05 19:39:13', '2019-10-05 20:20:50', 1, '张世杰', 1, '35,29,5,38', 10, 0, 0, 0);
+INSERT INTO `jack_article` VALUES (50, '添加文章封面44', '&lt;p&gt;我是一个兵。来自远方的兵&lt;/p&gt;', 'upload\\article\\20191005\\3fd96f4e191dfb862f01baff176ebe41.jpg', 10, 0, 2, '2019-10-05 19:39:13', '2019-10-05 20:20:50', 1, '张世杰', 1, '35,29,5,38', 10, 0, 0, 0);
+INSERT INTO `jack_article` VALUES (51, '添加文章封面45', '&lt;p&gt;我是一个兵。来自远方的兵&lt;/p&gt;', 'upload\\article\\20191005\\3fd96f4e191dfb862f01baff176ebe41.jpg', 10, 0, 2, '2019-10-05 19:39:13', '2019-10-05 20:20:50', 1, '张世杰', 1, '35,29,5,38', 10, 0, 0, 0);
+INSERT INTO `jack_article` VALUES (52, '添加文章封面46', '&lt;p&gt;我是一个兵。来自远方的兵&lt;/p&gt;', 'upload\\article\\20191005\\3fd96f4e191dfb862f01baff176ebe41.jpg', 10, 0, 2, '2019-10-05 19:39:13', '2019-10-05 20:20:50', 1, '张世杰', 1, '35,29,5,38', 10, 0, 0, 0);
 
 -- ----------------------------
 -- Table structure for jack_column
@@ -287,7 +333,7 @@ CREATE TABLE `jack_tag`  (
   `order_key` smallint(6) NULL DEFAULT 50 COMMENT '排序',
   `create_time` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 37 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 39 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of jack_tag
@@ -328,6 +374,8 @@ INSERT INTO `jack_tag` VALUES (33, 'aa', 1, 50, '2019-10-05 13:07:16');
 INSERT INTO `jack_tag` VALUES (34, 'cc', 1, 50, '2019-10-05 13:07:59');
 INSERT INTO `jack_tag` VALUES (35, 'bitch', 1, 50, '2019-10-05 13:09:13');
 INSERT INTO `jack_tag` VALUES (36, 'ce', 1, 50, '2019-10-05 13:14:52');
+INSERT INTO `jack_tag` VALUES (37, 'cc', 1, 50, '2019-10-05 16:44:45');
+INSERT INTO `jack_tag` VALUES (38, '测试用', 1, 50, '2019-10-05 19:38:47');
 
 -- ----------------------------
 -- Table structure for tm_auth_rule

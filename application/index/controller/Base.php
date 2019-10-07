@@ -22,8 +22,8 @@ class Base extends Controller
     //模型
     protected $model = null;
 
-    public function __construct(App $app = null) {
-        parent::__construct($app);
+    public function initialize() {
+        parent::initialize();
         $this->assignSeoData();
         $this->ossConfig = Config::get('alioss');
         //获取网站页脚

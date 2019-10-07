@@ -3,11 +3,29 @@
 namespace app\index\controller;
 
 use app\common\exception\Failure;
+use app\common\exception\Success;
 use app\common\model\Album as AlbumModel;
+use app\common\model\Article as ArticleModel;
 
 class Index extends Base
 {
+    protected $pageSize = 8;
+
+    public function initialize() {
+        parent::initialize();
+    }
+
     public function index() {
+        //文章总数
+        $articleTotal = ArticleModel::where('status', 1)->count();
+        $this->assignConfig('article_total', $articleTotal);
+
+        if ($this->request->isAjax()) {
+            $offset = $this->request->param('offset');
+            $limit = $this->pageSize;
+            $row = ArticleModel::where('status', 1)->field('id,title,cover,content')->page($offset, $limit)->select();
+            throw new Success('加载成功', ['row' => $row]);
+        }
         return $this->fetch();
     }
 

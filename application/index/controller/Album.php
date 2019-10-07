@@ -13,8 +13,8 @@ class Album extends Base
 {
     protected $pageSize = 8;
 
-    public function __construct(App $app = null) {
-        parent::__construct($app);
+    public function initialize() {
+        parent::initialize();
         $this->model = new AlbumModel();
 
 
