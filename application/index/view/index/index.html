@@ -1,13 +1,59 @@
 {extend name="/common/base"}
+{block name='css'}
+<style>
+    .layui-carousel .title {
+        position: absolute;
+        left: 25px;
+        width: 50%;
+        height: 55px;
+        background-color:#1e9fff;
+        border-bottom-left-radius: 15px;
+        border-bottom-right-radius: 15px;
+        font-style: normal;
+        font-size: 20px;
+        font-weight: bold;
+        text-align: center;
+        line-height: 55px;
+        color: #ffffff;
+    }
 
+    .layui-carousel .description {
+        position: absolute;
+        bottom: 40px;
+        left: 25px;
+        font-size: 18px;
+        color: #ffffff;
+        z-index: 10;
+    }
+
+    .layui-carousel .mask {
+        position: absolute;
+        bottom: 0px;
+        width: 100%;
+        height: 90px;
+        background-image: -webkit-linear-gradient(0deg, rgba(0, 0, 0, 0.8) 0%, rgba(255, 255, 255, 0) 100%);
+        background-image: -o-linear-gradient(0deg, rgba(0, 0, 0, 0.8) 0%, rgba(255, 255, 255, 0) 100%);
+        background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.8) 0%, rgba(255, 255, 255, 0) 100%);
+        z-index: 9;
+        background-color: black \9 \0;
+        opacity: .3 \9 \0;
+        height: 100px \9 \0;
+    }
+
+    .layui-carousel img {
+        width: 100%;
+    }
+    .layui-carousel{
+        margin-bottom: 20px;
+    }
+</style>
+{/block}
 {block name="content"}
-
 <aside class="l_box">
     <div class="about_me">
-        <h2>关于我</h2>
+        <h2>每日鸡汤</h2>
         <ul>
-            <i><img src="__INDEX_IMAGES__/4.jpg"></i>
-            <p></p>
+            <p>鸡汤内容</p>
         </ul>
     </div>
     <div class="wdxc">
@@ -51,24 +97,53 @@
     <div class="guanzhu">
         <h2>关注我 么么哒</h2>
         <ul>
-            <img src="\upload\article\20191005\3fd96f4e191dfb862f01baff176ebe41.jpg">
+            <img src="__INDEX_IMAGES__/wx.jpg">
         </ul>
     </div>
 </aside>
 <main class="r_box">
-    <h1 id="show-search" class="layui-hide" style="color: #b439bf"></h1>
-    <ul id="article-item-list">
+    <div class="layui-carousel" id="layui-carousel">
+        <div carousel-item>
+            {foreach $banner_list as $k=>$v}
+            {php}
+             $url ='javascript:;';$target='';
+             if(stripos($v['link'],'http')!==false||stripos($v['link'],'https')!==false){
+                $url = $v['link'];
+                $target='_blank';
+             }else if(count(explode('=',$v['link']))==2){
+                $link = substr($v['link'],0,strpos($v['link'], '_'));
+                $option = explode('=',$v['link']);
+                $url = url('index/'.$link.'/detail',[$option[0]=>$option[1]]);
+                $target='_blank';
+            }else{
+              //其他操作
+            }
+            {/php}
+            <a href="{$url}" target="{$target}">
+                <div class="banner-item">
+                    <i class="title">{$v.title}</i>
+                    <h1 class="description">{$v.description}</h1>
+                    <div class="mask"></div>
+                    <img src="\{$v.cover}" alt="">
+                </div>
+            </a>
+            {/foreach}
 
+
+        </div>
+    </div>
+    <h1 id="show-search" class="layui-hide" style="color: #1e9fff;padding: 10px 0px 10px 20px;background: rgba(255,255,255,0.8);margin-bottom: 10px"></h1>
+    <ul id="article-item-list">
 
     </ul>
     <div id="pagelist" class="pagelist"></div>
-</main>
 
+</main>
 {/block}
 {block name='js'}
 <script id="article-item" type="text/html">
     {{each row value i}}
-    <li><i><a href="{{value.detail_url}}"><img src="\{{value.cover}}"></a></i>
+    <li><i><a href="{{value.detail_url}}"><img src="\{{value.cover}}" alt="图片不见了T.T"></a></i>
         <h3><a href="{{value.detail_url}}">{{value.title}}</a></h3>
         <p>{{value.description}}</p>
     </li>

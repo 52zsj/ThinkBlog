@@ -43,11 +43,12 @@ require.config({
 //初始化
 require(['jquery'], function ($) {
     $(function () {
-        require(['lucklyJack','common'], function (lucklyJack) {
+        require(['lucklyJack','common'], function (lucklyJack,common) {
             //初始配置
             var Config = requirejs.s.contexts._.config.config;
             //渲染至全局
             window.Config = Config;
+            window.common=common;
             //加载相应模块
             if (Config.jsName) {
                 require([Config.jsName], function (Controller) {

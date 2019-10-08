@@ -45,10 +45,24 @@ define(['jquery', 'layui'], function ($, layui) {
                         }
                     });
                 }
-
+            },
+            to_big: function () {
+                $(document).on('click', '.to-big', function () {
+                    var url = $(this).attr('src');
+                    var img_html = "<img style='width: 100%' src='" + url + "'/>";
+                    layer.open(
+                        {
+                            type: 1,
+                            title: false,
+                            content: img_html,
+                            closeBtn: 2,
+                            anim: 2,
+                        }
+                    )
+                });
             },
             //selectpage
-            selectpage:function () {
+            selectpage: function () {
 
             }
         },
@@ -192,6 +206,7 @@ define(['jquery', 'layui'], function ($, layui) {
                 Form.api.del();
                 Form.events.ueditor();
                 Form.events.order_key();
+                Form.events.to_big();
             },
         },
         init: function () {

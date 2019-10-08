@@ -7,6 +7,7 @@ use app\common\exception\Success;
 use app\common\library\Enum;
 use app\common\model\Album as AlbumModel;
 use app\common\model\Article as ArticleModel;
+use app\common\model\Banner as BannerModel;
 use app\common\model\Dictionary;
 
 class Index extends Base
@@ -24,9 +25,8 @@ class Index extends Base
         $isRecommendList = ArticleModel::where(['status' => 1, 'is_recommend' => 1])->limit(8)->order('order_key asc,create_time desc')->select();
         //友情链接？？丢一边去
         $friendlyLink = Dictionary::getValueByGroup(Enum::DIDCTIONARY_FRIENDLY_LINK);
-        // echo ArticleModel::getLastSql();
-        //文章总数
-
+        //轮播图
+        $bannerList = BannerModel::where(['status' => 1])->order('order_key asc')->limit(10)->select();
         if ($this->request->isAjax()) {
             $offset = $this->request->param('offset');
             $keyword = $this->request->param('keyword');
@@ -45,6 +45,7 @@ class Index extends Base
             unset($v);
             throw new Success('加载成功', ['row' => $row, 'total' => $articleTotal, 'limit' => $limit]);
         }
+        $this->assign('banner_list', $bannerList);
         $this->assign('friendly_link', $friendlyLink);
         $this->assign('album_lisst', $albumList);
         $this->assign('is_recomment_list', $isRecommendList);

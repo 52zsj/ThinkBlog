@@ -9,7 +9,20 @@ define(['jquery', 'layui', 'template'], function ($, layui, template) {
                 }
                 Controller.events.lay_page();
             });
+            layui.use('carousel', function () {
+                var carousel = layui.carousel;
+                //建造实例
+                carousel.render({
+                    elem: '#layui-carousel',
+                    width: '100%', //设置容器宽度
+                    arrow: 'hover', //始终显示箭头
+                    anim: 'default', //切换动画方式
+                    indicator: 'none',
+                    autoplay: true,
+                });
+            });
         },
+
         api: {
             bindevent: function () {
             },
@@ -34,7 +47,7 @@ define(['jquery', 'layui', 'template'], function ($, layui, template) {
                         var limit = data.limit;
                         var total = data.total;
                         if (keyword != '') {
-                            $("#show-search").removeClass('layui-hide').text('"'+keyword + '":总共：' + total + '条');
+                            $("#show-search").removeClass('layui-hide').text('搜索 "' + keyword + '" 总共：' + total + '条');
                         } else {
                             $("#show-search").addClass('layui-hide').text('')
                         }
@@ -55,10 +68,14 @@ define(['jquery', 'layui', 'template'], function ($, layui, template) {
                                 }
                             });
                         } else {
-                            htmls = '<div style=" text-align: center;color: red;line-height: 350px;font-size: 25px;">暂无文章内容</div>';
+                            // htmls = '<div style=" text-align: center;color: red;line-height: 350px;font-size: 25px;">暂无文章内容</div>';
                             $("#pagelist").empty();
                         }
                         $("#article-item-list").html(htmls);
+
+                        //重新渲染
+                        common.events.leftScroll();
+                        common.events.noImage();
                     });
                 });
 

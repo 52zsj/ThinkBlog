@@ -35,26 +35,12 @@ define(['xadmin', 'form', 'jack.table'], function (xadmin, Form, Table) {
             },
             api: {
                 bindevent: function () {
-                    Controller.events.to_big();
+
                     Form.api.bindevent();
                 },
             },
             events: {
-                to_big: function () {
-                    $(document).on('click', '.to-big', function () {
-                        var url = $(this).attr('src');
-                        var img_html = "<img style='width: 100%' src='" + url + "'/>";
-                        layer.open(
-                            {
-                                type: 1,
-                                title: false,
-                                content: img_html,
-                                closeBtn: 2,
-                                anim: 2,
-                            }
-                        )
-                    });
-                }
+
             }
 
         }

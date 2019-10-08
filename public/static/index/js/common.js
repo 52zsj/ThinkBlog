@@ -92,6 +92,14 @@ define(['jquery', 'hcsticky'], function ($) {
                         obj = As[i];
                 }
                 obj.id = 'selected';
+            },
+            //图片丢失时触发
+            noImage: function () {
+                $('img').error(function () {
+                    console.log(this);
+                    this.src = "/static/index/images/no-img.jpg";
+                    this.title = '图片丢了~~';
+                });
             }
         },
         api: {
@@ -101,6 +109,7 @@ define(['jquery', 'hcsticky'], function ($) {
                 common.events.leftScroll();
                 common.events.goTop();
                 common.events.navColor();
+                common.events.noImage();
             },
         },
     };

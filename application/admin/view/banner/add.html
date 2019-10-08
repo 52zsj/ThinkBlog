@@ -1,0 +1,198 @@
+{include file='/common/header'/}
+{block name='css'}
+<style type="text/css">
+    body {
+        padding: 0;
+        margin: 0;
+        color: #444;
+        background: #f2f2f2;
+    }
+
+    * {
+        padding: 0;
+        margin: 0;
+        border: 0;
+        list-style: none;
+        text-decoration: none;
+    }
+
+    .wrap {
+        width: 50%;
+        max-width: 600px;
+        margin: 0 auto;
+    }
+
+    .label-selected {
+        width: 100%;
+        min-height: 38px;
+        margin: 10px 0;
+        border: 1px solid #ccc;
+        background-color: #fff;
+    }
+
+
+    .label-selected li {
+        display: inline-block;
+        height: 27px;
+        line-height: 27px;
+        font-size: .8rem;
+        padding: 0 1rem;
+        border: 1px solid #e6e6e6;
+        border-radius: 2px;
+        cursor: pointer;
+        margin: 4px 2px;
+        color: #666;
+    }
+
+    #label-item {
+        margin-bottom: 10px;
+        display: none;
+    }
+
+    .label-item {
+        border: 1px solid #e6e6e6;
+        padding: 10px;
+        border-radius: 0 2px 2px 0;
+        position: relative;
+        overflow: hidden;
+        background: #fff;
+        min-height: 38px;
+    }
+
+    .label-item li {
+        display: inline-block;
+        height: 27px;
+        line-height: 27px;
+        font-size: .8rem;
+        padding: 0 1rem;
+        border: 1px solid #e6e6e6;
+        border-radius: 2px;
+        cursor: pointer;
+        margin-bottom: 5px;
+        margin-left: 2px;
+        color: #666;
+    }
+
+    .label-item .selected {
+        color: #ccc;
+    }
+
+    .a-style {
+        float: right;
+        margin: 4px;
+        line-height: 30px;
+    }
+
+    .enter-input {
+        width: 100%;
+        min-height: 36px;
+        margin-top: -8px;
+        margin-bottom: 2px;
+        padding: 1px
+    }
+
+    .replace-lable {
+        position: absolute;
+        right: 1rem;
+        bottom: .75rem;
+        color: #1994dc
+    }
+
+    .layui-upload-img {
+        width: 92px;
+        height: 92px;
+        margin: 0 10px 10px 0;
+    }
+</style>
+{/block}
+
+{block name='content'}
+<div class="layui-fluid">
+    <div class="layui-row">
+        <form class="layui-form" method="post">
+            <div class="layui-form-item">
+                <label for="user_name" class="layui-form-label">
+                    <span class="x-red">*</span>轮播标题
+                </label>
+                <div class="layui-input-inline">
+                    <input type="text" id="title" name="title" autocomplete="off"
+                           class="layui-input">
+                </div>
+                <div class="layui-form-mid layui-word-aux">
+                    <span class="x-red"></span>
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <label for="user_name" class="layui-form-label">
+                    <span class="x-red">*</span>简介
+                </label>
+                <div class="layui-input-inline">
+                    <input type="text" id="description" name="description" autocomplete="off"
+                           class="layui-input">
+                </div>
+                <div class="layui-form-mid layui-word-aux">
+                    <span class="x-red"></span>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label for="user_name" class="layui-form-label">
+                    <span class="x-red"></span>链接地址
+                </label>
+                <div class="layui-input-inline">
+                    <input type="text" id="link" name="link" autocomplete="off"
+                           class="layui-input" value="http://">
+                </div>
+                <div class="layui-form-mid layui-word-aux">
+                    <span class="x-red">外链请使用http://或者https://,其他请按规定格式进行填写</span>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label for="cover-upload" class="layui-form-label">
+                    <span class="x-red"></span>轮播图片
+                </label>
+                <div class="layui-upload">
+                    <div class="layui-upload-list">
+                        <div>
+                            <img class="layui-upload-img" src="__ADMIN_IMAGES__/no_img.jpg" id="cover-upload">
+                            <span id="cover-text"></span>
+                        </div>
+                    </div>
+                    <input type="hidden" name="cover" value="" id="cover">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label for="user_name" class="layui-form-label">
+                    <span class="x-red"></span>排序
+                </label>
+                <div class="layui-input-inline">
+                    <input type="text" id="order_key" name="order_key" autocomplete="off"
+                           class="layui-input order-key" value="50">
+                </div>
+                <div class="layui-form-mid layui-word-aux">
+                    <span class="x-red"></span>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">发布/启用</label>
+                <div class="layui-input-block">
+                    <input type="radio" name="status" title="是" value="1" checked>
+                    <input type="radio" name="status" title="否" value="0">
+                </div>
+                <div class="layui-form-mid layui-word-aux">
+                    <span class="x-red"></span>
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <label for="add" class="layui-form-label">
+                </label>
+                <button class="layui-btn" type="button" lay-filter="submit" lay-submit="">
+                    提交
+                </button>
+            </div>
+
+        </form>
+    </div>
+</div>
+{/block}
