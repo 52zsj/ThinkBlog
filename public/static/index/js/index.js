@@ -1,9 +1,11 @@
 define(['jquery', 'layui', 'template'], function ($, layui, template) {
     var Controller = {
         index: function () {
-            Controller.events.lay_page();
+            var curr_page = location.hash.replace('#!page=', '');
+            Controller.events.lay_page(curr_page);
             $("#search").click(function () {
-                if ($("#keyword").val() == '') {
+                var keyword = $("#keyword").val();
+                if ( keyword== '') {
                     layer.msg('搜索关键字不能为空！', {icon: 5});
                     return false;
                 }
@@ -32,11 +34,13 @@ define(['jquery', 'layui', 'template'], function ($, layui, template) {
             }
         },
         events: {
-            lay_page: function (offset = 1) {
+            lay_page: function (offset = '') {
                 layui.use('laypage', function () {
                     var laypage = layui.laypage;
                     //执行一个laypage实例
                     var keyword = $("#keyword").val();
+                    //严格点
+                    offset = offset == '' ? 1 : offset;
                     lucklyJack.api.ajax({
                         url: Controller.api.get_request_url(),
                         type: "POST",
@@ -53,18 +57,17 @@ define(['jquery', 'layui', 'template'], function ($, layui, template) {
                         }
                         if (total > 0) {
                             laypage.render({
-                                elem: 'pagelist' //注意，这里的 test1 是 ID，不用加 # 号
-                                , count: total//数据总数，从服务端得到
-                                , limit: limit
-                                , theme: '#1E9FFF'
-                                , curr: location.hash.replace('#!page=', '') //获取hash值为page的当前页
-                                , hash: 'page' //自定义hash值
-                                , jump: function (obj, first) {
+                                elem: 'pagelist', //注意，这里的 test1 是 ID，不用加 # 号
+                                count: total,//数据总数，从服务端得到
+                                limit: limit,
+                                theme: '#1E9FFF',
+                                curr: location.hash.replace('#!page=', ''),//获取起始页
+                                hash: 'page', //自定义hash值
+                                jump: function (obj, first) {
                                     var offset = obj.curr;//当前页
                                     if (!first) {
-                                        Controller.events.lay_page(offset, keyword);
+                                        Controller.events.lay_page(offset);
                                     }
-
                                 }
                             });
                         } else {

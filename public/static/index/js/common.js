@@ -95,11 +95,18 @@ define(['jquery', 'hcsticky'], function ($) {
             },
             //图片丢失时触发
             noImage: function () {
-                $('img').error(function () {
-                    console.log(this);
-                    this.src = "/static/index/images/no-img.jpg";
-                    this.title = '图片丢了~~';
-                });
+                document.addEventListener("error", function (e) {
+                    var elem = e.target;
+                    if (elem.tagName.toLowerCase() == 'img') {
+                        elem.src = "/static/index/images/no-img.jpg";
+                        elem.title = '图片丢了~~';
+                    }
+                }, true);
+                /* $('img').error(function () {
+                     console.log(this);
+                     this.src = "/static/index/images/no-img.jpg";
+                     this.title = '图片丢了~~';
+                 });*/
             }
         },
         api: {
