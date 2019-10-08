@@ -109,7 +109,7 @@
 {block name='content'}
 <div class="layui-fluid">
     <div class="layui-row">
-        <form class="layui-form">
+        <form class="layui-form" method="post">
             <div class="layui-form-item">
                 <label for="column_id" class="layui-form-label">
                     <span class="x-red">*</span>所属分类
@@ -140,6 +140,18 @@
                 </div>
             </div>
 
+            <div class="layui-form-item">
+                <label for="user_name" class="layui-form-label">
+                    <span class="x-red">*</span>简介
+                </label>
+                <div class="layui-input-inline">
+                    <input type="text" id="description" name="description" autocomplete="off"
+                           class="layui-input">
+                </div>
+                <div class="layui-form-mid layui-word-aux">
+                    <span class="x-red">*</span>
+                </div>
+            </div>
             <div class="layui-form-item">
                 <label for="user_name" class="layui-form-label">
                     <span class="x-red">*</span>作者
@@ -210,6 +222,26 @@
                 <div class="layui-input-block">
                     <input type="radio" name="status" title="是" value="1">
                     <input type="radio" name="status" title="否" value="0" checked>
+                </div>
+                <div class="layui-form-mid layui-word-aux">
+                    <span class="x-red"></span>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">是否推荐</label>
+                <div class="layui-input-block">
+                    <input type="radio" name="is_recommend" title="是" value="1">
+                    <input type="radio" name="is_recommend" title="否" value="0" checked>
+                </div>
+                <div class="layui-form-mid layui-word-aux">
+                    <span class="x-red"></span>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">是否置顶</label>
+                <div class="layui-input-block">
+                    <input type="radio" name="is_top" title="是" value="1">
+                    <input type="radio" name="is_top" title="否" value="0" checked>
                 </div>
                 <div class="layui-form-mid layui-word-aux">
                     <span class="x-red"></span>

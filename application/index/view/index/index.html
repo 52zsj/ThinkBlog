@@ -7,31 +7,21 @@
         <h2>关于我</h2>
         <ul>
             <i><img src="__INDEX_IMAGES__/4.jpg"></i>
-            <p><b>张世杰</b>，一个95后草根站长！09年入行。bilbilbili</p>
+            <p></p>
         </ul>
     </div>
     <div class="wdxc">
         <h2>我的相册</h2>
         <ul>
-            <li><a href="/"><img src="__INDEX_IMAGES__/7.jpg"></a></li>
-            <li><a href="/"><img src="__INDEX_IMAGES__/8.jpg"></a></li>
-            <li><a href="/"><img src="__INDEX_IMAGES__/9.jpg"></a></li>
-            <li><a href="/"><img src="__INDEX_IMAGES__/10.jpg"></a></li>
-            <li><a href="/"><img src="__INDEX_IMAGES__/11.jpg"></a></li>
-            <li><a href="/"><img src="__INDEX_IMAGES__/12.jpg"></a></li>
+            {foreach $album_lisst as $k=>$v}
+            <li><a href="{:url('index/album/detail',['album_id'=>$v.id])}"><img src="\{$v.cover}"></a></li>
+            {/foreach}
         </ul>
     </div>
     <div class="search">
-        <form action="" method="post" name="searchform" id="searchform">
-            <input name="keyboard" id="keyboard" class="input_text" value="请输入关键字词"
-                   style="color: rgb(153, 153, 153);"
-                   onfocus="if(value=='请输入关键字词'){this.style.color='#000';value=''}"
-                   onblur="if(value==''){this.style.color='#999';value='请输入关键字词'}" type="text">
-            <input name="show" value="title" type="hidden">
-            <input name="tempid" value="1" type="hidden">
-            <input name="tbname" value="news" type="hidden">
-            <input name="Submit" class="input_submit" value="搜索" type="submit">
-        </form>
+        <input id="keyword" class="input_text" style="color: rgb(153, 153, 153);"
+               value="" placeholder="请输入关键字词" type="text">
+        <input class="input_submit" id="search" value="搜索" style="cursor: pointer" type="button">
     </div>
     <div class="fenlei">
         <h2>文章分类</h2>
@@ -45,22 +35,17 @@
     <div class="tuijian">
         <h2>站长推荐</h2>
         <ul>
-            <li><a href="/">你是什么人便会遇上什么人</a></li>
-            <li><a href="/">帝国cms 列表页调用子栏目，没有则不显示栏目名称</a></li>
-            <li><a href="/">第二届 优秀个人博客模板比赛参选活动</a></li>
-            <li><a href="/">个人博客模板《绅士》后台管理</a></li>
-            <li><a href="/">你是什么人便会遇上什么人</a></li>
-            <li><a href="/">帝国cms 列表页调用子栏目，没有则不显示栏目名称</a></li>
-            <li><a href="/">第二届 优秀个人博客模板比赛参选活动</a></li>
-            <li><a href="/">个人博客模板《绅士》后台管理</a></li>
+            {foreach $is_recomment_list as $k=>$v}
+            <li><a href="{:url('index/article/detail',['article_id'=>$v.id])}" target="_blank">{$v.title}</a></li>
+            {/foreach}
         </ul>
     </div>
     <div class="links">
         <h2>友情链接</h2>
         <ul>
-            <a href="">buzhidao</a>
-            <a href="">buzhidao</a>
-            <a href="">buzhidao</a>
+            {foreach $friendly_link as $k=>$v}
+            <a href="{$v.value}">{$v.name}-{$v.en_name}</a>
+            {/foreach}
         </ul>
     </div>
     <div class="guanzhu">
@@ -71,7 +56,9 @@
     </div>
 </aside>
 <main class="r_box">
+    <h1 id="show-search" class="layui-hide" style="color: #b439bf"></h1>
     <ul id="article-item-list">
+
 
     </ul>
     <div id="pagelist" class="pagelist"></div>
@@ -81,9 +68,9 @@
 {block name='js'}
 <script id="article-item" type="text/html">
     {{each row value i}}
-    <li><i><a href="javascript:;"><img src="\{{value.cover}}"></a></i>
-        <h3><a href="javascript:;">{{value.title}}</a></h3>
-        <p>文章简介</p>
+    <li><i><a href="{{value.detail_url}}"><img src="\{{value.cover}}"></a></i>
+        <h3><a href="{{value.detail_url}}">{{value.title}}</a></h3>
+        <p>{{value.description}}</p>
     </li>
     {{/each}}
 </script>

@@ -14,6 +14,7 @@ Route::group(['ext' => 'html'], function () {
     Route::rule('/', 'index/index/index');
     Route::rule('album', 'index/album/index');
     Route::rule('album_detail/:album_id', 'index/album/detail');
+    Route::rule('article_detail/:article_id','index/article/detail');
 });
 
 

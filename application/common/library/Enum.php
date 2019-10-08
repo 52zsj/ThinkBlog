@@ -13,5 +13,6 @@ class Enum
     const DIDCTIONARY_WEB_DESCRIPTION = 'web_description';
     //字典表分组项目
     const DIDCTIONARY_WEB = 'web';
+    const DIDCTIONARY_FRIENDLY_LINK='friendly_link';
 
 }

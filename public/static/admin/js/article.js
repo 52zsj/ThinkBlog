@@ -18,7 +18,7 @@ define(['xadmin', 'form', 'jack.table'], function (xadmin, Form, Table) {
                         {field: 'title', title: '标题', edit: 'text'},
                         {field: 'author', title: '作者', edit: 'text'},
                         {field: 'status', title: '状态', templet: '#status'},
-                        {field: 'cover', title: '缩略图'},
+                        {field: 'cover', title: '缩略图',templet: '#image'},
                         {field: 'create_time', title: '创建时间'},
                         {field: 'right', title: '操作', toolbar: '#operate', fixed: 'right'},
                     ]]
