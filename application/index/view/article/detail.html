@@ -1,198 +1,91 @@
-{extend file='common/base'}
-{block name='content'}
+{extend name="/common/base"}
+{block name='css'}
+<link href="__INDEX_CSS__/info.css" rel="stylesheet">
+<link rel="stylesheet" href="__LIBS__/font-awesome/css/font-awesome.css">
+{/block}
+{block name="content"}
 
-<article>
-    <aside class="l_box">
-        <div class="search">
-            <form action="/e/search/index.php" method="post" name="searchform" id="searchform">
-                <input name="keyboard" id="keyboard" class="input_text" value="ÇëÊäÈë¹Ø¼ü×Ö´Ê"
-                       style="color: rgb(153, 153, 153);"
-                       onfocus="if(value=='ÇëÊäÈë¹Ø¼ü×Ö´Ê'){this.style.color='#000';value=''}"
-                       onblur="if(value==''){this.style.color='#999';value='ÇëÊäÈë¹Ø¼ü×Ö´Ê'}" type="text">
-                <input name="show" value="title" type="hidden">
-                <input name="tempid" value="1" type="hidden">
-                <input name="tbname" value="news" type="hidden">
-                <input name="Submit" class="input_submit" value="ËÑË÷" type="submit">
-            </form>
+<main>
+    <div class="infosbox">
+        <div class="newsview">
+            <h3 class="news_title">{$article_info.title}</h3>
+            <div class="bloginfo">
+                <ul>
+                    <li class="author">ä½œè€…ï¼š<a href="/">{$article_info.author}</a></li>
+                    <li class="lmname"><a href="/">{$article_info.column.name}</a></li>
+                    <li class="timer">æ—¶é—´ï¼š{$article_info.create_time|strtotime|date='Y-m-d'}</li>
+                    <li class="view">{$article_info.watch_count}äººå·²é˜…è¯»</li>
+                </ul>
+            </div>
+            <div class="tags">
+                {foreach $tags as $k=>$v}
+                    <a href="#{$v.tag_list.id}" class="tag" target="_blank">{$v.tag_list.name}</a> &nbsp;
+                {/foreach}
+            </div>
+            <div class="news_about"><strong>ç®€ä»‹</strong>{$article_info.description}</div>
+            <div class="news_con">{$article_info.content|html_entity_decode|raw}</div>
         </div>
-        <div class="fenlei">
-            <h2>ÎÄÕÂ·ÖÀà</h2>
-            <ul>
-                <li><a href="/">Ñ§ÎÞÖ¹¾³£¨33£©</a></li>
-                <li><a href="/">ÈÕ¼Ç£¨19£©</a></li>
-                <li><a href="/">ÂýÉú»î£¨520£©</a></li>
-                <li><a href="/">ÃÀÎÄÐÀÉÍ£¨40£©</a></li>
-            </ul>
+        <div class="share">
+            <p class="diggit tool-tip" data-tip="æ„Ÿè°¢ä½ çš„å°èŠ±èŠ±"><i class="fa fa-thumbs-o-up"></i> å¾ˆèµžå“¦ï¼ (<b id="diggnum">{$article_info.like}</b>)
+            </p>
         </div>
-        <div class="tuijian">
-            <h2>Õ¾³¤ÍÆ¼ö</h2>
-            <ul>
-                <li><a href="/">ÄãÊÇÊ²Ã´ÈË±ã»áÓöÉÏÊ²Ã´ÈË</a></li>
-                <li><a href="/">µÛ¹úcms ÁÐ±íÒ³µ÷ÓÃ×ÓÀ¸Ä¿£¬Ã»ÓÐÔò²»ÏÔÊ¾À¸Ä¿Ãû³Æ</a></li>
-                <li><a href="/">µÚ¶þ½ì ÓÅÐã¸öÈË²©¿ÍÄ£°å±ÈÈü²ÎÑ¡»î¶¯</a></li>
-                <li><a href="/">¸öÈË²©¿ÍÄ£°å¡¶ÉðÊ¿¡·ºóÌ¨¹ÜÀí</a></li>
-                <li><a href="/">ÄãÊÇÊ²Ã´ÈË±ã»áÓöÉÏÊ²Ã´ÈË</a></li>
-                <li><a href="/">µÛ¹úcms ÁÐ±íÒ³µ÷ÓÃ×ÓÀ¸Ä¿£¬Ã»ÓÐÔò²»ÏÔÊ¾À¸Ä¿Ãû³Æ</a></li>
-                <li><a href="/">µÚ¶þ½ì ÓÅÐã¸öÈË²©¿ÍÄ£°å±ÈÈü²ÎÑ¡»î¶¯</a></li>
-                <li><a href="/">¸öÈË²©¿ÍÄ£°å¡¶ÉðÊ¿¡·ºóÌ¨¹ÜÀí</a></li>
-            </ul>
+        <div class="nextinfo">
+            <p>ä¸Šä¸€ç¯‡ï¼š<a href="/news/life/2018-03-13/804.html">ä½œä¸ºä¸€ä¸ªè®¾è®¡å¸ˆ,å¦‚æžœé­åˆ°è´¨ç–‘ä½ æ˜¯å¦èƒ½æªå®ˆè‡ªå·±çš„åŽŸåˆ™?</a></p>
+            <p>ä¸‹ä¸€ç¯‡ï¼š<a href="/news/life/">è¿”å›žåˆ—è¡¨</a></p>
         </div>
-        <div class="tuijian">
-            <h2>µã»÷ÅÅÐÐ</h2>
-            <ul>
-                <li><a href="/">ÄãÊÇÊ²Ã´ÈË±ã»áÓöÉÏÊ²Ã´ÈË</a></li>
-                <li><a href="/">µÛ¹úcms ÁÐ±íÒ³µ÷ÓÃ×ÓÀ¸Ä¿£¬Ã»ÓÐÔò²»ÏÔÊ¾À¸Ä¿Ãû³Æ</a></li>
-                <li><a href="/">µÚ¶þ½ì ÓÅÐã¸öÈË²©¿ÍÄ£°å±ÈÈü²ÎÑ¡»î¶¯</a></li>
-                <li><a href="/">¸öÈË²©¿ÍÄ£°å¡¶ÉðÊ¿¡·ºóÌ¨¹ÜÀí</a></li>
-                <li><a href="/">ÄãÊÇÊ²Ã´ÈË±ã»áÓöÉÏÊ²Ã´ÈË</a></li>
-                <li><a href="/">µÛ¹úcms ÁÐ±íÒ³µ÷ÓÃ×ÓÀ¸Ä¿£¬Ã»ÓÐÔò²»ÏÔÊ¾À¸Ä¿Ãû³Æ</a></li>
-                <li><a href="/">µÚ¶þ½ì ÓÅÐã¸öÈË²©¿ÍÄ£°å±ÈÈü²ÎÑ¡»î¶¯</a></li>
-                <li><a href="/">¸öÈË²©¿ÍÄ£°å¡¶ÉðÊ¿¡·ºóÌ¨¹ÜÀí</a></li>
-            </ul>
-        </div>
-        <div class="cloud">
-            <h2>±êÇ©ÔÆ</h2>
-            <ul>
-                <a href="/">Ä°ÉÏ»¨¿ª</a> <a href="/">Ð£Ô°Éú»î</a> <a href="/">html5</a> <a href="/">SumSung</a> <a
-                    href="/">Çà´º</a> <a href="/">ÎÂÅ¯</a> <a href="/">Ñô¹â</a> <a href="/">ÈýÐÇ</a><a href="/">Ë÷Äá</a> <a
-                    href="/">»ªÎ¬ÈÙÒ«</a> <a href="/">ÈýÐÇ</a> <a href="/">Ë÷Äá</a>
-            </ul>
-        </div>
-        <div class="guanzhu">
-            <h2>¹Ø×¢ÎÒ Ã´Ã´ßÕ</h2>
-            <ul>
-                <img src="images/wx.jpg">
-            </ul>
-        </div>
-    </aside>
-    <main>
-        <div class="infosbox">
-            <div class="newsview">
-                <h3 class="news_title">¸öÈË²©¿Í£¬ÊôÓÚÎÒµÄÐ¡ÊÀ½ç£¡</h3>
-                <div class="bloginfo">
+        <div class="news_pl">
+            <h2>æ–‡ç« è¯„è®º</h2>
+            <div class="gbko">
+                <script src="/e/pl/more/?classid=77&amp;id=106&amp;num=20"></script>
+                <div class="fb">
                     <ul>
-                        <li class="author">×÷Õß£º<a href="/">ÑîÇà</a></li>
-                        <li class="lmname"><a href="/">Ñ§ÎÞÖ¹¾³</a></li>
-                        <li class="timer">Ê±¼ä£º2018-5-13</li>
-                        <li class="view">4567ÈËÒÑÔÄ¶Á</li>
+                        <p class="fbtime"><span>2018-07-24 11:52:38</span>dancesmile</p>
+                        <p class="fbinfo">è¿™æ‰æ˜¯æˆ‘è¦çš„æœ‹å‹åœˆ</p>
                     </ul>
                 </div>
-                <div class="tags"><a href="/" target="_blank">¸öÈË²©¿Í</a> &nbsp; <a href="/" target="_blank">Ð¡ÊÀ½ç</a></div>
-                <div class="news_about"><strong>¼ò½é</strong>¸öÈË²©¿Í£¬ÓÃÀ´×öÊ²Ã´£¿ÎÒ¸Õ¿ªÊ¼¾Í°ÑËüµ±×öÒ»¸öÎÒÍÂ²ÛÐÄÇéµÄµØ·½£¬Ò²¾ÍÏàµ±ÓÚÒ»¸öÍøÂç¼ÇÊÂ±¾£¬Ð´ÉÏÒ»Ð©¹ØÓÚ×Ô¼ºÉú»î¹¤×÷ÖÐµÄÐ¡ÇéÐ¡ÊÂ£¬Ò²»á·ÅÉÏÒ»Ð©ÕÕÆ¬£¬ÒôÀÖ¡£Ã¿Ìì¹¤×÷»Ø¼Òºó¾ÍÄÜ·ÃÎÊ×Ô¼ºµÄÍøÕ¾£¬Ò»±ßÌý×ÅÒôÀÖ£¬Ò»±ßÐ´Ð´ÎÄÕÂ¡£
-                </div>
-                <div class="news_con">
-                    ±¾ÎÄºÜ³¤£¬¼ÇÂ¼ÁËÎÒ²©¿Í½¨Õ¾³õµ½ÏÖÔÚµÄ¹ý³Ì£¬»¹ÓÐÎÒ´Ó±ÏÒµµ½ÏÖÔÚµÄÒ»¸ö×´Ì¬£¬¸ÐÐ»ÄúµÄÔÄ¶Á£¬Èç¹ûÄã»¹ÊÇÑ§Éú£¬Ò²ÐíÄãÄÜ´Ó´ËÎÄÖÐ£¬ÕÒµ½ÎÒÃÇÔø¾­ÏàËÆµÄµØ·½¡£Èç¹ûÄãÒÑ¾­¹¤×÷£¬ÓÐ×Ô¼ºµÄ²©¿Í£¬ÎÒÏë£¬Äã²¢Ã»ÓÐÍü¼Çµ±³õ½¨Á¢¸öÈË²©¿ÍµÄ³õÖÔ°É£¡<br>
-                    <br>
-                    ÎÒµÄ¸öÈË²©¿ÍÒÑ¾­½¨Õ¾ÓÐ8ÄêµÄÊ±¼äÁË£¬¶ÔËüµÄÈÈ°®£¬Ò»Ö±¶¼ÊÇÖ»ÔöÎ´¼õ¡£»ØÏë´óÑ§¶ÁÊéµÄÄÇ¼¸Äê£¬ÄÇ»á¶ù·Ç³£Á÷ÐÐQQ¿Õ¼ä£¬ÎÒÃÇÇÞÊÒµÄÊÒÓÑ»¹¾­³£ÑûÔ¼È¥Ñ§Ð£µÄÍø°É×ö×Ô¼ºµÄ¿Õ¼ä¡£ÏµÀïÓÐ¸öÄÐÉú£¬¿Õ¼ä×öµÃ·Ç³£Æ¯ÁÁ£¬Ê²Ã´Ðü¸¡£¬¿ª³¡¶¯»­£¬ÒôÀÖ²¥·ÅÆ÷£¬ÎÒÃÇÅ®ÉúÏÛÄ½µÃ²»µÃÁË¡£»¹ÑûÔ¼Ëû¸úÎÒÃÇÒ»ÆðÈ¥Í¨ÏüÅª¿Õ¼ä£¬ÍøÉÏ¿ÉÒÔÕÒµ½ºÜ¶àÃâ·ÑµÄflash×ÊÔ´£¬»¹ÓÐÒôÀÖ£¬ÄÇÒ²ÊÇµÚÒ»´Î½Ó´¥js£¬ÖªµÀÔÚä¯ÀÀÆ÷ÊäÈëÒ»¸öµØÖ·£¬ÐÞ¸ÄÒ»ÏÂÊý¾Ý£¬¾ÍÄÜµ÷ÓÃÒ»Ð©±³¾°³öÀ´¡£È»ºó°Ñ×Ô¼ºQQ¿Õ¼äÅªµÃÆ¯Æ¯ÁÁÁÁµÄ£¬¾­³£ÑûÔ¼ÊÒÓÑÀ´»¥²È¡£ÎÒ¼ÇµÃ08ÄêµØÕð£¬µÚ¶þÌìÍíÉÏ£¬ÎÒÃÇÇÞÊÒµÄ¼¸¸öÈË»¹µ­¶¨µÄÔÚÇÞÊÒ×°°ç¿Õ¼äÄØ£¡<br>
-                    <br>
-                    <img alt="" src="images/1.jpg"><br>
-                    <br>
-                    ºóÀ´¿Õ¼äÊÕ·ÑÏîÄ¿Ò²¶àÁË£¬¹Ù·½Â©¶´Ò²ÐÞ¸´ÁË£¬¼ÓÉÏÁÙ½ü±ÏÒµ£¬ÓÖÒªÃ¦×Å×ö±ÏÒµÉè¼Æ£¬¾ÍÃ»ÔÙ´òÀíQQ¿Õ¼ä¡£ÎÒÖªµÀÏÖÔÚµÄ¾ÅÁãºó£¬ÁãÁãºó£¬ÄãÃÇ¿Ï¶¨Ã»¿´¹ý¡¶Ò»Á±ÓÄÃÎ¡·£¬ÄÇ»á¶ùÎÒÒ²ÊÇ·è¿ñ×·¾ç£¬Ï²»¶ÉÏ×ÏÁâ£¬Ï²»¶ÉÏËýµÄÍøÕ¾¡£Ïë¿´¿´ËýµÄÐ¡ÊÀ½ç£¬¶øÎÒ¸üÏëÑ§×Å×öÒ»¸öËýÄÇÑùµÄÍøÕ¾¡£ÄÇ»á¶ù»¹ÌìÕæµÄÒÔÎªÍøÉÏÕæµÄÓÐËýµÄÍøÕ¾£¬°Ù¶ÈËÑÁËºÃÐ©ÌìÒ²Ã»ÓÐ¡£<br>
-                    <br>
-                    Òª±ÏÒµµÄÊ±ºò£¬Òª½»×÷ÒµÁË£¬¸Ð¾õ×Ô¼ºÊ²Ã´¶¼Ã»Ñ§»á¡£ÊÒÓÑÀ­×ÅÎÒÃÇÈ¥¿´ÁËËýÍ¬Ñ§×öµÄÍøÕ¾£¬ÎÒÃÇÒ»¸ö¸öÅå·þµÃÎåÌåÍ¶µØ£¬ÉõÖÁ¾õµÃÌ«²»¿ÉË¼ÒéÁË¡£ÓÐÄÑ¶È£¬ÓÖÅÂ×Ô¼º²»»á¡£ÀÏÊ¦½ÌÎÒÃÇÔõÃ´²¼¾Ö£¬ÔõÃ´×ö£¬²¢Ã»ÓÐ½ÌÎÒÃÇÓÒ¼ü±£´æÍøÒ³¡£²»ÖªµÀÊÇË­ÏÈ»áÁËÕâ¾ø¼¼£¬È»ºóÎÒÃÇÒ»¸ö¸öÓÖ¸ú´òÁË¼¦ÑªËÆµÄ£¬·è¿ñÔÚÍøÉÏÕÒÍøÒ³£¬ÓÒ¼üÁí´æÎª¡£È»ºóÒ»¸ö¸öÐÞ¸ÄÎÄ×Ö£¬Í¼Æ¬¡£·Â·ðÓÖ»Øµ½ÁËÄÇ»á¶ù×öQQ¿Õ¼äÄÇ¸öÊ±ºò¡£ÄÃ×ÅcopyÀ´£¬²¢ÇÒ¾«ÐÄÐÞ¸ÄµÄ×÷Æ·£¬µÝ½»ÁË±ÏÒµÉè¼Æ£¬Ë³Àû½áÒµ¡£ÄÇ»á¶ù»¹ÊÇºÜÃÉ£¬Ò»ÖÖÔÆÀïÎíÀïµÄ¸Ð¾õ£¬¾¹ÓÐÖÖ²»ÖªµÀ×Ô¼ºµ½µ×ÊÇ»á»¹ÊÇ²»»áµÄ¸Ð¾õ£¬Ò²¾ÍÊÇ´ó¼Ò³£ËµµÄ±ÏÒµÃÔÃ£ÆÚ¡£<br>
-                    <br>
-                    <img alt="" src="images/2.jpg"><br>
-                    <br>
-                    ¹¤×÷ºó½øÈëÉç»á£¬³öÈ¥Ì¸ÒµÎñ£¬Óöµ½Ò»¸ö¶ÔÍøÒ³Éè¼Æ³¬¼¶¸ÐÐËÈ¤µÄÈË£¬ÁÄÁËÒ»ÏÂÎç¶¼»¹²»¹»£¬ËûÊÇÍêÈ«×ÔÑ§µÄ£¬×öÁËÒ»¸öÊ×Ò³Ðû´«ËûÃÇµÄ²úÆ·¡£ËûÑÛÀïµÄÎÒ¾ÍÊÇ×¨ÒµµÄ£¬×ÜÊÇÇë½ÌÎÒÒ»Ð©ÎÊÌâ¡£ÆäÊµÎÒÄÚÐÄÌØÏÛÄ½ÈË¼Ò£¬Ã¿´ÎÎÊÎÒ£¬ÎÒÒ²ËÆ¶®·Ç¶®µÄ¸úÈË¼Ò½â¾öÎÊÌâ£¬µ«ÎÒ»¹ÊÇ¾­³£¿¿°Ù¶ÈÀ´ËÑË÷ËûÒªµÄ´ð°¸¡£ËûÉíÉÏÄÇÖÖºÃÑ§ºÃÎÊµÄÄÇ¹É¾¢¶ù£¬Ò²³ÉÎªÎÒÆÈÇÐÏëÓµÓÐ×Ô¼ºµÄ¸öÈË²©¿ÍµÄÒ»¸öÖØÒªÔ­Òò¡£<br>
-                    <br>
-                    ×ö²©¿Í²»ÊÇËµ×ö¾Í×öµÄ£¬ºÜ¶à¶«Î÷ÎÒ¶¼²»¶®£¬Ò²²»ÖªµÀÒª¹ºÂòÓòÃû»¹ÓÐ¿Õ¼ä¡£Ç°ÆÚÒª×öµÄ¹¤×÷»¹ÊÇºÜ¶à¡£ÐÒºÃÕÅÔ°Í¬Ñ§£¬Ò²ÊÇÎÒÊµÏ°ÆÚµÄÍ¬ÊÂ£¬Ëû»áÕâÐ©£¬½ÌÎÒÍøÉÏÕÒÃâ·ÑµÄÐéÄâ¿Õ¼ä£¬È»ºó¾ÍÊÇ°Ñ×Ô¼º×öµÄÒ³ÃæÉÏ´«½øÈ¥£¬»¹¸øÁËÓÐÒ»¸öµØÖ·£¬È»ºó¾ÍÄÜ·ÃÎÊÁË¡£ÄÇÊÇµÚÒ»´Î½Ó´¥£¬Ò²ÁË½âÁËÕû¸öÍøÕ¾µÄÖÆ×÷¹ý³Ì£¬Ö»¿ÉÏ§ÂòÓòÃû»¹ÓÐ¿Õ¼äÐèÒª·ÑÓÃ£¬»¹ÔÚÊµÏ°ÆÚµÄÎÒ£¬ÏëÏëÒ²¾ÍËãÁË¡£ÐéÄâ¿Õ¼ä±Ï¾¹ÊÇÃâ·ÑµÄ£¬Ã»¶à³¤Ê±¼ä£¬×ö¹ýµÄÍøÒ³¾Í²»ÄÜ·ÃÎÊÁË£¬ÓÖµÃÖØÐÂ×¢²á£¬ÖØÐÂÉÏ´«¡£<br>
-                    <br>
-                    µÈ×Ô¼ºÓÐÒ»Ð©×Ê½ðºÍ¼¼Êõºó£¬ÎÒ¿ªÊ¼ÂòÓòÃûºÍ¿Õ¼ä¡£´ÓÒ»¿ªÊ¼£¬ÎÒ¾ÍÃ»Ïë¹ýÖ»ÊÇÁ·Á·ÊÖ£¬»òÕßÓÃÒ»¶ÎÊ±¼ä¾ÍÐÐÁË¡£ÎÒ»áÒ»Ö±ÓÃÏÂÈ¥£¬ËùÒÔ¾«ÐÄÌôÑ¡ÁËÓòÃûºÍ¿Õ¼ä¡£ÕâÐ©Äê³ýÁËÓòÃûÃ»ÓÐ¸ü»»Íâ£¬ºóÌ¨³ÌÐòÓÉasp»»³ÉÁËphp£¬¿Õ¼ä´ÓÎ÷²¿Êý¾Ý»»³ÉÍòÍø£¬Ò²¾ÍÊÇÏÖÔÚµÄ°¢ÀïÔÆ¡£Ò»²½²½Éý¼¶£¬¾ÍÏë°Ñ×îºÃµÄÒ»Ãæ³ÊÏÖ¸ø´ó¼Ò¡£ºÜ¶àÈËÎÊÎÒÍøÕ¾ËÙ¶ÈÔõÃ´·ÃÎÊÄÇÃ´¿ì£¬ÆäÊµÒ»ÊÇÍøÕ¾³ÌÐò£¬Ò³Ãæ×îºÃÊÇ¾²Ì¬Ò³Ãæ¡£Ã¿´ÎÎÒÐ´µÄ´úÂëµÄÊ±ºò£¬ÎÒ¶¼ÔÚ×ÁÄ¥ÔõÃ´¼õÉÙ´úÂë£¬¼õÉÙÊ¹ÓÃdivºÍÍ¼Æ¬£¬ÈÃhtml½á¹¹¼òµ¥»¯£¬¶øÓÖ²»Ê§ÃÀ¹Û¡£ËùÒÔ£¬ÍøÕ¾Ò²¸Ä°æÁËÓÐºÃ¼¸´Î¡£¶þÊÇ¿Õ¼ä»¹ÓÐ´ø¿í¡£Õâ¸öÆäÊµºÜÖØÒª£¬ÏÖÔÚ±¸°¸¸úÒÔÇ°±È£¬¿ìºÜ¶àÁË£¬¿ìµÄ»°Ò»ÐÇÆÚ£¬ÂýµÄ»°¶¥¶à¶þÊ®Ìì¡£ËùÒÔ£¬²»ÊÇÒòÎªÌØ×Å¼±µÄ»°£¬»¹ÊÇÓÃ¹úÄÚ¿Õ¼ä¡£¹ØÓÚ¹úÍâ¿Õ¼ä£¬ÆäÊµÏÖÔÚ°¢ÀïÔÆµÄÏã¸ÛÐéÄâÖ÷»úÒ²²»´í£¬·ÃÎÊ»¹ÊÇÉÏ´«¶¼±ÈÒÔÇ°ºÃºÜ¶àÁË¡£ÓÃËüµÄÐ¡»ï°éÒ²Í¦¶à¡£ÑÓÉìÔÄ¶Á
-                    ¡¶<u><a href="http://www.yangqq.com/jstt/web/2014-01-18/644.html"
-                           target="_blank">ÎÒµÄ¸öÈË²©¿ÍÖ®¡ª¡ª°¢ÀïÔÆ¿Õ¼äÑ¡Ôñ</a></u>¡·<br>
-                    <br>
-                    <img alt="" src="images/3.jpg"><br>
-                    <br>
-                    ¸öÈË²©¿Í£¬ÓÃÀ´×öÊ²Ã´£¿ÎÒ¸Õ¿ªÊ¼¾Í°ÑËüµ±×öÒ»¸öÎÒÍÂ²ÛÐÄÇéµÄµØ·½£¬Ò²¾ÍÏàµ±ÓÚÒ»¸öÍøÂç¼ÇÊÂ±¾£¬Ð´ÉÏÒ»Ð©¹ØÓÚ×Ô¼ºÉú»î¹¤×÷ÖÐµÄÐ¡ÇéÐ¡ÊÂ£¬Ò²»á·ÅÉÏÒ»Ð©ÕÕÆ¬£¬ÒôÀÖ¡£Ã¿Ìì¹¤×÷»Ø¼Òºó¾ÍÄÜ·ÃÎÊ×Ô¼ºµÄÍøÕ¾£¬Ò»±ßÌý×ÅÒôÀÖ£¬Ò»±ßÐ´Ð´ÎÄÕÂ¡£ËäÈ»·ÃÎÊÈËÊýÉÙ£¬ÎÒÒ²²»ÔÚºõÕâÐ©£¬¸öÈË²©¿Í¾ÍºÃÏñÎÒ×Ô¼ºµÄÒ»¸öÈÕ¼Ç±¾£¬À´¿úÌ½µÄÈË¶àÁË£¬·´¶ø²»×ÔÔÚÁË¡£ÒòÎª²©¿Í£¬ÎÒ»¹ÊÇ½»ÁË²»ÉÙÅóÓÑ¡£ÎÒÍøÕ¾Ö®Ç°µÄlogo¾ÍÊÇÍøÓÑ¸øÎÒÉè¼ÆµÄ¡£<br>
-                    <br>
-                    ºóÀ´£¬Ò²ÊÇÒòÎªÍ¬Ñ§Ëµ°Ù¶ÈËÑ²»×ÅÎÒµÄ¸öÈË²©¿Í£¬ÎÒ²Å¿ªÊ¼×ÁÄ¥ÔõÃ´°Ñ×Ô¼ºµÄ²©¿ÍÅÅÃûÌáÉÏÈ¥£¬·ÅÉÏÈ¥Ò»Ð©×Ô¼º×ö¹ýµÄÄ£°å£¬Ìá¹©Ãâ·ÑÏÂÔØ¡£Ò³ÃæÒÔÇ°Ò²Ö»ÓÐÒ»¸öÊ×Ò³£¬µ±³õÎÒ¾ÍÊÇÏë×ÅÉè¼ÆÒ»¸öÊ×Ò³¾ÍÐÐÁË£¬ÕæÕýÏëÑ§µÄÈË£¬Ò»¸öÒ³Ãæ×ã¹»ÁË£¬ÆäËûÒ³Ãæ£¬¶¼¿¿×Ô¼ºÉè¼Æ¡£ÏÖÔÚ²»Í¬À²£¬½üÆÚ°æ±¾ÎÒÌá¹©µÄÄ£°å¶¼ºÜÈ«£¬ÊµÔÚÊÇ¼Ü²»×¡ÈË¶à¶¼À´ÎÊÎÒÔõÃ´Ö»ÓÐÒ»¸öÒ³Ãæ£¬ËäÈ»ÎÒÒÑ¾­ÔÚÏÂÔØËµÃ÷ÀïÃæËµµÃºÜÇå³þÁË¡£Ò²¾ÍÊÇÌá¹©ÁËÕâÑùÒ»Ð©×ÊÔ´£¬ÎÒµÄ¸öÈË²©¿ÍÒ²²»ÔÙÊÇÒ»¸öÖ»¹Øºõ×Ô¼ºµÄÒ»¸öÆ½Ì¨¡£ÆØ¹âÂÊÔ½À´Ô½¸ß£¬¹âÌì»¯ÈÕÖ®ÏÂ£¬ÄÄ¸Ò·Å×Ô¼ºÕÕÆ¬£¬Ð´×Ô¼ºÐÄÇé°¡£¬ÓÚÊÇºõ£¬¼ÌÐøÕâÑùµÄÄ£Ê½°É£¬°Ñ×Ô¼ºÐ´µÄÄ£°å·Åµ½ÍøÕ¾ÉÏÈ¥¡£ÀÖÓÚ·ÖÏí£¬ÊÇÄÜ½á½»µ½ºÜ¶àÅóÓÑµÄ¡£<br>
-                    <br>
-                    ÎÒµÄ¸öÈË²©¿Í£¬ÔÚ½ñÄêÈýÔÂ·ÝÖ®Ç°ÊÇÃ»ÓÐÌá¹©ºóÌ¨°²×°£¬µ÷ÊÔÕâÐ©·þÎñµÄ¡£ÆäÊµÒ»Ö±¶¼ÓÐÈËÕÒÎÒ×ö¸öÈË²©¿Í£¬ÒòÎªµ÷ÊÔÊ±¼ä»¹ÓÐÐÞ¸ÄµÄÎÊÌâ£¬´ÓÉÏ´«µ½°²×°µ½ÐÞ¸Äµ÷ÊÔ£¬Ò»°ãÒªËÄÎå¸öÐ¡Ê±£¬ÎÒÅÂÊÕ·Ñ¸ß£¬ËùÒÔÒ»Ö±¶¼ÊÇ¾Ü¾øµÄ¡£×Ô´ÓÍÆ³öÀ´¡¶<u><a
-                        href="http://www.yangqq.com/download/div/2017-09-08/789.html" target="_blank">ÐÄÀ¶Ê±¼äÖá</a></u>¡·ºó£¬Ö÷¶¯ÕÒÎÒ×öÍøÕ¾µÄÒ²¶àÁË£¬ËûÃÇ¶¼ËµÊÇÎÒ·ÛË¿£¬Ï²»¶ÎÒµÄÄ£°å£¬ËùÒÔÎÒÔÚÄ£°åÏÂÃæÐ´ÁË¸¶·ÑËµÃ÷£¬ÎÒµÄ¸öÈË²©¿ÍÒ²¿ªÊ¼ÓÐÁË¸¶·ÑÏîÄ¿¡£<br>
-                    <br>
-                    <img alt="" src="images/6.jpg"><br>
-                    <br>
-                    ÎÒ½Óµ½µÄµÚÒ»µ¥£¬ÊÇÒ»Î»¸¸Ç×£¬Ïë¸ø×Ô¼ÒµÄ±¦±´½¨Á¢Ò»¸ö²©¿Í¡£ËûËµËûÏëÂòÒ»¸öÓòÃû£¬Ì¸ÁËºÃ¼¸Ìì£¬×îÖÕ»¨ÁË8000¶à¹ºÂòµ½£¬ÎÒÍ¦¾´ÅåËûµÄ£¬¶Ôº¢×ÓµÄ°®£¬ºÁ²»ÁßØÄ¡£ÓòÃû¹ÌÈ»ÖØÒª£¬ÆäÊµÎÒÏëËµ¼á³ÖÓÃ²©¿ÍÀ´¼ÇÂ¼±¦±´³É³¤µãµÎ£¬²ÅÊÇ×îÓÐ¼ÛÖµµÄ¡£µÚ¶þµ¥ÊÇÒ»¸öÔÄ¶ÁÍøÕ¾£¬´Ó¼ÓËûµ½¸úËûÁÄ£¬¿´ËûÅóÓÑÈ¦£¬ºÜÓÐ²ÅÆøµÄÒ»¸öÈË£¬Ò²Ïàµ±ÓÐ°®ÐÄ£¬ËûµÄÍøÕ¾´ó²¿·ÖÊÇ·ÖÏí¸øÒ»Ð©°®ºÃÔÄ¶ÁµÄ³¤Õß¡£»¹ÓÐÐ©¾ÍÊÇ¼¼ÊõÀàµÄÕ¾³¤£¬×ö×ÊÑ¶£¬×öÂÃÓÎ£¬×öÍÆ¹ãµÄ¡£Í¨³££¬´ÓÑ¡µÄÄ£°å¾ÍÄÜ¿´³öÀ´ÍøÕ¾ÀàÐÍ¡£¡¶<u><a
-                        href="http://www.yangqq.com/download/div/2017-09-08/789.html">ÐÄÀ¶Ê±¼äÖá</a></u>¡·Æ«¸öÈË£¬¡¶<u><a
-                        href="http://www.yangqq.com/download/div/2018-03-18/807.html">ÉðÊ¿</a></u>¡·£¬¡¶<u><a
-                        href="http://www.yangqq.com/download/div/2018-04-22/815.html" target="_blank">¸ñµ÷</a></u>¡·Æ«¼¼Êõ£¬×ÊÑ¶¡£¡¶<u><a
-                        href="http://www.yangqq.com/download/div/2018-04-18/814.html" target="_blank">ÇåÑÅ</a></u>¡·£¬¡¶<u><a
-                        href="http://www.yangqq.com/download/div/2017-07-16/785.html" target="_blank">Ë®Ä«¹Åµä</a></u>¡·Æ«ÎÄÒÕ¡£µ«Ò²ÓÐ¶ÔÎÒ·À±¸ÐÄµÄ£¬±ÈÈçËµ¸¶¿î·½Ê½£¬ÄÜ²»ÄÜ×ßÌÔ±¦£¬ÕâÐ©ÎÒÒ²ÄÜÀí½â£¬µ«ÊÇÓÐÐ©°É£¬´ÓÒ»¿ªÊ¼ÁÄ£¬¸Ð¾õ¾Í²»Ì«ºÃ£¬ÀíÓ¦¾ÍÈÏÎª²»Ó¦¸ÃÊÕÇ®£¬ÊÕÇ®¸ÉÂï£¬µ½´¦¶¼ÊÇÃâ·ÑµÄ£¬Ìýµ½ÕâÐ©£¬ÎÒÒ²ÂýÂý½âÊÍ¡£ÆäÊµËûÃÇ²¢²»ÁË½âÎÒ£¬ÁË½âÎÒµÄÍøÕ¾£¬Ö»ÒªÊÇ´ÓÎÒ²©¿ÍÀ´µÄ£¬¹Ø×¢¹ýÒ»¶ÎÊ±¼äµÄ£¬¶¼ÖªµÀÇà½ãµÄÈËÆ·ÊÇÕ¦ÑùµÄ¡£ÓÃ¡°ÐÄÈû¡±Õâ¸ö´Ê£¬ºÁ²»Îª¹ý°É¡£<br>
-                    <br>
-                    ÎÒ×ö¹ýµÄÍøÕ¾£¬Ã¿¹ýÒ»¶ÎÊ±¼ä£¬ÎÒ¶¼»áÒ»¸ö¸öµã»÷¿´¿´½øÕ¹ÔõÃ´Ñù£¬¸öÈË²©¿Í£¬²»ÏñÕæÊµµÄÃæ¶ÔÃæÁÄ£¬¸ü¶àµÄÊÇÎÄ×ÖµÄ½»Á÷£¬²»µÃ²»ËµÓÐÊ±ºòÎÄ×Ö´«´ïµÄÐÅÏ¢¸üÄÜÁË½âÒ»¸öÈË£¬ÉõÖÁÓÐÐÄÁé¹²Ãù¡£ÎÒÏëÎÒ»¹»áÔÙÖØÐÂ×öÒ»¸ö½ö½öÊôÓÚ×Ô¼ºµÄ¸öÈË²©¿Í£¬Èç¹ûÄãÒ²ÏëÒª×öÒ»¸ö²©¿Í£¬ÓÃÀ´¼ÇÂ¼×Ô¼ºµÄ¼ÒÍ¥£¬¹¤×÷£¬Éú»î£¬»òÕßÌÖÅ®ÓÑ»¶ÐÄ£¬²»·ÁÏÖÔÚ¾Í¿ªÊ¼°É£¡<br>
-                    <br>
-                    &nbsp;
-                </div>
-            </div>
-            <div class="share">
-                <p class="diggit"><a
-                        href="JavaScript:makeRequest('/e/public/digg/?classid=3&amp;id=19&amp;dotop=1&amp;doajax=1&amp;ajaxarea=diggnum','EchoReturnedText','GET','');">
-                    ºÜÔÞÅ¶£¡ </a>(<b id="diggnum">
-                    <script type="text/javascript" src="/e/public/ViewClick/?classid=2&id=20&down=5"></script>
-                    13</b>)
-                </p>
-            </div>
-            <div class="nextinfo">
-                <p>ÉÏÒ»Æª£º<a href="/news/life/2018-03-13/804.html">×÷ÎªÒ»¸öÉè¼ÆÊ¦,Èç¹ûÔâµ½ÖÊÒÉÄãÊÇ·ñÄÜã¡ÊØ×Ô¼ºµÄÔ­Ôò?</a></p>
-                <p>ÏÂÒ»Æª£º<a href="/news/life/">·µ»ØÁÐ±í</a></p>
-            </div>
-            <div class="news_pl">
-                <h2>ÎÄÕÂÆÀÂÛ</h2>
-                <div class="gbko">
-                    <script src="/e/pl/more/?classid=77&amp;id=106&amp;num=20"></script>
-                    <div class="fb">
-                        <ul>
-                            <p class="fbtime"><span>2018-07-24 11:52:38</span>dancesmile</p>
-                            <p class="fbinfo">Õâ²ÅÊÇÎÒÒªµÄÅóÓÑÈ¦</p>
-                        </ul>
-                    </div>
-                    <div class="fb">
-                        <ul>
-                            <p class="fbtime"><span>2018-07-24 08:52:48</span> ²·Ò°</p>
-                            <p class="fbinfo"></p>
-                            <div class="ecomment"><span class="ecommentauthor">ÍøÓÑ ¼ÒÂìÒÏ µÄÔ­ÎÄ£º</span>
-                                <p class="ecommenttext">¼á³ÖÓ´!¿´ÄãÃ¿Ìì¶¼ÓÐÐ´£¬Çë¼ÌÐø¼ÓÓÍ£¬ÔÙ½ÓÔÙÀ÷Å¶</p>
-                            </div>
-                        </ul>
-                    </div>
-
-                    <script>
-                        function CheckPl(obj) {
-                            if (obj.saytext.value == "") {
-                                alert("ÄúÃ»Ê²Ã´»°ÒªËµÂð£¿");
-                                obj.saytext.focus();
-                                return false;
-                            }
-                            return true;
-                        }
-                    </script>
-                    <form action="/e/pl/doaction.php" method="post" name="saypl" id="saypl"
-                          onsubmit="return CheckPl(document.saypl)">
-                        <div id="plpost">
-                            <p class="saying"><span><a href="/e/pl/?classid=77&amp;id=106">¹²ÓÐ<script
-                                    type="text/javascript"
-                                    src="/e/public/ViewClick/?classid=77&amp;id=106&amp;down=2"></script>2ÌõÆÀÂÛ</a></span>À´ËµÁ½¾ä°É...
-                            </p>
-                            <p class="yname"><span>ÓÃ»§Ãû:</span>
-                                <input name="username" type="text" class="inputText" id="username" value="" size="16">
-                            </p>
-                            <p class="yzm"><span>ÑéÖ¤Âë:</span>
-                                <input name="key" type="text" class="inputText" size="16">
-                            </p>
-                            <input name="nomember" type="hidden" id="nomember" value="1" checked="checked">
-                            <textarea name="saytext" rows="6" id="saytext"></textarea>
-                            <input name="imageField" type="submit" value="Ìá½»">
-                            <input name="id" type="hidden" id="id" value="106">
-                            <input name="classid" type="hidden" id="classid" value="77">
-                            <input name="enews" type="hidden" id="enews" value="AddPl">
-                            <input name="repid" type="hidden" id="repid" value="0">
-                            <input type="hidden" name="ecmsfrom" value="/joke/talk/2018-07-23/106.html">
+                <div class="fb">
+                    <ul>
+                        <p class="fbtime"><span>2018-07-24 08:52:48</span> åœé‡Ž</p>
+                        <p class="fbinfo"></p>
+                        <div class="ecomment"><span class="ecommentauthor">ç½‘å‹ å®¶èš‚èš çš„åŽŸæ–‡ï¼š</span>
+                            <p class="ecommenttext">åšæŒå“Ÿ!çœ‹ä½ æ¯å¤©éƒ½æœ‰å†™ï¼Œè¯·ç»§ç»­åŠ æ²¹ï¼Œå†æŽ¥å†åŽ‰å“¦</p>
                         </div>
-                    </form>
+                    </ul>
                 </div>
+
+                <script>
+                    function CheckPl(obj)
+                    {
+                        if(obj.saytext.value=="")
+                        {
+                            alert("æ‚¨æ²¡ä»€ä¹ˆè¯è¦è¯´å—ï¼Ÿ");
+                            obj.saytext.focus();
+                            return false;
+                        }
+                        return true;
+                    }
+                </script>
+                <form action="/e/pl/doaction.php" method="post" name="saypl" id="saypl" onsubmit="return CheckPl(document.saypl)">
+                    <div id="plpost">
+                        <p class="saying"><span><a href="/e/pl/?classid=77&amp;id=106">å…±æœ‰<script type="text/javascript" src="/e/public/ViewClick/?classid=77&amp;id=106&amp;down=2"></script>2æ¡è¯„è®º</a></span>æ¥è¯´ä¸¤å¥å§...</p>
+                        <p class="yname"><span>ç”¨æˆ·å:</span>
+                            <input name="username" type="text" class="inputText" id="username" value="" size="16">
+                        </p>
+                        <p class="yzm"><span>éªŒè¯ç :</span>
+                            <input name="key" type="text" class="inputText" size="16">
+                        </p>
+                        <input name="nomember" type="hidden" id="nomember" value="1" checked="checked">
+                        <textarea name="saytext" rows="6" id="saytext"></textarea>
+                        <input name="imageField" type="submit" value="æäº¤">
+                        <input name="id" type="hidden" id="id" value="106">
+                        <input name="classid" type="hidden" id="classid" value="77">
+                        <input name="enews" type="hidden" id="enews" value="AddPl">
+                        <input name="repid" type="hidden" id="repid" value="0">
+                        <input type="hidden" name="ecmsfrom" value="/joke/talk/2018-07-23/106.html">
+                    </div>
+                </form>
             </div>
         </div>
-    </main>
-</article>
+    </div>
+</main>
 {/block}
-

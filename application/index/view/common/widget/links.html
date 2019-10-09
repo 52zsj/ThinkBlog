@@ -1,0 +1,8 @@
+<div class="links">
+    <h2>友情链接</h2>
+    <ul>
+        {foreach $friendly_link as $k=>$v}
+        <a href="{$v.value}">{$v.name}-{$v.en_name}</a>
+        {/foreach}
+    </ul>
+</div>

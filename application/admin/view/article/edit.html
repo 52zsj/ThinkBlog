@@ -173,11 +173,11 @@
                         <a href="javascript:;" style=" display: none"
                            class="layui-btn layui-btn-sm hide-labelitem a-style"
                         >收起标签库 </a>
-                        <input type="hidden" id="hidden-val" name="tag_ids" value="{$row.tag_ids}">
+                        <input type="hidden" id="hidden-val" name="tag_ids" value="{:$tag_ids}">
                         <ul id="label-selected-ul">
                             <!--这里存放值-->
                             {foreach $tag as $k=>$v}
-                            <li data="{$k}">x {$v}</li>
+                            <li data="{$v.id}">x {$v.name}</li>
                             {/foreach}
                         </ul>
                     </div>

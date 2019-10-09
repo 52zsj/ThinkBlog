@@ -1,0 +1,25 @@
+{include file='/common/header'/}
+{block name='content'}
+<div class="layui-fluid">
+    <div class="layui-row">
+        <form class="layui-form" method="POST">
+            <div class="layui-form-item show-editor-text" id="check-editor">
+                <label for="description" class="layui-form-label">
+                    <span class="x-red"></span>内容
+                </label>
+                <div class="layui-input-block">
+                    <textarea name="content" id="content" class="myeditor" cols="30"
+                              rows="10">{$row.content|raw}</textarea>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label for="add" class="layui-form-label">
+                </label>
+                <button class="layui-btn" lay-filter="submit" lay-submit="">
+                    提交
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+{/block}

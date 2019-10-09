@@ -7,12 +7,18 @@ use app\admin\logic\Oss as OssLogic;
 use app\common\exception\Failure;
 use app\common\exception\Success;
 use app\common\model\Article as ArticleModel;
+use app\common\model\ArticleTags;
 use app\common\model\Tag as TagModel;
 use app\common\model\Column as ColumnModel;
+use think\Db;
+use think\Exception;
+use think\exception\PDOException;
+use think\exception\RouteNotFoundException;
 
 class Article extends Base
 {
-    protected $savePath='';
+    protected $savePath = '';
+
     public function initialize() {
         parent::initialize();
         $this->model = new ArticleModel();
@@ -22,14 +28,91 @@ class Article extends Base
     }
 
     /**
+     * 新增
+     * @return string
+     * @throws Failure
+     * @throws Success
+     */
+    public function add() {
+        if ($this->request->isAjax()) {
+            $params = $this->request->param();
+            $tagIds = $params['tag_ids'];
+            unset($params['tag_ids']);
+            Db::startTrans();
+            $pk = $this->model->getpk();
+            try {
+                $result = $this->model->allowField(true)->save($params);
+                if (!empty($tagIds)) {
+                    $tagIdList = explode(',', $tagIds);//数组
+                    $id = $this->model->$pk;
+                    $articleTagList = [];
+                    foreach ($tagIdList as $k => $v) {
+                        $articleTagListTmp['article_id'] = $id;
+                        $articleTagListTmp['tag_id'] = $v;
+                        $articleTagList[] = $articleTagListTmp;
+                    }
+                    $articleTagModel = new ArticleTags();
+                    $artTagResult = $articleTagModel->saveAll($articleTagList);
+                }
+                Db::commit();
+            } catch (Exception $e) {
+                Db::rollback();
+                throw new Failure($e->getMessage());
+            }
+            throw new Success('添加成功', $this->model->$pk);
+        }
+        return $this->view->fetch();
+    }
+
+    /**
      * 编辑
      */
     public function edit($id = null) {
-        $row = $this->model->get($id);
-        $tagIdList = explode(',', $row['tag_ids']);
-        $tag = TagModel::whereIn('id', $tagIdList)->column('name', 'id');
-        $this->assign('tag', $tag);
-        return parent::edit($id);
+        $row = $this->model->with(['tags' => function ($query) {
+            $query->with(['tagList' => function ($query) {
+                $query->field('name,id');
+            }]);
+        }])->get($id);
+        if (!$row) {
+            throw new Failure('数据已被删除');
+        }
+        $tags = $row['tags'];
+        $tagList = array_column($tags->toArray(), 'tag_list');
+        $tagIdsStr = implode(',', array_column($tagList, 'id'));
+        $this->assign('tag_ids', $tagIdsStr);
+        $this->assign('tag', $tagList);
+        if ($this->request->isAjax()) {
+            $params = $this->request->param();
+            $tagIds = $params['tag_ids'];
+            unset($params['tag_ids']);
+            Db::startTrans();
+            try {
+                $result = $row->allowField(true)->save($params);
+                //删除原有数据
+                $delResult = ArticleTags::where('article_id', 'eq', $id)->delete();
+                if (!empty($tagIds)) {
+                    $articleTagList = [];
+                    $tagIdList = explode(',', $tagIds);//数组
+                    foreach ($tagIdList as $k => $v) {
+                        $articleTagListTmp['article_id'] = $id;
+                        $articleTagListTmp['tag_id'] = $v;
+                        $articleTagList[] = $articleTagListTmp;
+                    }
+                    //重新创建数据
+                    $articleTagModel = new ArticleTags();
+                    $artTagResult = $articleTagModel->saveAll($articleTagList);
+                }
+                Db::commit();
+            } catch (Exception $e) {
+                Db::rollback();
+                throw new Failure($e->getMessage());
+            }
+            throw new Success('更新成功');
+
+        }
+
+        $this->assign("row", $row);
+        return $this->view->fetch();
     }
 
     public function fileUpload() {

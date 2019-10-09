@@ -97,16 +97,41 @@ define(['jquery', 'hcsticky'], function ($) {
             noImage: function () {
                 document.addEventListener("error", function (e) {
                     var elem = e.target;
+                    console.log(elem);
                     if (elem.tagName.toLowerCase() == 'img') {
                         elem.src = "/static/index/images/no-img.jpg";
                         elem.title = '图片丢了~~';
                     }
                 }, true);
-                /* $('img').error(function () {
-                     console.log(this);
-                     this.src = "/static/index/images/no-img.jpg";
-                     this.title = '图片丢了~~';
-                 });*/
+            },
+            //标签颜色随机
+            random_color: function () {
+                var colorList = ["#9dc6eb", "#f8c471", "#b9a3ef", "#fdb1ca", "#9dc6eb", "#f8c471", "#b9a3ef", "#fdb1ca"];
+                if ($(".tag").length > 0) {
+                    $('.tag').each(function (k, v) {
+                        $(v).css('background', colorList[common.api.random(0, 7)]);
+                    });
+                }
+            },
+            //tooltip
+            tool_tip: function () {
+                console.log($(".tool-tip").length);
+                if ($(".tool-tip").length > 0) {
+                    $(document).on('mouseenter', '.tool-tip', function () {
+                        var text = $(this).data('tip');
+                        console.log(text);
+                        layer.tips(text, '.tool-tip', {
+                            tips: [1, '#3595CC'],
+                        });
+                    });
+                    $(document).on('mouseleave', '.tool-tip', function () {
+                        var text = $(this).data('tip');
+                        console.log(text);
+                        layer.tips(text, '.tool-tip', {
+                            tips: [1, '#cc5d00'],
+                        });
+                    });
+                }
             }
         },
         api: {
@@ -116,7 +141,11 @@ define(['jquery', 'hcsticky'], function ($) {
                 common.events.leftScroll();
                 common.events.goTop();
                 common.events.navColor();
-                common.events.noImage();
+                common.events.random_color();
+                common.events.tool_tip();
+            },
+            random: function (min, max) {
+                return Math.floor(Math.random() * (max - min) + min);
             },
         },
     };

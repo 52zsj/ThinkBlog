@@ -1,37 +1,18 @@
 define(['jquery', 'layui', 'template'], function ($, layui, template) {
     var Controller = {
         index: function () {
-            var curr_page = location.hash.replace('#!page=', '');
-            Controller.events.lay_page(curr_page);
-            $("#search").click(function () {
-                var keyword = $("#keyword").val();
-                if ( keyword== '') {
-                    layer.msg('搜索关键字不能为空！', {icon: 5});
-                    return false;
-                }
-                Controller.events.lay_page();
-            });
-            layui.use('carousel', function () {
-                var carousel = layui.carousel;
-                //建造实例
-                carousel.render({
-                    elem: '#layui-carousel',
-                    width: '100%', //设置容器宽度
-                    arrow: 'hover', //始终显示箭头
-                    anim: 'default', //切换动画方式
-                    indicator: 'none',
-                    autoplay: true,
-                });
-            });
+            Controller.events.search();
+            Controller.events.lay_carousel();
+            Controller.api.bindevent();
         },
 
         api: {
             bindevent: function () {
+                common.events.noImage();
             },
-
             get_request_url: function () {
                 return Config.request_url;
-            }
+            },
         },
         events: {
             lay_page: function (offset = '') {
@@ -77,13 +58,51 @@ define(['jquery', 'layui', 'template'], function ($, layui, template) {
                         $("#article-item-list").html(htmls);
 
                         //重新渲染
+                        Controller.events.random_color();
                         common.events.leftScroll();
                         common.events.noImage();
+                        Controller.events.time_out();
                     });
                 });
 
             },
+            lay_carousel: function () {
+                layui.use('carousel', function () {
+                    var carousel = layui.carousel;
+                    //建造实例
+                    carousel.render({
+                        elem: '#layui-carousel',
+                        width: '100%', //设置容器宽度
+                        arrow: 'hover', //始终显示箭头
+                        anim: 'default', //切换动画方式
+                        indicator: 'none',
+                        autoplay: true,
+                    });
+                });
+            },
+            search: function () {
+                $("#search").click(function () {
+                    if ($(this).hasClass('not-click')) {
+                        layer.msg('您的手速也太快了吧~臣妾受不了啊~3秒后可以继续搜索', {icon: 5});
+                        return false;
+                    }
+                    var keyword = $("#keyword").val();
+                    if (keyword == '') {
+                        layer.msg('搜索关键字不能为空！', {icon: 5});
+                        return false;
+                    }
+                    //如果执行至此说明成功走过之前测试
+                    $(this).addClass('not-click');
+                    Controller.events.lay_page();
+                });
+            },
+            time_out: function () {
+                setTimeout(function () {
+                    $("#search").removeClass('not-click');
+                }, 3000);
+            }
         }
+
     };
     return Controller;
 
