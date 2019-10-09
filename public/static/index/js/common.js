@@ -115,21 +115,27 @@ define(['jquery', 'hcsticky'], function ($) {
             },
             //tooltip
             tool_tip: function () {
-                console.log($(".tool-tip").length);
+                return;
                 if ($(".tool-tip").length > 0) {
-                    $(document).on('mouseenter', '.tool-tip', function () {
-                        var text = $(this).data('tip');
-                        console.log(text);
-                        layer.tips(text, '.tool-tip', {
-                            tips: [1, '#3595CC'],
-                        });
-                    });
-                    $(document).on('mouseleave', '.tool-tip', function () {
-                        var text = $(this).data('tip');
-                        console.log(text);
-                        layer.tips(text, '.tool-tip', {
-                            tips: [1, '#cc5d00'],
-                        });
+                    $(".tool-tip").each(function (k, v) {
+                        $(v).on('mouseenter', function () {
+                            var text = $(v).data('in-tip');
+                            if (text == '' || (typeof text == 'undefined')) {
+                                return false;
+                            } else {
+                                layer.tips(text, $(v), {
+                                    tips: [1, '#3595CC'],
+                                });
+                            }
+                        }).on('mouseleave', function () {
+                            var text = $(v).data('out-tip');
+                            if (text == '' || (typeof text == 'undefined')) {
+                                return false;
+                            }
+                            layer.tips(text, $(v), {
+                                tips: [1, '#cc5d00'],
+                            });
+                        })
                     });
                 }
             }

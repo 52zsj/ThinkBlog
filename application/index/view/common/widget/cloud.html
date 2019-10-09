@@ -2,7 +2,7 @@
     <h2>标签云</h2>
     <ul>
         {foreach $tag_cloud as $k=>$v}
-        <a href="#标签地址{$v.tag_id}" class="tooltip">{$v.tag_list.name}({$v.total})</a>
+        <a href="#标签地址{$v.tag_id}" title="共{$v.total}篇文章" class="tooltip tool-tip" data-in-tip="共{$v.total}篇文章">{$v.tag_list.name}({$v.total})</a>
         {/foreach}
     </ul>
 </div>

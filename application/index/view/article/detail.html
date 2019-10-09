@@ -26,17 +26,19 @@
             <div class="news_con">{$article_info.content|html_entity_decode|raw}</div>
         </div>
         <div class="share">
-            <p class="diggit tool-tip" data-tip="感谢你的小花花"><i class="fa fa-thumbs-o-up"></i> 很赞哦！ (<b id="diggnum">{$article_info.like}</b>)
+            <p class="diggit tool-tip" data-in-tip="感谢您的认可" data-out-tip="好人一生平安"><i class="fa fa-thumbs-o-up"></i> 很赞哦！
+                (<b id="diggnum">{$article_info.like}</b>)
             </p>
         </div>
         <div class="nextinfo">
-            <p>上一篇：<a href="/news/life/2018-03-13/804.html">作为一个设计师,如果遭到质疑你是否能恪守自己的原则?</a></p>
-            <p>下一篇：<a href="/news/life/">返回列表</a></p>
+            <p>上一篇：{if empty($pre)} 没有了{else}<a href="{:url('index/article/detail',['article_id'=>$pre.id])}">{$pre.title}</a>{/if}
+            </p>
+            <p>下一篇：{if empty($next)} 没有了{else}<a href="{:url('index/article/detail',['article_id'=>$next.id])}">{$next.title}</a>{/if}
+            </p>
         </div>
         <div class="news_pl">
             <h2>文章评论</h2>
             <div class="gbko">
-                <script src="/e/pl/more/?classid=77&amp;id=106&amp;num=20"></script>
                 <div class="fb">
                     <ul>
                         <p class="fbtime"><span>2018-07-24 11:52:38</span>dancesmile</p>
@@ -52,22 +54,9 @@
                         </div>
                     </ul>
                 </div>
-
-                <script>
-                    function CheckPl(obj)
-                    {
-                        if(obj.saytext.value=="")
-                        {
-                            alert("您没什么话要说吗？");
-                            obj.saytext.focus();
-                            return false;
-                        }
-                        return true;
-                    }
-                </script>
-                <form action="/e/pl/doaction.php" method="post" name="saypl" id="saypl" onsubmit="return CheckPl(document.saypl)">
+                <form action="" method="post" name="saypl" id="saypl">
                     <div id="plpost">
-                        <p class="saying"><span><a href="/e/pl/?classid=77&amp;id=106">共有<script type="text/javascript" src="/e/public/ViewClick/?classid=77&amp;id=106&amp;down=2"></script>2条评论</a></span>来说两句吧...</p>
+                        <p class="saying"><span><a href="">共有2条评论</a></span>来说两句吧...</p>
                         <p class="yname"><span>用户名:</span>
                             <input name="username" type="text" class="inputText" id="username" value="" size="16">
                         </p>
@@ -77,11 +66,6 @@
                         <input name="nomember" type="hidden" id="nomember" value="1" checked="checked">
                         <textarea name="saytext" rows="6" id="saytext"></textarea>
                         <input name="imageField" type="submit" value="提交">
-                        <input name="id" type="hidden" id="id" value="106">
-                        <input name="classid" type="hidden" id="classid" value="77">
-                        <input name="enews" type="hidden" id="enews" value="AddPl">
-                        <input name="repid" type="hidden" id="repid" value="0">
-                        <input type="hidden" name="ecmsfrom" value="/joke/talk/2018-07-23/106.html">
                     </div>
                 </form>
             </div>
