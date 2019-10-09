@@ -14,7 +14,7 @@ require.config({
         'layui':'../libs/layui/dist/layui.all',
         'common': 'js/common',
         'template':'../libs/art-template/lib/template-web',
-        'albumplugin':'js/album-plugin',//相册插件显示内容
+        'albumplugin':'album-plugin',//相册插件显示内容
 
     },
     included: ['css', 'toastr'],
