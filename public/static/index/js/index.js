@@ -1,25 +1,27 @@
-define(['jquery', 'layui', 'template'], function ($, layui, template) {
+define(['jquery', 'layui', 'template', 'bootstrap'], function ($, layui, template, undefind,) {
     var Controller = {
         index: function () {
             Controller.events.search();
             Controller.events.lay_carousel();
             Controller.api.bindevent();
+            Controller.events.hot_show();
         },
 
         api: {
             bindevent: function () {
-                common.events.noImage();
+
             },
             get_request_url: function () {
                 return Config.request_url;
             },
         },
         events: {
-            lay_page: function (offset = '') {
+            lay_page: function (offset = '', is_search = false,element) {
                 layui.use('laypage', function () {
                     var laypage = layui.laypage;
                     //执行一个laypage实例
-                    var keyword = $("#keyword").val();
+                    var keyword = $("#"+element).val();
+                    console.log(keyword);
                     //严格点
                     offset = offset == '' ? 1 : offset;
                     lucklyJack.api.ajax({
@@ -32,11 +34,11 @@ define(['jquery', 'layui', 'template'], function ($, layui, template) {
                         var limit = data.limit;
                         var total = data.total;
                         if (keyword != '') {
-                            $("#show-search").removeClass('layui-hide').text('搜索 "' + keyword + '" 总共：' + total + '条');
+                            $(".new-content .title strong").text('搜索 "' + keyword + '" 总共：' + total + '条');
                         } else {
-                            $("#show-search").addClass('layui-hide').text('')
+                            $(".new-content .title strong").text('最新文章');
                         }
-                        if (total > 0) {
+                        if (total > limit) {
                             laypage.render({
                                 elem: 'pagelist', //注意，这里的 test1 是 ID，不用加 # 号
                                 count: total,//数据总数，从服务端得到
@@ -47,7 +49,7 @@ define(['jquery', 'layui', 'template'], function ($, layui, template) {
                                 jump: function (obj, first) {
                                     var offset = obj.curr;//当前页
                                     if (!first) {
-                                        Controller.events.lay_page(offset);
+                                        Controller.events.lay_page(offset,false,element);
                                     }
                                 }
                             });
@@ -56,12 +58,13 @@ define(['jquery', 'layui', 'template'], function ($, layui, template) {
                             $("#pagelist").empty();
                         }
                         $("#article-item-list").html(htmls);
-
                         //重新渲染
-                        Controller.events.random_color();
-                        common.events.leftScroll();
-                        common.events.noImage();
-                        Controller.events.time_out();
+                        common.events.random_color();
+                        common.events.no_image();
+                        if (is_search) {
+                            common.events.time_out();
+                        }
+
                     });
                 });
 
@@ -75,32 +78,38 @@ define(['jquery', 'layui', 'template'], function ($, layui, template) {
                         width: '100%', //设置容器宽度
                         arrow: 'hover', //始终显示箭头
                         anim: 'default', //切换动画方式
-                        indicator: 'none',
                         autoplay: true,
                     });
                 });
             },
             search: function () {
-                $("#search").click(function () {
+                $("#search,#m-search").click(function () {
                     if ($(this).hasClass('not-click')) {
                         layer.msg('您的手速也太快了吧~臣妾受不了啊~3秒后可以继续搜索', {icon: 5});
                         return false;
                     }
-                    var keyword = $("#keyword").val();
+                    var elemt = $(this).data('input-id');
+                    var keyword = $('#'+elemt).val();
                     if (keyword == '') {
                         layer.msg('搜索关键字不能为空！', {icon: 5});
                         return false;
                     }
                     //如果执行至此说明成功走过之前测试
                     $(this).addClass('not-click');
-                    Controller.events.lay_page();
+                    Controller.events.lay_page(1, true,elemt);
                 });
             },
-            time_out: function () {
-                setTimeout(function () {
-                    $("#search").removeClass('not-click');
-                }, 3000);
+            //点赞最多文章 显示东西
+            hot_show: function () {
+                if ($(".hot-content ul li").length > 0) {
+                    $(".hot-content ul li").hover(function () {
+                        $(this).find("h3").show();
+                    }, function () {
+                        $(this).find("h3").hide();
+                    });
+                }
             }
+
         }
 
     };

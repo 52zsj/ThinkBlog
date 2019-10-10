@@ -1,0 +1,75 @@
+{extend name="/common/base"}
+{block name='css'}
+<link href="__INDEX_CSS__/info.css" rel="stylesheet">
+<link rel="stylesheet" href="__LIBS__/font-awesome/css/font-awesome.css">
+{/block}
+{block name="content"}
+
+<main>
+    <div class="infosbox">
+        <div class="newsview">
+            <h3 class="news_title">{$article_info.title}</h3>
+            <div class="bloginfo">
+                <ul>
+                    <li class="author">作者：<a href="/">{$article_info.author}</a></li>
+                    <li class="lmname"><a href="/">{$article_info.column.name}</a></li>
+                    <li class="timer">时间：{$article_info.create_time|strtotime|date='Y-m-d'}</li>
+                    <li class="view">{$article_info.watch_count}人已阅读</li>
+                </ul>
+            </div>
+            <div class="tags">
+                {foreach $tags as $k=>$v}
+                    <a href="{:url('index/article/tagList',['tag_id'=>$v.tag_list.id])}" class="tag" target="_blank">{$v.tag_list.name}</a> &nbsp;
+                {/foreach}
+            </div>
+            <div class="news_about"><strong>简介</strong>{$article_info.description}</div>
+            <div class="news_con">{$article_info.content|html_entity_decode|raw}</div>
+        </div>
+        <div class="share">
+            <p class="diggit tool-tip" data-in-tip="感谢您的认可" data-out-tip="好人一生平安"><i class="fa fa-thumbs-o-up"></i> 很赞哦！
+                (<b id="diggnum">{$article_info.like}</b>)
+            </p>
+        </div>
+        <div class="nextinfo">
+            <p>上一篇：{if empty($pre)} 没有了{else}<a href="{:url('index/article/detail',['article_id'=>$pre.id])}">{$pre.title}</a>{/if}
+            </p>
+            <p>下一篇：{if empty($next)} 没有了{else}<a href="{:url('index/article/detail',['article_id'=>$next.id])}">{$next.title}</a>{/if}
+            </p>
+        </div>
+        <div class="news_pl">
+            <h2>文章评论</h2>
+            <div class="gbko">
+                <div class="fb">
+                    <ul>
+                        <p class="fbtime"><span>2018-07-24 11:52:38</span>dancesmile</p>
+                        <p class="fbinfo">这才是我要的朋友圈</p>
+                    </ul>
+                </div>
+                <div class="fb">
+                    <ul>
+                        <p class="fbtime"><span>2018-07-24 08:52:48</span> 卜野</p>
+                        <p class="fbinfo"></p>
+                        <div class="ecomment"><span class="ecommentauthor">网友 家蚂蚁 的原文：</span>
+                            <p class="ecommenttext">坚持哟!看你每天都有写，请继续加油，再接再厉哦</p>
+                        </div>
+                    </ul>
+                </div>
+                <form action="" method="post" name="saypl" id="saypl">
+                    <div id="plpost">
+                        <p class="saying"><span><a href="">共有2条评论</a></span>来说两句吧...</p>
+                        <p class="yname"><span>用户名:</span>
+                            <input name="username" type="text" class="inputText" id="username" value="" size="16">
+                        </p>
+                        <p class="yzm"><span>验证码:</span>
+                            <input name="key" type="text" class="inputText" size="16">
+                        </p>
+                        <input name="nomember" type="hidden" id="nomember" value="1" checked="checked">
+                        <textarea name="saytext" rows="6" id="saytext"></textarea>
+                        <input name="imageField" type="submit" value="提交">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</main>
+{/block}

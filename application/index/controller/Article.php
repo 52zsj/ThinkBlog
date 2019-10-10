@@ -5,7 +5,9 @@ namespace app\index\controller;
 
 use app\common\model\Article as ArticleModel;
 use app\common\model\ArticleTags as ArticleTagsModel;
+use app\common\model\Inspirational;
 use app\common\model\Tag as TagModel;
+use app\index\logic\Widget as WidgetLogic;
 
 class Article extends Base
 {
@@ -27,12 +29,6 @@ class Article extends Base
         }
         $where[] = ['id', 'eq', $articleId];
         $where[] = ['status', 'eq', 1];
-        /*获取文章的上一篇 和下一篇*/
-        $infoField = 'id,title';
-        $nextInfo = ArticleModel::where('status', 'eq', '1')->where('id', '>', $articleId)->field($infoField)->order('id asc')->limit(1)->find();
-
-        $preInfo = ArticleModel::where('status', 'eq', '1')->where('id', '<', $articleId)->field($infoField)->order('id desc')->limit(1)->find();
-
         $articleInfo = ArticleModel::with(['tags' => function ($query) {
             $query->with(['tagList' => function ($query) {
                 $query->field('name,id');
@@ -44,16 +40,26 @@ class Article extends Base
         if (empty($articleInfo)) {
             $this->error('文章已被删除或已下架');
         }
+        $articleInfo->setInc('watch_count');
 
         $tags = $articleInfo['tags'];
+        /*获取文章的上一篇 和下一篇*/
+        $infoField = 'id,title';
+        $nextInfo = ArticleModel::where('status', 'eq', '1')->where('id', '>', $articleId)->field($infoField)->order('id asc')->limit(1)->find();
 
+        $prevInfo = ArticleModel::where('status', 'eq', '1')->where('id', '<', $articleId)->field($infoField)->order('id desc')->limit(1)->find();
+        WidgetLogic::inspirational();
+        WidgetLogic::hotArticle();
+        //相关推荐
+        $likeArticle = ArticleModel::where('column_id','eq',$articleInfo['column_id'])->field('id,title,cover')->limit(6)->select();
+        $this->assign('like_article',$likeArticle);
         $data['title'] = $articleInfo['title'];
         $data['webKeywords'] = $articleInfo['title'];
         $data['webDescription'] = $articleInfo['description'];
         $this->assignSeoData($data);
         $assignArray = [
             'next' => $nextInfo,
-            'pre' => $preInfo,
+            'prev' => $prevInfo,
             'article_info' => $articleInfo,
             'tags' => $tags,
         ];

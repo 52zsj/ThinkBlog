@@ -1,0 +1,16 @@
+
+    <meta charset="utf-8">
+    <title>{$web_data.title|default=$title}</title>
+    <meta name="keywords" content="{$web_data.web_keywords|default=$webKeywords}"/>
+    <meta name="description" content="{$web_data.web_description|default=$webDescription}"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--js-->
+    <link href="__INDEX_CSS__/base.css" rel="stylesheet">
+    <link href="__INDEX_CSS__/index.css" rel="stylesheet">
+    <link href="__INDEX_CSS__/m.css" rel="stylesheet">
+    <!--[if lt IE 9]>
+    <script src="__COMMON__/js/modernizr.js"></script>
+    <![endif]-->
+    <script type="text/javascript">
+        var require = {config:{:json_encode($config)}};
+    </script>

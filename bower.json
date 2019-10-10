@@ -17,6 +17,10 @@
     "hc-sticky": "2.1.0",
     "requirejs": "~2.3.6",
     "layui": "~2.4.3",
-    "art-template": "~4.13.2"
+    "art-template": "~4.13.2",
+    "jquery_lazyload": "~1.9.0",
+    "nprogress": "0.2.0",
+    "bootstrap": "3.3.5"
+
   }
 }

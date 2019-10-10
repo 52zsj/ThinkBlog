@@ -1,103 +1,24 @@
-define(['jquery', 'hcsticky'], function ($) {
+define(['jquery', 'hcsticky','bootstrap'], function ($) {
     var common = {
         events: {
-            //自适应手机版导航
-            mobileNav: function () {
-                $("#mnavh").click(function () {
-                    $("#starlist").toggle();
-                    $("#mnavh").toggleClass("open");
-                });
-            },
-            //页面滚动 隐藏头部
-            bodyScroll: function () {
-
-                var new_scroll_position = 0;
-                var last_scroll_position;
-                var header = document.getElementById("header");
-
-                window.addEventListener('scroll', function (e) {
-                    last_scroll_position = window.scrollY;
-
-                    // Scrolling down
-                    if (new_scroll_position < last_scroll_position && last_scroll_position > 80) {
-                        // header.removeClass('slideDown').addClass('slideUp');
-                        header.classList.remove("slideDown");
-                        header.classList.add("slideUp");
-
-                        // Scrolling up
-                    } else if (new_scroll_position > last_scroll_position) {
-                        // header.removeClass('slideUp').addClass('slideDown');
-                        header.classList.remove("slideUp");
-                        header.classList.add("slideDown");
-                    }
-
-                    new_scroll_position = last_scroll_position;
-                });
-            },
-            //左侧内容随页面滚动
-            leftScroll: function () {
-                //侧栏固定 跟随
-                //aside
-                var Sticky = new hcSticky('aside', {
-                    stickTo: 'main',
-                    innerTop: 200,
-                    followScroll: false,
-                    queries: {
-                        480: {
-                            disable: true,
-                            stickTo: 'body'
-                        }
-                    }
-                });
-            },
             //返回最上层
-            goTop: function () {
+            go_top: function () {
                 //回到顶部
-                // browser window scroll (in pixels) after which the "back to top" link is shown
-                var offset = 300,
-                    //browser window scroll (in pixels) after which the "back to top" link opacity is reduced
-                    offset_opacity = 1200,
-                    //duration of the top scrolling animation (in ms)
-                    scroll_top_duration = 700,
-                    //grab the "back to top" link
-                    $back_to_top = $('.cd-top');
-
-                //hide or show the "back to top" link
                 $(window).scroll(function () {
-                    ($(this).scrollTop() > offset) ? $back_to_top.addClass('cd-is-visible') : $back_to_top.removeClass('cd-is-visible cd-fade-out');
-                    if ($(this).scrollTop() > offset_opacity) {
-                        $back_to_top.addClass('cd-fade-out');
+                    if ($(window).scrollTop() > 100) {
+                        $(".gotop").fadeIn();
+                    } else {
+                        $(".gotop").hide();
                     }
                 });
-                //smooth scroll to top
-                $back_to_top.on('click', function (event) {
-                    event.preventDefault();
-                    $('body,html').animate({
-                            scrollTop: 0,
-                        }, scroll_top_duration
-                    );
+                $(".gotop").click(function () {
+                    $('html,body').animate({'scrollTop': 0}, 500);
                 });
-
-            },
-            //导航自动变换颜色
-            navColor: function () {
-                var obj = null;
-                //  console.log(document.getElementById('starlist').getElementsByTagName('a'));
-                var As = $("#starlist").children().find('a');// document.getElementById('starlist').getElementsByTagName('a');
-                // console.log('aaaaaaaaaaaa***************sssssssssssss');
-                // console.log(As);
-                obj = As[0];
-                for (i = 1; i < As.length; i++) {
-                    if (window.location.href.indexOf(As[i].href) >= 0)
-                        obj = As[i];
-                }
-                obj.id = 'selected';
             },
             //图片丢失时触发
-            noImage: function () {
+            no_image: function () {
                 document.addEventListener("error", function (e) {
                     var elem = e.target;
-                    console.log(elem);
                     if (elem.tagName.toLowerCase() == 'img') {
                         elem.src = "/static/index/images/no-img.jpg";
                         elem.title = '图片丢了~~';
@@ -113,41 +34,57 @@ define(['jquery', 'hcsticky'], function ($) {
                     });
                 }
             },
-            //tooltip
-            tool_tip: function () {
-                return;
-                if ($(".tool-tip").length > 0) {
-                    $(".tool-tip").each(function (k, v) {
-                        $(v).on('mouseenter', function () {
-                            var text = $(v).data('in-tip');
-                            if (text == '' || (typeof text == 'undefined')) {
-                                return false;
-                            } else {
-                                layer.tips(text, $(v), {
-                                    tips: [1, '#3595CC'],
+            //元素随页面滚动改变位置 默认搜索框
+            smart_float: function (obj = "#search-box") {
+                var element = typeof obj == 'object' ? obj : $(obj);
+                if (element.length > 0) {
+                    var top = element.offset().top; //当前元素对象element距离浏览器上边缘的距离
+                    var pos = element.css("position"); //当前元素距离页面document顶部的距离
+                    $(window).scroll(function () { //侦听滚动时
+                        var scrolls = $(this).scrollTop();
+                        if (scrolls > top) { //如果滚动到页面超出了当前元素element的相对页面顶部的高度
+                            if (window.XMLHttpRequest) { //如果不是ie6
+                                element.css({ //设置css
+                                    position: "fixed", //固定定位,即不再跟随滚动
+                                    top: 0 //距离页面顶部为0
+                                }).addClass("shadow"); //加上阴影样式.shadow
+                            } else { //如果是ie6
+                                element.css({
+                                    top: scrolls  //与页面顶部距离
                                 });
                             }
-                        }).on('mouseleave', function () {
-                            var text = $(v).data('out-tip');
-                            if (text == '' || (typeof text == 'undefined')) {
-                                return false;
-                            }
-                            layer.tips(text, $(v), {
-                                tips: [1, '#cc5d00'],
-                            });
-                        })
+                        } else {
+                            element.css({ //如果当前元素element未滚动到浏览器上边缘，则使用默认样式
+                                position: pos,
+                                top: top
+                            }).removeClass("shadow");//移除阴影样式.shadow
+                        }
                     });
                 }
-            }
+            },
+            //取消search样式
+            time_out: function () {
+                setTimeout(function () {
+                    $("#search,#m-search").removeClass('not-click');
+                }, 3000);
+            },
+            //tooltip
+            tool_tip: function () {
+                if ($('[data-toggle="popover"]').length > 0) {
+                    $('[data-toggle="popover"]').popover();
+                }
+                if ($('[data-toggle="tooltip"]').length > 0) {
+                    $('[data-toggle="tooltip"]').tooltip();
+                }
+            },
+
         },
         api: {
             bindevent: function () {
-                common.events.mobileNav();
-                common.events.bodyScroll();
-                common.events.leftScroll();
-                common.events.goTop();
-                common.events.navColor();
+                common.events.go_top();
                 common.events.random_color();
+                common.events.smart_float();
+                common.events.no_image();
                 common.events.tool_tip();
             },
             random: function (min, max) {

@@ -1,0 +1,10 @@
+<div class="sidebar-block recommend">
+    <h2 class="title"><strong>热门推荐</strong></h2>
+    <ul>
+        {foreach $hot_article_list as $k=>$v}
+        <li><a target="_blank" href="{:url('index/article/detail',['article_id'=>$v.id])}"> <span class="thumb"><img src="\{$v.cover}" alt=""></span>
+            <span class="text">{$v.title}</span> <span class="text-muted">阅读({$v.watch_count})</span></a>
+        </li>
+        {/foreach}
+    </ul>
+</div>

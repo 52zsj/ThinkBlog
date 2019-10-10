@@ -6,6 +6,7 @@ namespace app\index\controller;
 
 use app\common\library\Enum;
 use app\common\model\Dictionary;
+use app\common\model\Inspirational;
 use think\App;
 use think\Controller;
 use think\facade\Config;
@@ -21,6 +22,8 @@ class Base extends Controller
     protected $webDescription = '我是一个小菜鸟，整天就知道到敲代码的菜鸟';
     //模型
     protected $model = null;
+    //
+    public static $weekArray = ["星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六"];
 
     public function initialize() {
         parent::initialize();
@@ -42,6 +45,7 @@ class Base extends Controller
             'jsName' => 'js/' . str_replace('.', '/', $controllerName),
             'moduleUrl' => rtrim(url("/{$moduleName}", '', false), '/'),
         ];
+        $this->assign('week_array',self::$weekArray);
         $this->view->assign('config', $config);
     }
 
@@ -60,4 +64,8 @@ class Base extends Controller
         $assign_array = ['webKeywords' => $keywords, 'webDescription' => $description, 'title' => $title];
         $this->assign($assign_array);
     }
+
+
+
+
 }

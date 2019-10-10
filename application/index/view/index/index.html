@@ -1,91 +1,115 @@
-{extend name="/common/base"}
-{block name='css'}
-<link rel="stylesheet" href="__LIBS__/font-awesome/css/font-awesome.css">
-<style>
-</style>
-{/block}
-{block name="content"}
-<aside class="l_box">
-    {include file='common/widget/about_me'}
-    {include file='common/widget/inspirational'}
-    {include file='common/widget/search'}
-    {include file='common/widget/links'}
-    {include file='common/widget/cloud'}
-    {include file='common/widget/attention'}
-</aside>
-<main class="r_box">
-    <div class="layui-carousel" id="layui-carousel">
-        <div carousel-item>
-            {foreach $banner_list as $k=>$v}
-            {php}
-             $url ='javascript:;';$target='';
-             if(stripos($v['link'],'http')!==false||stripos($v['link'],'https')!==false){
-                $url = $v['link'];
-                $target='_blank';
-             }else if(count(explode('=',$v['link']))==2){
-                $link = substr($v['link'],0,strpos($v['link'], '_'));
-                $option = explode('=',$v['link']);
-                $url = url('index/'.$link.'/detail',[$option[0]=>$option[1]]);
-                $target='_blank';
-            }else{
-              //其他操作
-            }
-            {/php}
-            <a href="{$url}" target="{$target}">
-                <div class="banner-item">
-                    <i class="title">{$v.title}</i>
-                    <h1 class="description">{$v.description}</h1>
-                    <div class="mask"></div>
-                    <img src="\{$v.cover}" alt="">
-                </div>
-            </a>
-            {/foreach}
-
-
+{extend name='common/base'}
+{block name='content'}
+<div class="layui-carousel" id="layui-carousel">
+    <div carousel-item>
+        {foreach $banner_list as $k=>$v}
+        {php}
+            $url ='javascript:;';$target='';
+            if(stripos($v['link'],'http')!==false||stripos($v['link'],'https')!==false){
+            $url = $v['link'];
+            $target='_blank';
+        }else if(count(explode('=',$v['link']))==2){
+            $link = substr($v['link'],0,strpos($v['link'], '_'));
+            $option = explode('=',$v['link']);
+            $url = url('index/'.$link.'/detail',[$option[0]=>$option[1]]);
+            $target='_blank';
+        }else{
+        //其他操作
+        }
+        {/php}
+        <div class="carousel-inner" role="listbox">
+            <div class="item active">
+                <a href="{$url}" target="{$target}">
+                    <img style="width: 100%;height: 280px;" src="\{$v.cover}" alt=""/>
+                </a>
+                <div class="carousel-caption">{$v.title}-{$v.description}</div>
+                <span class="carousel-bg"></span>
+            </div>
         </div>
+        {/foreach}
     </div>
-    <h1 id="show-search" class="layui-hide" style="color: #1e9fff;padding: 10px 0px 10px 25px;background: rgba(255,255,255,0.8);margin-bottom: 10px"></h1>
-    <ul id="article-item-list">
-        <h2 style="color: #1e9fff;padding: 5px 0px 5px 25px;margin-bottom: 10px">最新发布</h2>
-        {foreach $row as $k=>$v}
-        <li>
-            <div class="tag-item">
-                {foreach $v.tags as $key=>$value}
-                <span class="tag">{$value.tag_list.name}</span>
-                {/foreach}
-            </div>
-            <i><a href="{:url('index/article/detail',['article_id'=>$v.id])}"><img src="\{$v.cover}" alt="图片不见了T.T"></a></i>
-            <h3><a href="{:url('index/article/detail',['article_id'=>$v.id])}">{:$v.title}</a></h3>
-            <div class="other-info">
-                <b class="fa fa-clock-o"><span title="发布时间"> {$v.create_time} </span></b>
-                <b class="fa fa-eye"><span title="查阅人数"> {$v.watch_count} </span></b>
-            </div>
-            <p>{$v.description}</p>
+</div>
+<!--/banner-->
+<div class="content-block hot-content hidden-xs">
+    <h2 class="title"><strong>点赞最多文章</strong></h2>
+    <ul>
+        {foreach $like_article_list as $k=>$v}
+        <li class="{if $k==0}large{/if}" data-toggle="tooltip" data-placement="top" title="累积获赞 {$v.like}">
+            <a href="{:url('index/article/detail',['article_id'=>$v.id])}">
+                <img src="\{$v.cover}" alt="">
+                <h3> {$v.title} </h3>
+            </a>
         </li>
         {/foreach}
     </ul>
-    <div id="pagelist" class="pagelist"></div>
+</div>
 
-</main>
+<div class="content-block new-content">
+    <h2 class="title"><strong>最新文章</strong></h2>
+    <div class="row" id="article-item-list">
+        {foreach $row as $k=>$v}
+        <div class="news-list">
+            <div class="news-img col-xs-5 col-sm-5 col-md-4"><a target="_blank"
+                                                                href="{:url('index/article/detail',['article_id'=>$v.id])}"><img
+                    src="\{$v.cover}" alt=""> </a></div>
+            <div class="news-info col-xs-7 col-sm-7 col-md-8">
+                <dl>
+                    <dt><a href="{:url('index/article/detail',['article_id'=>$v.id])}" target="_blank"> {$v.title} </a>
+                    </dt>
+                    <dd><span class="name"><a href="javascript:viod(0);"
+                                              title="由 {if !$v.author}本站站长{else}{$v.author}{/if} 发布" rel="author">{if !$v.author}本站站长{else}{$v.author}{/if}</a></span>
+                        <span class="identity"></span> <span
+                                class="time"> {$v.create_time|strtotime|date='Y-m-d'} </span></dd>
+                    <dd class="text">{$v.description}</dd>
+                </dl>
+                <div class="news_bot col-sm-7 col-md-8">
+                    <span class="tags visible-lg visible-md">
+                        {foreach $v.tags as $tag}
+                         <a class="tag">{$tag.tag_list.name}</a>
+                        {/foreach}
+                    </span>
+                    <span class="look"> 共 <strong>{$v.watch_count}</strong> 次阅读 </span>
+                </div>
+            </div>
+        </div>
+        {/foreach}
+    </div>
+    <!--<div class="news-more" id="pagination">
+        <a href="">查看更多</a>
+    </div>-->
+    <div class="quotes" id="pagelist" style="margin-top:15px">
+
+    </div>
+</div>
+{/block}
+{block name='widget'}
+    {include file='common/widget/sentence'}
+    {include file='common/widget/search'}
+    {include file='common/widget/recommend'}
 {/block}
 {block name='js'}
-<script id="article-item" type="text/html">
+<script type="text/html" id="article-item">
     {{each row value i}}
-    <li>
-        <div class="tag-item">
-            {{ each value.tags item k }}
-            <span class="tag">{{item.tag_list.name}}</span>
-            {{/each}}
+    <div class="news-list">
+        <div class="news-img col-xs-5 col-sm-5 col-md-4"><a target="_blank" href="{{value.detail_url}}"><img
+                src="\{{value.cover}}" alt=""> </a></div>
+        <div class="news-info col-xs-7 col-sm-7 col-md-8">
+            <dl>
+                <dt><a href="{{value.detail_url}}" target="_blank"> {{value.title}} </a></dt>
+                <dd><span class="name"><a href="javascript:viod(0);" title="由{{value.author}}发布" rel="author">{{value.author}}</a></span>
+                    <span class="identity"></span> <span class="time"> {{value.create_time}} </span></dd>
+                <dd class="text">{{value.description}}</dd>
+            </dl>
+            <div class="news_bot col-sm-7 col-md-8">
+                    <span class="tags visible-lg visible-md">
+                        {{ each value.tags item k }}
+                        <a class="tag">{{item.tag_list.name}}</a>
+                        {{/each}}
+                    </span>
+                <span class="look"> 共 <strong>{{value.watch_count}}</strong> 人看过 </span>
+            </div>
         </div>
-        <i><a href="{{value.detail_url}}"><img src="\{{value.cover}}" alt="图片不见了T.T"></a></i>
-        <h3><a href="{{value.detail_url}}">{{value.title}}</a></h3>
-        <div class="other-info">
-            <b class="fa fa-clock-o"><span title="发布时间"> {{value.create_time}} </span></b>
-            <b class="fa fa-eye"><span title="查阅人数"> {{value.watch_count}} </span></b>
-        </div>
-        <p>{{value.description}}</p>
-    </li>
+    </div>
     {{/each}}
 </script>
 {/block}
-

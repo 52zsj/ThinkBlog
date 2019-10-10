@@ -15,6 +15,9 @@ require.config({
         'common': 'js/common',
         'template':'../libs/art-template/lib/template-web',
         'albumplugin':'album-plugin',//相册插件显示内容
+        'lazyload':'../libs/jquery_lazyload/jquery.lazyload',
+        'nprogress':'../libs/nprogress/nprogress',
+        'bootstrap':'../libs/bootstrap/dist/js/bootstrap.min'
 
     },
     included: ['css', 'toastr'],
@@ -24,14 +27,15 @@ require.config({
         'bootstrap': ['jquery'],
         'bootstrap-datetimepicker': [
             'moment/locale/zh-cn',
-            'css!../libs/bootstrap/dist/css/bootstrap.css',
-            'css!../libs/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css',
+
         ],
-        'layui':{deps: ['css!../libs/layui/dist/css/layui.css'],exports: "layui",},
+        'layui': {deps: ['css!../libs/layui/dist/css/layui.css'], exports: "layui",},
         'scrollreveal': {exports: 'scrollreveal'},
         'hcsticky': {exports: '$.fn.hcsticky'},
         'toastr': ['css!../libs/toastr/toastr.min.css'],
-        'albumplugin':{exports:"albumplugin"},
+        'albumplugin': {exports: "albumplugin"},
+        'lazyload': {exports: "lazyload"},
+        'nprogress': {deps: ['css!../libs/nprogress/nprogress.css'], exports: "nprogress"},
     },
     map: {
         '*': {

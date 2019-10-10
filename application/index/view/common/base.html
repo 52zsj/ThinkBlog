@@ -5,17 +5,30 @@
     {block name='css'}
     {/block}
 </head>
+
 <body>
-{include file='/common/header'/}
-<article>
-    {block name="content"}
-    {/block}
-</article>
-{include file='/common/footer'/}
+<section class="container user-select">
+    {include file='/common/header'/}
+    <!--/超小屏幕可见-->
+    <div class="content-wrap"><!--内容-->
+        <div class="content">
+            {block name='content'}{/block}
+        </div>
+    </div>
+    <!--/内容-->
+    <aside class="sidebar visible-lg"><!--右侧>992px显示-->
+        {block name='widget'}
+
+        {/block}
+    </aside>
+    <!--/右侧>992px显示-->
+    {include file='/common/footer'/}
+</section>
+<div><a href="javascript:;" class="gotop" style="display:none;"></a></div>
+<!--/返回顶部-->
 {include file='/common/script'/}
 </body>
 </html>
 {block name='js'}
 
 {/block}
-
