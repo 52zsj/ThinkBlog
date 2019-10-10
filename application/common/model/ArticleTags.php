@@ -11,4 +11,7 @@ class ArticleTags extends Base
     public function tagList() {
         return $this->belongsTo('app\common\model\Tag', 'tag_id', 'id');
     }
+    public function articleList(){
+        return $this->belongsTo('app\common\model\Article', 'article_id', 'id');
+    }
 }

@@ -19,7 +19,7 @@
             </div>
             <div class="tags">
                 {foreach $tags as $k=>$v}
-                    <a href="#{$v.tag_list.id}" class="tag" target="_blank">{$v.tag_list.name}</a> &nbsp;
+                    <a href="{:url('index/article/tagList',['tag_id'=>$v.tag_list.id])}" class="tag" target="_blank">{$v.tag_list.name}</a> &nbsp;
                 {/foreach}
             </div>
             <div class="news_about"><strong>简介</strong>{$article_info.description}</div>

@@ -51,7 +51,7 @@
         <li>
             <div class="tag-item">
                 {foreach $v.tags as $key=>$value}
-                <a href="#{$value.tag_list.id}" class="tag">{$value.tag_list.name}</a>
+                <span class="tag">{$value.tag_list.name}</span>
                 {/foreach}
             </div>
             <i><a href="{:url('index/article/detail',['article_id'=>$v.id])}"><img src="\{$v.cover}" alt="图片不见了T.T"></a></i>
