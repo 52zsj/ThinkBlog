@@ -1,23 +1,21 @@
 {extend name="common/base"/}
 {block name='content'}
-<div class="picbox" id="picbox">
-    {foreach $article_list as $k=>$v}
+<div class="content-block related-content visible-lg visible-md artile-item">
+    <h2 class="title"><strong class="hide">标签：<b></b>共计文章 <b></b>篇</strong></h2>
+    <ul id="article-item-list">
 
-    <ul>
-        {foreach $v as $item}
-        <li>
-            <a href="{:url('index/article/detail',['article_id'=>$item.article_list.id])}"><i><img
-                    src="\{$item.article_list.cover}"></i>
-                <div class="picinfo">
-                    <h3>{$item.article_list.title}</h3>
-                    <span>{$item.article_list.description}</span>
-                </div>
-            </a>
-        </li>
-        {/foreach}
     </ul>
-
-    {/foreach}
 </div>
 <div id="pagelist" class="pagelist"></div>
+{/block}
+{block name='widget'}
+{include file='common/widget/sentence'}
+{include file='common/widget/search'}
+{include file='common/widget/recommend'}
+{include file='common/widget/comment'}
+{/block}
+{block name='js'}
+<script type="text/html" id="article-item">
+
+</script>
 {/block}
