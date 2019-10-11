@@ -36,6 +36,7 @@ class Index extends Base
         WidgetLogic::inspirational();
         WidgetLogic::hotArticle();
         WidgetLogic::likeArticle();
+        WidgetLogic::tagCloud();
 
         $assignArray = [
             'row' => $row,
@@ -72,10 +73,10 @@ class Index extends Base
                     }]);
                 }, 'column' => function ($query) {
                     $query->field('name,id');
-                }])->field('id,title,cover,content,description,create_time,watch_count,column_id,author')->order('order_key asc create_time desc')->page($offset, $limit)->select();
+                }])->field('id,title,cover,content,description,create_time,watch_count,column_id,author')->order('order_key asc ,watch_count dec,like desc, create_time desc')->page($offset, $limit)->select();
                 foreach ($row as $k => &$v) {
                     $v['detail_url'] = url('index/article/detail', ['article_id' => $v['id']]);
-                    $v['create_time'] = date('Y-m-d', strtotime($v['create_time']));
+                    $v['publish_time'] = date('Y-m-d', strtotime($v['create_time']));
                 }
                 unset($v);
             }

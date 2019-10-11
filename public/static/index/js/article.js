@@ -1,4 +1,4 @@
-define(['jquery', 'layui', 'template'], function ($, layui, template) {
+define(['jquery', 'layui', 'template', 'treeview'], function ($, layui, template, treeview) {
     var Controller = {
         detail: function () {
             Controller.api.bindevent();
@@ -10,6 +10,22 @@ define(['jquery', 'layui', 'template'], function ($, layui, template) {
             Controller.events.lay_page();
 
         },
+        articlelist: function () {
+            var column_id = $('.tag:first').data('value');
+            Controller.events.get_article_list(1,column_id);
+
+            $(document).on('click', '.tag', function () {
+                var that = $(this);
+                if (that.children('i').hasClass('glyphicon-eye-open')) {
+                    return false;
+                } else {
+                    that.children('i').addClass('glyphicon-eye-open').parents('span').siblings().find('i').removeClass('glyphicon-eye-open');
+                }
+                var column_id = $(this).data('value');
+                Controller.events.get_article_list(1, column_id);
+            });
+
+        },
         api: {
             bindevent: function () {
                 common.events.no_image();
@@ -19,6 +35,9 @@ define(['jquery', 'layui', 'template'], function ($, layui, template) {
             },
             get_article_like_url: function () {
                 return Config.like_url;
+            },
+            get_article_list_url: function () {
+                return Config.article_list_url;
             }
         },
         events: {
@@ -117,7 +136,64 @@ define(['jquery', 'layui', 'template'], function ($, layui, template) {
                         return false;
                     })
                 })
-            }
+            },
+            get_article_list: function (offset, column_id) {
+                console.log(column_id);
+                if (!column_id) {
+                    return false;
+                }
+                layui.use('laypage', function () {
+                    var laypage = layui.laypage;
+                    //严格点
+                    offset = offset == '' ? 1 : offset;
+                    lucklyJack.api.ajax({
+                        url: Controller.api.get_article_list_url(),
+                        data: {offset: offset, column_id: column_id},
+                        type: "POST",
+                        dataType: "json",
+                        loading:false,
+                    }, false, function (data,ret) {
+                        var htmls = template('article-item', data);
+                        var limit = data.limit;
+                        var total = data.total;
+                        if (total > limit) {
+                            laypage.render({
+                                elem: 'pagelist', //注意，这里的 test1 是 ID，不用加 # 号
+                                count: total,//数据总数，从服务端得到
+                                limit: limit,
+                                theme: '#1E9FFF',
+                                curr: location.hash.replace('#!page=', ''),//获取起始页
+                                hash: 'page', //自定义hash值
+                                jump: function (obj, first) {
+                                    var offset = obj.curr;//当前页
+                                    if (!first) {
+                                        Controller.events.get_article_list(offset,column_id);
+                                    }
+                                }
+                            });
+                        } else {
+                            $("#pagelist").empty();
+                        }
+                        $("#article-item-list").html(htmls);
+                        $(".artile-item .title strong").removeClass('hide');
+                        $(".artile-item .title strong b").eq(0).text(data.info);
+                        $(".artile-item .title strong b").eq(1).text(data.total);
+                        //重新渲染
+                        common.events.no_image();
+                        common.events.random_color();
+                        Controller.events.hover();
+
+                    }, function (data, ret) {
+                        layer.msg(ret.msg, {icon: 5}, function () {
+                            location.href = ret.jump_url;
+                        });
+
+                    });
+                    return false;
+                });
+
+            },
+
 
         }
 

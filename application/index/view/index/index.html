@@ -85,6 +85,7 @@
     {include file='common/widget/sentence'}
     {include file='common/widget/search'}
     {include file='common/widget/recommend'}
+    {include file='common/widget/cloud'}
 {/block}
 {block name='js'}
 <script type="text/html" id="article-item">
@@ -96,7 +97,7 @@
             <dl>
                 <dt><a href="{{value.detail_url}}" > {{value.title}} </a></dt>
                 <dd><span class="name"><a href="javascript:viod(0);" title="由{{value.author}}发布" rel="author">{{value.author}}</a></span>
-                    <span class="identity"></span> <span class="time"> {{value.create_time}} </span></dd>
+                    <span class="identity"></span> <span class="time"> {{value.publish_time}} </span></dd>
                 <dd class="text">{{value.description}}</dd>
             </dl>
             <div class="news_bot col-sm-7 col-md-8">

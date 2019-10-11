@@ -15,9 +15,8 @@ require.config({
         'common': 'js/common',
         'template':'../libs/art-template/lib/template-web',
         'albumplugin':'album-plugin',//相册插件显示内容
-        'lazyload':'../libs/jquery_lazyload/jquery.lazyload',
-        'nprogress':'../libs/nprogress/nprogress',
-        'bootstrap':'../libs/bootstrap/dist/js/bootstrap.min'
+        'bootstrap':'../libs/bootstrap/dist/js/bootstrap.min',
+        'treeview':'../libs/bootstrap-treeview/dist/bootstrap-treeview.min',
 
     },
     included: ['css', 'toastr'],
@@ -34,8 +33,7 @@ require.config({
         'hcsticky': {exports: '$.fn.hcsticky'},
         'toastr': ['css!../libs/toastr/toastr.min.css'],
         'albumplugin': {exports: "albumplugin"},
-        'lazyload': {exports: "lazyload"},
-        'nprogress': {deps: ['css!../libs/nprogress/nprogress.css'], exports: "nprogress"},
+        'treeview': {deps: ['jquery','css!../libs/bootstrap-treeview/dist/bootstrap-treeview.min.css']},
     },
     map: {
         '*': {

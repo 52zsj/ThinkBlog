@@ -18,6 +18,7 @@ Route::group(['ext' => 'html'], function () {
     Route::rule('article_detail/:article_id', 'index/article/detail');
     Route::rule('tag/:tag_id', 'index/article/tagList');
     Route::rule('article_like', 'index/article/likeArtilce');
+    Route::rule('article_list', 'index/article/articleList');
 });
 
 

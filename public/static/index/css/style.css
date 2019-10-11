@@ -850,6 +850,25 @@ textarea::-webkit-scrollbar-thumb {
 .content .tags-content div p::-webkit-scrollbar {
  display:none;
 }
+.sidebar-block .tag {
+	line-height: 25px;
+	font-size: 15px;
+	border-radius: 5px;
+	display: inline-block;
+	min-height: 25px;
+	text-align: center;
+	padding: 2px 8px;
+	margin: 2px 2px;
+	text-decoration: none;
+	color: #666666;
+	border: 1px solid #e2e2e2;
+	cursor: pointer;
+}
+
+.sidebar-block .tag:hover {
+	color: #fff;
+	border-radius: 0;
+}
 /*读者墙样式开始*/
 .content .face-block .face {
 	width: 36px;

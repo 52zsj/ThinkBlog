@@ -24,6 +24,8 @@ class Base extends Controller
     //
     public static $weekArray = ["星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六"];
 
+    protected $menuId = 1;
+
     public function initialize() {
         parent::initialize();
         $this->assignSeoData();
@@ -48,8 +50,8 @@ class Base extends Controller
         $this->view->assign('config', $config);
         //获取网站菜单
         $frontMenuList = FrontMenuModel::where('status', 'eq', 1)->order('order_key asc')->select();
-        $menu_id = 1;//默认首页
-        $this->assign('menu_id', $menu_id);
+
+        $this->assign('menu_id', $this->menuId);
         $this->assign('front_menu_list', $frontMenuList);
     }
 

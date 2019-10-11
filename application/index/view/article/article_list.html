@@ -1,0 +1,62 @@
+{extend name="common/base"/}
+{block name='css'}
+<style>
+    .active {
+
+    }
+</style>
+{/block}
+{block name='content'}
+
+<div class="content-block related-content visible-lg visible-md artile-item sidebar-block tags visible-xs">
+    <h2 class="title"><strong>文章分类</strong></h2>
+    {foreach $column_list as $k=>$v}
+   <span class="tag" data-value="{$v.id}"><i class="glyphicon {if $k==0} glyphicon-eye-open {/if}"></i> {$v.name}</span>
+    {/foreach}
+</div>
+
+<div class="content-block new-content">
+    <h2 class="title"><strong></strong></h2>
+    <div class="row " id="article-item-list">
+
+    </div>
+    <!--<div class="news-more" id="pagination">
+        <a href="">查看更多</a>
+    </div>-->
+    <div class="quotes" id="pagelist" style="margin-top:15px">
+
+    </div>
+</div>
+
+{/block}
+{block name='widget'}
+{include file='common/widget/sentence'}
+{include file='common/widget/cloud'}
+{include file='common/widget/recommend'}
+{/block}
+{block name='js'}
+<script type="text/html" id="article-item">
+    {{each row value i}}
+    <div class="news-list">
+        <div class="news-img col-xs-5 col-sm-5 col-md-4"><a href="{{value.detail_url}}"><img
+                src="\{{value.cover}}" alt=""> </a></div>
+        <div class="news-info col-xs-7 col-sm-7 col-md-8">
+            <dl>
+                <dt><a href="{{value.detail_url}}" > {{value.title}} </a></dt>
+                <dd><span class="name"><a href="javascript:viod(0);" title="由{{value.author}}发布" rel="author">{{value.author}}</a></span>
+                    <span class="identity"></span> <span class="time"> {{value.publish_time}} </span></dd>
+                <dd class="text">{{value.description}}</dd>
+            </dl>
+            <div class="news_bot col-sm-7 col-md-8">
+                    <span class="tags visible-lg visible-md">
+                        {{ each value.tags item k }}
+                        <a class="tag">{{item.tag_list.name}}</a>
+                        {{/each}}
+                    </span>
+                <span class="look"> 共 <strong>{{value.watch_count}}</strong> 人看过 </span>
+            </div>
+        </div>
+    </div>
+    {{/each}}
+</script>
+{/block}

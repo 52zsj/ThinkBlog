@@ -8,6 +8,7 @@ use app\common\exception\Success;
 use app\common\model\Article as ArticleModel;
 use app\common\model\ArticleLike as ArticleLikeModel;
 use app\common\model\ArticleTags as ArticleTagsModel;
+use app\common\model\Column as ColumnModel;
 use app\common\model\Tag as TagModel;
 use app\index\logic\Widget as WidgetLogic;
 use think\Db;
@@ -19,6 +20,43 @@ class Article extends Base
 
     public function initialize() {
         parent::initialize();
+    }
+
+    public function articleList() {
+        $this->assign('menu_id', 2);
+        WidgetLogic::inspirational();
+        WidgetLogic::hotArticle();
+        WidgetLogic::tagCloud();
+        $columnList = ColumnModel::where('status', 'eq', 1)->order('status asc')->field('id,name')->select();
+        if ($this->request->isAjax()) {
+            $offset = $this->request->param('offset');
+            $columnId = $this->request->param('column_id');
+            $where[] = ['column_id', 'eq', $columnId];
+            $where[] = ['status', 'eq', 1];
+            //文章总数
+            $articleTotal = ArticleModel::where($where)->count();
+            $row = [];
+            if ($articleTotal > 0) {
+                $row = ArticleModel::where($where)->field('id,title,cover,content,description,create_time,watch_count,column_id,author')->with(['tags' => function ($query) {
+                    $query->with(['tagList' => function ($query) {
+                        $query->field('name,id');
+                    }]);
+                }, 'column' => function ($query) {
+                    $query->field('name,id');
+                }])->field('id,title,cover,content,description,create_time,watch_count,column_id,author')->order('order_key asc ,watch_count dec,like desc, create_time desc')->page($offset, 5)->select();
+                foreach ($row as $k => &$v) {
+                    $v['detail_url'] = url('index/article/detail', ['article_id' => $v['id']]);
+                    $v['publish_time'] = date("Y-m-d", strtotime($v['create_time']));
+
+                }
+                unset($v);
+            }
+            throw new Success('请求成功', ['row' => $row, 'total' => $articleTotal, 'limit' => 5]);
+        }
+        $this->assignConfig('article_list_url', url('index/article/articleList'));
+        $this->assign('column_list', $columnList);
+        $this->assignConfig('request_url', url('index/index/search'));
+        return $this->fetch();
     }
 
     /**
@@ -110,6 +148,7 @@ class Article extends Base
             foreach ($articleList as $k => &$v) {
                 $v['detail_url'] = url('index/article/detail', ['article_id' => $v['article_id']]);
             }
+
             throw new Success('请求成功', ['row' => $articleList, 'total' => $articleTotal, 'limit' => $this->pageSize, 'info' => $taginfo]);
 
         }
@@ -119,6 +158,11 @@ class Article extends Base
 
     }
 
+    /**
+     * 点赞
+     * @throws Failure
+     * @throws Success
+     */
     public function likeArtilce() {
         if ($this->request->isAjax()) {
             $articleId = $this->request->param('article_id');
