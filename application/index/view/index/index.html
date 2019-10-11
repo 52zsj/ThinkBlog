@@ -49,12 +49,11 @@
     <div class="row" id="article-item-list">
         {foreach $row as $k=>$v}
         <div class="news-list">
-            <div class="news-img col-xs-5 col-sm-5 col-md-4"><a target="_blank"
-                                                                href="{:url('index/article/detail',['article_id'=>$v.id])}"><img
+            <div class="news-img col-xs-5 col-sm-5 col-md-4"><a href="{:url('index/article/detail',['article_id'=>$v.id])}"><img
                     src="\{$v.cover}" alt=""> </a></div>
             <div class="news-info col-xs-7 col-sm-7 col-md-8">
                 <dl>
-                    <dt><a href="{:url('index/article/detail',['article_id'=>$v.id])}" target="_blank"> {$v.title} </a>
+                    <dt><a href="{:url('index/article/detail',['article_id'=>$v.id])}"> {$v.title} </a>
                     </dt>
                     <dd><span class="name"><a href="javascript:viod(0);"
                                               title="由 {if !$v.author}本站站长{else}{$v.author}{/if} 发布" rel="author">{if !$v.author}本站站长{else}{$v.author}{/if}</a></span>
@@ -91,11 +90,11 @@
 <script type="text/html" id="article-item">
     {{each row value i}}
     <div class="news-list">
-        <div class="news-img col-xs-5 col-sm-5 col-md-4"><a target="_blank" href="{{value.detail_url}}"><img
+        <div class="news-img col-xs-5 col-sm-5 col-md-4"><a href="{{value.detail_url}}"><img
                 src="\{{value.cover}}" alt=""> </a></div>
         <div class="news-info col-xs-7 col-sm-7 col-md-8">
             <dl>
-                <dt><a href="{{value.detail_url}}" target="_blank"> {{value.title}} </a></dt>
+                <dt><a href="{{value.detail_url}}" > {{value.title}} </a></dt>
                 <dd><span class="name"><a href="javascript:viod(0);" title="由{{value.author}}发布" rel="author">{{value.author}}</a></span>
                     <span class="identity"></span> <span class="time"> {{value.create_time}} </span></dd>
                 <dd class="text">{{value.description}}</dd>

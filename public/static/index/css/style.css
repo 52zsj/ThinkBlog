@@ -76,9 +76,10 @@ body, input, button, textarea, select {
 }
 .header .logo a {
 	display: block;
-	overflow: hidden;
 	height: 124px;
-	line-height: 300px;
+	color: #f6f6f6;
+	background: #c7d9ff url(../images/logo.png) no-repeat 50% 50%;
+	text-decoration: none;
 }
 .header .logo a {
 	-moz-transition: all 0.8s ease-in-out;
@@ -105,6 +106,10 @@ body, input, button, textarea, select {
 .hidden-xs-nav li a, .header-xs-nav li a {
 	color: #666;
 }
+
+.hidden-xs-nav .active a, .header-xs-nav .active a {
+    color: #3399CC;
+}
 .hidden-xs-nav li a:hover, .header-xs-nav li a:hover {
 	background: #FFFFFF;
 }
@@ -112,7 +117,7 @@ body, input, button, textarea, select {
 	color: #FFFFFF;
 	font-size: 26px;
 	font-weight: 100;
-	background: #3399CC url(../images/logo.png) no-repeat 50% 50%;
+	background: #c7d9ff url(../images/logo.png) no-repeat 50% 46%;
 }
 .header-xs-logo .navbar-toggle {
 	padding: 0px;
@@ -133,7 +138,7 @@ body, input, button, textarea, select {
 	color: #666;
 	font-size: 14px;
 	display: inline-block;
-	width: 48%;
+	width: 100%;
 	text-decoration: none;
 }
 .header .feeds i {

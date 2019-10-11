@@ -3,6 +3,8 @@ define(['jquery', 'layui', 'template'], function ($, layui, template) {
         detail: function () {
             Controller.api.bindevent();
             Controller.events.hover();
+            Controller.events.article_like();
+
         },
         taglist: function () {
             Controller.events.lay_page();
@@ -12,10 +14,12 @@ define(['jquery', 'layui', 'template'], function ($, layui, template) {
             bindevent: function () {
                 common.events.no_image();
             },
-
             get_request_url: function () {
                 return Config.request_url;
             },
+            get_article_like_url: function () {
+                return Config.like_url;
+            }
         },
         events: {
             lay_page: function (offset = '') {
@@ -29,7 +33,7 @@ define(['jquery', 'layui', 'template'], function ($, layui, template) {
                         data: {offset: offset},
                         loading: false,
                     }, false, function (data) {
-                        var str =' {{each row item i}}\n' +
+                        var str = ' {{each row item i}}\n' +
                             '        {{if item.article_list}}\n' +
                             '        <li>\n' +
                             '            <a href="{{item.detail_url}}">\n' +
@@ -39,7 +43,7 @@ define(['jquery', 'layui', 'template'], function ($, layui, template) {
                             '        </li>\n' +
                             '        {{/if}}\n' +
                             '    {{/each}}';
-                        var htmls = template.render(str,data);
+                        var htmls = template.render(str, data);
                         var limit = data.limit;
                         var total = data.total;
                         if (total > limit) {
@@ -69,7 +73,7 @@ define(['jquery', 'layui', 'template'], function ($, layui, template) {
                         common.events.no_image();
                         Controller.events.hover();
 
-                    },function (data,ret) {
+                    }, function (data, ret) {
                         layer.msg(ret.msg, {icon: 5}, function () {
                             location.href = ret.jump_url;
                         });
@@ -79,12 +83,40 @@ define(['jquery', 'layui', 'template'], function ($, layui, template) {
                 });
 
             },
-            hover:function () {
+            hover: function () {
                 $(".related-content ul li").hover(function () {
                     $(this).find("h3").show();
                 }, function () {
                     $(this).find("h3").hide();
                 });
+            },
+            article_like: function () {
+                $("#article-like").click(function () {
+                    var that = $(this);
+                    var article_id = that.data('value');
+                    if (!article_id) {
+                        return false;
+                    }
+                    if (that.hasClass('not-click')) {
+                        return false;
+                    }
+                    var lice_count = that.children('.number').text();
+                    lucklyJack.api.ajax({
+                        url: Controller.api.get_article_like_url(),
+                        data: {article_id: article_id},
+                        type: 'POST',
+                        dataType: "json",
+                        loading: false,
+                    }, false, function (data, ret) {
+                        layer.msg(ret.msg, {icon: 6});
+                        that.children('.number').text((lice_count * 1) + 1);
+                        that.removeClass('not-click');
+                    }, function (data, ret) {
+                        layer.msg(ret.msg, {icon: 5});
+                        that.addClass('not-click');
+                        return false;
+                    })
+                })
             }
 
         }

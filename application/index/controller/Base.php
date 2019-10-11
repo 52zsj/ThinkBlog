@@ -6,8 +6,7 @@ namespace app\index\controller;
 
 use app\common\library\Enum;
 use app\common\model\Dictionary;
-use app\common\model\Inspirational;
-use think\App;
+use app\common\model\FrontMenu as FrontMenuModel;
 use think\Controller;
 use think\facade\Config;
 use think\facade\Request;
@@ -45,8 +44,13 @@ class Base extends Controller
             'jsName' => 'js/' . str_replace('.', '/', $controllerName),
             'moduleUrl' => rtrim(url("/{$moduleName}", '', false), '/'),
         ];
-        $this->assign('week_array',self::$weekArray);
+        $this->assign('week_array', self::$weekArray);
         $this->view->assign('config', $config);
+        //获取网站菜单
+        $frontMenuList = FrontMenuModel::where('status', 'eq', 1)->order('order_key asc')->select();
+        $menu_id = 1;//默认首页
+        $this->assign('menu_id', $menu_id);
+        $this->assign('front_menu_list', $frontMenuList);
     }
 
     public function assignConfig($name, $value = '') {
@@ -64,8 +68,6 @@ class Base extends Controller
         $assign_array = ['webKeywords' => $keywords, 'webDescription' => $description, 'title' => $title];
         $this->assign($assign_array);
     }
-
-
 
 
 }

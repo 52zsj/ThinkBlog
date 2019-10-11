@@ -6,10 +6,12 @@ namespace app\index\controller;
 use app\common\exception\Failure;
 use app\common\exception\Success;
 use app\common\model\Article as ArticleModel;
+use app\common\model\ArticleLike as ArticleLikeModel;
 use app\common\model\ArticleTags as ArticleTagsModel;
-use app\common\model\Inspirational;
 use app\common\model\Tag as TagModel;
 use app\index\logic\Widget as WidgetLogic;
+use think\Db;
+use think\Exception;
 
 class Article extends Base
 {
@@ -54,6 +56,7 @@ class Article extends Base
         $prevInfo = ArticleModel::where('status', 'eq', '1')->where('id', '<', $articleId)->field($infoField)->order('id desc')->limit(1)->find();
         WidgetLogic::inspirational();
         WidgetLogic::hotArticle();
+        WidgetLogic::tagCloud();
         //相关推荐
         $likeArticle = ArticleModel::where('column_id', 'eq', $articleInfo['column_id'])->field('id,title,cover')->limit(6)->select();
         $this->assign('like_article', $likeArticle);
@@ -68,9 +71,19 @@ class Article extends Base
             'tags' => $tags,
         ];
         $this->assign($assignArray);
+        $this->assignConfig('like_url', url('index/article/likeArtilce'));
         return $this->fetch();
     }
 
+    /**
+     * 标签对应的文章列表
+     * @return mixed
+     * @throws Failure
+     * @throws Success
+     * @throws \think\db\exception\DataNotFoundException
+     * @throws \think\db\exception\ModelNotFoundException
+     * @throws \think\exception\DbException
+     */
     public function tagList() {
         $tagId = $this->request->param('tag_id');
         if (!empty($tagId) && !is_numeric($tagId)) {
@@ -97,11 +110,38 @@ class Article extends Base
             foreach ($articleList as $k => &$v) {
                 $v['detail_url'] = url('index/article/detail', ['article_id' => $v['article_id']]);
             }
-            throw new Success('请求成功', ['row' => $articleList, 'total' => $articleTotal, 'limit' => $this->pageSize,'info'=>$taginfo]);
+            throw new Success('请求成功', ['row' => $articleList, 'total' => $articleTotal, 'limit' => $this->pageSize, 'info' => $taginfo]);
 
         }
+
         $this->assignConfig('request_url', url('index/article/tagList', ['tag_id' => $tagId]));
         return $this->fetch();
 
+    }
+
+    public function likeArtilce() {
+        if ($this->request->isAjax()) {
+            $articleId = $this->request->param('article_id');
+            $ipAddr = $this->request->ip(1);
+            $where = ['ip' => $ipAddr, 'article_id' => $articleId];
+            $likeCount = ArticleLikeModel::where($where)->whereTime('create_time', 'today')->count();
+            if ($likeCount >= 3) {
+                throw new Failure('每日最多可点赞3次,请明天再试');
+            }
+
+            $articleLikeData = ['ip' => $ipAddr, 'article_id' => $articleId];
+
+            Db::startTrans();
+            try {
+                ArticleModel::where('id', 'eq', $articleId)->setInc('like');
+                ArticleLikeModel::create($articleLikeData);
+                $remain = 3 - ($likeCount + 1);
+                Db::commit();
+            } catch (Exception $e) {
+                Db::rollback();
+                throw new Failure('每日最多可点赞3次,请明天再试');
+            }
+            throw new Success('感谢您的支持,您今日还可点赞（' . $remain . '）次');
+        }
     }
 }

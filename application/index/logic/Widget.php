@@ -5,6 +5,7 @@ namespace app\index\logic;
 
 use app\common\library\Enum;
 use app\common\model\Article as ArticleModel;
+use app\common\model\ArticleTags as ArticleTagsModel;
 use app\common\model\Dictionary;
 use app\common\model\Inspirational as inspirationalModel;
 use think\facade\View;
@@ -83,6 +84,16 @@ class Widget
         View::assign('like_article_list', $likeArticleList);
         if ($return) {
             return $likeArticleList;
+        }
+    }
+    public static function tagCloud($return = false){
+        //标签云
+        $tagCloudList = ArticleTagsModel::with(['tagList' => function ($query) {
+            $query->field('name,id');
+        }])->field('count(*) as total,tag_id')->group('tag_id')->select();
+        View::assign('tag_colud_list', $tagCloudList);
+        if ($return) {
+            return $tagCloudList;
         }
     }
 }

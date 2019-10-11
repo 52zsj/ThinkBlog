@@ -2,15 +2,10 @@
 
 namespace app\index\controller;
 
-use app\common\exception\Failure;
 use app\common\exception\Success;
-use app\common\library\Enum;
-use app\common\model\Album as AlbumModel;
 use app\common\model\Article as ArticleModel;
 use app\common\model\ArticleTags;
 use app\common\model\Banner as BannerModel;
-use app\common\model\Dictionary;
-use app\common\model\Inspirational;
 use app\index\logic\Widget as WidgetLogic;
 
 class Index extends Base
@@ -32,7 +27,7 @@ class Index extends Base
             }]);
         }, 'column' => function ($query) {
             $query->field('name,id');
-        }])->field('id,title,cover,content,description,create_time,watch_count,column_id,author')->order('create_time', 'desc')->limit(8)->select();
+        }])->field('id,title,cover,content,description,create_time,watch_count,column_id,author')->order('create_time', 'desc')->limit(5)->select();
         //标签云
         $tagCloud = ArticleTags::with(['tagList' => function ($query) {
             $query->field('name,id');

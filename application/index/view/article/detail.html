@@ -15,12 +15,12 @@
 <article class="news_content">
     {$article_info.content|html_entity_decode|raw}
 </article>
-<div class="reprint">转载请说明出处：<a href="" title="" target="_blank">{$article_info.column.name}</a> » <a href="" title=""
-                                                                                                      target="_blank">{$article_info.title}</a>
+<div class="reprint">转载请说明出处：<a href="" title="" target="_blank">{$article_info.column.name}</a> » <a href="" title="">{$article_info.title}</a>
 </div>
-<div class="zambia" data-toggle="tooltip" data-placement="top" title="感谢您的赞，我会继续努力"><a href="javascript:;" name="zambia"
-                                                                                       rel=""><span
-        class="glyphicon glyphicon-thumbs-up"></span> 赞（{$article_info.like}）</a></div>
+<div class="zambia" data-toggle="tooltip" data-placement="top" title="感谢您的赞，我会继续努力">
+    <a href="javascript:;" id="article-like" class="article-like" data-value="{$article_info.id}"><span class="glyphicon glyphicon-thumbs-up"></span>
+        赞（<span class="number">{$article_info.like}</span>）</a>
+</div>
 <div class="tags news_tags">标签：
     {foreach $tags as $item}
     <a data-toggle="tooltip" class="tag" data-placement="bottom" title="查看关于 “ {$item.tag_list.name} ” 的文章"
@@ -39,14 +39,14 @@
     <h2 class="title"><strong>相关推荐</strong></h2>
     <ul>
         {foreach $like_article as $k=>$v}
-        <li><a target="_blank" href="{:url('index/article/detail',['article_id'=>$v.id])}">
+        <li><a href="{:url('index/article/detail',['article_id'=>$v.id])}">
             <img src="\{$v.cover}" alt="">
             <h3> {$v.title} </h3>
         </a></li>
         {/foreach}
     </ul>
 </div>
-<div class="content-block comment">
+<div class="content-block comment hide">
     <h2 class="title"><strong>评论</strong></h2>
     <form action="comment.php" method="post" class="form-inline" id="comment-form">
         <div class="comment-title">
@@ -92,6 +92,6 @@
 
 {block name='widget'}
 {include file='common/widget/sentence'}
+{include file='common/widget/cloud'}
 {include file='common/widget/recommend'}
-{include file='common/widget/comment'}
 {/block}
