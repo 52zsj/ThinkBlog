@@ -7,7 +7,6 @@ namespace app\common\library;
 class Enum
 {
     //字典表数据项目
-    const DIDCTIONARY_FOOTER = 'footer';
     const DIDCTIONARY_TITLE = 'title';
     const DIDCTIONARY_WEB_KEYWORDS = 'web_keywords';
     const DIDCTIONARY_WEB_DESCRIPTION = 'web_description';
