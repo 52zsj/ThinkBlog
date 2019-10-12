@@ -1,0 +1,98 @@
+{include file='/common/header'/}
+{block name='css'}
+<style>
+    .can-click {
+        cursor: pointer;
+    }
+</style>
+{/block}
+{block name='content'}
+<div class="layui-fluid">
+    <div class="layui-row">
+        <form class="layui-form" method="POST">
+
+            <div class="layui-form-item">
+                <label for="title" class="layui-form-label">
+                    <span class="x-red">*</span>菜单名称
+                </label>
+                <div class="layui-input-inline">
+                    <input type="text" id="name" name="name" lay-verify="required" autocomplete="off"
+                           class="layui-input">
+                </div>
+                <div class="layui-form-mid layui-word-aux">
+                    <span class="x-red">*</span>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label for="title" class="layui-form-label">
+                    <span class="x-red">*</span>url地址
+                </label>
+                <div class="layui-input-inline">
+                    <input type="text" id="url" name="url" lay-verify="required" autocomplete="off"
+                           class="layui-input">
+                </div>
+                <div class="layui-form-mid layui-word-aux">
+                    <span class="x-red">*</span>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label for="title" class="layui-form-label">
+                    <span class="x-red">*</span>图标
+                </label>
+                <div class="layui-input-inline">
+                    <input type="text" id="icon" name="icon"  autocomplete="off"
+                           class="layui-input">
+                </div>
+                <div class="layui-form-mid layui-word-aux">
+                    <span class="x-red">*</span>
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <label class="layui-form-label">是否外链</label>
+                <div class="layui-input-block">
+                    <input type="radio" name="is_out_link" title="是" value="1" checked>
+                    <input type="radio" name="is_out_link" title="否" value="0">
+                </div>
+                <div class="layui-form-mid layui-word-aux">
+                    <span class="x-red"></span>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">是否启用</label>
+                <div class="layui-input-block">
+                    <input type="radio" name="status" title="是" value="1" checked>
+                    <input type="radio" name="status" title="否" value="0">
+                </div>
+                <div class="layui-form-mid layui-word-aux">
+                    <span class="x-red"></span>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label for="description" class="layui-form-label">
+                    <span class="x-red"></span>排序
+                </label>
+                <div class="layui-input-inline">
+                    <input type="number" id="order_key" name="order_key" min="0" max="9999" autocomplete="off"
+                           class="layui-input order-key" value="50">
+                </div>
+                <div class="layui-form-mid layui-word-aux">
+                    <span class="x-red">从小到大排序</span>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label for="add" class="layui-form-label">
+                </label>
+                <button class="layui-btn" lay-filter="submit" lay-submit="">
+                    提交
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+{/block}
+{block name='js'}
+<script>
+
+</script>
+{/block}

@@ -1,0 +1,41 @@
+{extend name="common/base"/}
+{block name='css'}
+<style>
+
+</style>
+{/block}
+{block name='content'}
+
+
+<div id="picbox" class="content-block new-content">
+    <h2 class="title"><strong>相册列表</strong></h2>
+    <div class="row">
+
+    </div>
+</div>
+
+<div id="pagelist" class="pagelist text-center"></div>
+
+{/block}
+{block name='widget'}
+{include file='common/widget/sentence'}
+{include file='common/widget/cloud'}
+{include file='common/widget/recommend'}
+{/block}
+{block name='js'}
+<script id="album-item" type="text/html">
+    {{each row value i}}
+    <div class="col-md-4 col-sm-6 col-xs-6 text-center swipeboxEx" data-id="{{i}}" style="padding: 5px;">
+        <a href="\{{value.cover}}" class="swipebox{{i}}"><i><img data-toggle="tooltip" data-original-title="{{value.title}}-{{value.description}}" data-placement="top" src="\{{value.cover}}"></i></a>
+        <div>
+            <audio controls loop class="hide" id="music{{i}}" src="\{{value.music}}"></audio>
+            {{each value.item img k}}
+            <a href="\{{img.full_path}}" class="swipebox{{i}} hide">  <!-- 点击图片后全屏放大的图片-->
+                <img src="\{{img.full_path}}" data-toggle="tooltip" data-original-title="{{img.title}}" data-placement="top" alt="image">  <!-- 直接显示的图片-->
+            </a>
+            {{/each}}
+        </div>
+    </div>
+    {{/each}}
+</script>
+{/block}

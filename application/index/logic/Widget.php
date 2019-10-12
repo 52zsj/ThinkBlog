@@ -17,8 +17,9 @@ class Widget
         $data = [];
         $data['inspirational'] = self::inspirational($return);
         $data['friendly_link'] = self::friendlyLink($return);
-        $data['hot_article'] = self::hotArticle();
+        $data['hot_article'] = self::hotArticle($limit, $return);
         $data['like_article'] = self::likeArticle($limit, $return);
+        $data['like_article'] = self::tagCloud($return);
         if ($return) {
             return $data;
         }
@@ -86,7 +87,8 @@ class Widget
             return $likeArticleList;
         }
     }
-    public static function tagCloud($return = false){
+
+    public static function tagCloud($return = false) {
         //标签云
         $tagCloudList = ArticleTagsModel::with(['tagList' => function ($query) {
             $query->field('name,id');

@@ -1,0 +1,22 @@
+{extend name='common/base'}
+{block name='css'}
+
+{/block}
+{block name='content'}
+<div class="hide">
+    <audio controls autoplay loop src="\{:$row.music}"></audio>
+</div>
+
+<div class="swipeboxEx"> <!--每个 div class="swipeboxEx" 代表一组图片-->
+    <a class="swipebox" href="\upload\album\20190923\f789fdcac3c2415aaeb0037243ded2d3.png">
+        <img  src="\upload\album\20190923\f789fdcac3c2415aaeb0037243ded2d3.png" alt="">
+    </a>
+    {foreach $row.item as $key=>$item}
+    <a href="\{$item.full_path}" class="swipebox hide">  <!-- 点击图片后全屏放大的图片-->
+        <img src="\{$item.full_path}" alt="image">  <!-- 直接显示的图片-->
+    </a>
+    <h3>{$row.title}<span>({$key+1}/{$count})</span></h3><!-- 每对a标签代表一张大小图-->
+    {/foreach}
+</div>
+
+{/block}

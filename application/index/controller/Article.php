@@ -129,6 +129,7 @@ class Article extends Base
         }
         WidgetLogic::inspirational();
         WidgetLogic::hotArticle();
+        WidgetLogic::tagCloud();
         if ($this->request->isAjax()) {
             $offset = $this->request->param('offset');
             $taginfo = TagModel::where('status', 'eq', 1)->value('name');
@@ -172,9 +173,7 @@ class Article extends Base
             if ($likeCount >= 3) {
                 throw new Failure('每日最多可点赞3次,请明天再试');
             }
-
             $articleLikeData = ['ip' => $ipAddr, 'article_id' => $articleId];
-
             Db::startTrans();
             try {
                 ArticleModel::where('id', 'eq', $articleId)->setInc('like');

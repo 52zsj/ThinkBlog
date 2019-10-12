@@ -19,7 +19,7 @@
     "layui": "~2.4.3",
     "art-template": "~4.13.2",
     "bootstrap": "3.3.5",
-    "bootstrap-treeview": "~1.2.0"
-
+    "bootstrap-treeview": "~1.2.0",
+    "swipebox": "~1.4.4"
   }
 }
