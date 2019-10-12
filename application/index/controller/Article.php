@@ -96,9 +96,9 @@ class Article extends Base
         WidgetLogic::hotArticle();
         WidgetLogic::tagCloud();
         //相关推荐
-        $likeArticle = ArticleModel::where('column_id', 'eq', $articleInfo['column_id'])->field('id,title,cover')->limit(6)->select();
+        $likeArticle = ArticleModel::where('column_id', 'eq', $articleInfo['column_id'])->where('id', 'neq', $articleId)->field('id,title,cover')->limit(6)->select();
         $this->assign('like_article', $likeArticle);
-        $data['title'] = '菜鸟杰-'.$articleInfo['title'];
+        $data['title'] = '菜鸟杰-' . $articleInfo['title'];
         $data['webKeywords'] = $articleInfo['title'];
         $data['webDescription'] = $articleInfo['description'];
         $this->assignSeoData($data);
