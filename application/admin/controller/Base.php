@@ -21,9 +21,9 @@ class Base extends Controller
     //无需鉴权的方法,但需要登录
     protected $noNeedRight = [];
     //默认的提示语
-    protected $defaultMsg = '欢迎光临LuckLyJack的博客';
+    protected $defaultMsg = '欢迎光临菜鸟杰的博客';
     //默认标题
-    protected $title = '欢迎光临LuckLyJack的博客';
+    protected $title = '欢迎光临菜鸟杰的博客';
     //alioss配置项
     protected $ossConfig = [];
     //上传文件存放区域
@@ -34,7 +34,9 @@ class Base extends Controller
     protected $model=null;
     //引入
     use Backend;
-
+    protected $middleware = [
+        'check' => ['except', ['login']],
+    ];
     public function initialize() {
         //根目录
         $this->rootPath = Env::get('root_path');

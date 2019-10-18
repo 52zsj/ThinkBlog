@@ -12,6 +12,9 @@ class Enum
     const DIDCTIONARY_WEB_DESCRIPTION = 'web_description';
     //字典表分组项目
     const DIDCTIONARY_WEB = 'web';
-    const DIDCTIONARY_FRIENDLY_LINK='friendly_link';
+    const DIDCTIONARY_FRIENDLY_LINK = 'friendly_link';
+    //文件上传路径
+    const ALBUM_FILE_UPLOAD_PATH = DIRECTORY_SEPARATOR . 'album' . DIRECTORY_SEPARATOR;
+    const ARTICLE_FILE_UPLOAD_PATH = DIRECTORY_SEPARATOR . 'article' . DIRECTORY_SEPARATOR;
 
 }

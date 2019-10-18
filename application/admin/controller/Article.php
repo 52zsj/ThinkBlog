@@ -6,6 +6,7 @@ namespace app\admin\controller;
 use app\admin\logic\Oss as OssLogic;
 use app\common\exception\Failure;
 use app\common\exception\Success;
+use app\common\library\Enum;
 use app\common\model\Article as ArticleModel;
 use app\common\model\ArticleTags;
 use app\common\model\Tag as TagModel;
@@ -22,7 +23,7 @@ class Article extends Base
     public function initialize() {
         parent::initialize();
         $this->model = new ArticleModel();
-        $this->savePath = $this->uploadPath . 'article' . DIRECTORY_SEPARATOR;
+        $this->savePath = $this->uploadPath . Enum::ARTICLE_FILE_UPLOAD_PATH;
         $columnList = ColumnModel::getTreeColumnList();
         $this->assign('column_tree_list', $columnList);
     }

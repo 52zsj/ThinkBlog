@@ -7,6 +7,7 @@ namespace app\admin\controller;
 use app\admin\logic\Oss as OssLogic;
 use app\common\exception\Failure;
 use app\common\exception\Success;
+use app\common\library\Enum;
 use app\common\model\Album as AlbumModel;
 use app\common\model\AlbumItem as AlbumItemModel;
 use think\App;
@@ -26,7 +27,7 @@ class Album extends Base
     public function initialize() {
         parent::initialize();
         $this->model = new AlbumModel();
-        $this->savePath = $this->uploadPath . 'album' . DIRECTORY_SEPARATOR;
+        $this->savePath = $this->uploadPath . Enum::ALBUM_FILE_UPLOAD_PATH;
     }
 
     public function add() {
