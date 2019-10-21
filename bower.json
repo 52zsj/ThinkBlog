@@ -20,6 +20,7 @@
     "art-template": "~4.13.2",
     "bootstrap": "3.3.5",
     "bootstrap-treeview": "~1.2.0",
-    "swipebox": "~1.4.4"
+    "swipebox": "~1.4.4",
+    "axios": "0.19.0"
   }
 }

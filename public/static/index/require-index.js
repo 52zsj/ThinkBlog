@@ -17,7 +17,8 @@ require.config({
         'albumplugin':'album-plugin',//相册插件显示内容
         'bootstrap':'../libs/bootstrap/dist/js/bootstrap.min',
         'treeview':'../libs/bootstrap-treeview/dist/bootstrap-treeview.min',
-        "swipebox":'../libs/swipebox/src/js/jquery.swipebox'
+        "swipebox":'../libs/swipebox/src/js/jquery.swipebox',
+        "axios":'../libs/axios/dist/axios.min'
 
     },
     included: ['css', 'toastr'],
@@ -36,6 +37,7 @@ require.config({
         'albumplugin': {exports: "albumplugin"},
         'treeview': {deps: ['jquery','css!../libs/bootstrap-treeview/dist/bootstrap-treeview.min.css']},
         'swipebox': {deps: ['jquery', 'css!../libs/swipebox/src/css/swipebox.css'], exports: 'swipebox'},
+        'axios': {exports: 'axios'}
     },
     map: {
         '*': {

@@ -65,7 +65,6 @@ define(['xadmin', 'form', 'jack.table', 'template'], function (xadmin, Form, Tab
                                 while ((result = exp.exec(ret)) != null) {
                                     icon_list.push(result[1]);
                                 }
-                                console.log(icon_list);
                                 iconfunc();
 
                             });
