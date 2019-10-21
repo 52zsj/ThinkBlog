@@ -1,9 +1,32 @@
 {include file='/common/header'/}
 {block name='css'}
 <style>
-    .can-click {
+    .list-inline {
+        padding-left: 0;
+        list-style: none;
+    }
+
+    #chooseicon {
+        margin: 10px;
+    }
+
+    #chooseicon ul li {
+        width: 41px;
+        height: 42px;
+        line-height: 42px;
+        border: 1px solid #efefef;
+        padding: 1px;
+        margin: 1px;
+        text-align: center;
+        font-size: 18px;
+        float: left;
+    }
+
+    #chooseicon ul li:hover {
+        border: 1px solid #000000;
         cursor: pointer;
     }
+
 </style>
 {/block}
 {block name='content'}
@@ -57,13 +80,15 @@
                     <span class="x-red">*</span>图标
                 </label>
                 <div class="layui-input-inline">
-                    <input type="text" id="icon" name="icon"  autocomplete="off"
-                           class="layui-input"  value="{$row.icon}">
+                    <input type="text" id="icon" name="icon" autocomplete="off"
+                           class="layui-input" style="float: left;" value="{$row.icon}">
                 </div>
-                <div class="layui-form-mid layui-word-aux">
-                    <span class="x-red">*</span>
+                <div class="">
+                    <a href="javascript:;" style="float: left"
+                       class="layui-btn layui-btn-primary layui-btn-sm  btn-search-icon">搜索图标</a>
                 </div>
             </div>
+
 
             <div class="layui-form-item">
                 <label class="layui-form-label">是否为菜单</label>
@@ -111,5 +136,27 @@
 {block name='js'}
 <script>
 
+</script>
+<script id="choose_icon" type="text/html">
+    <div id="chooseicon">
+        <div>
+            <form onsubmit="return false;">
+                <div class="">
+                    <div>
+                        <input class="layui-input js-icon-search" type="text" placeholder="图标搜索">
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div>
+            <ul class="list-inline">
+                {{ each icon_list value i }}
+                <li data-font="{{value}}" data-toggle="tooltip" title="{{value}}">
+                    <i class="fa fa-{{value}}"></i> {{/each}}
+                </li>
+            </ul>
+        </div>
+
+    </div>
 </script>
 {/block}
