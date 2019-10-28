@@ -1,4 +1,4 @@
-define(['jquery', 'layui', 'template', 'bootstrap'], function ($, layui, template, undefind,) {
+define(['jquery', 'layui', 'template', 'bootstrap'], function ($, layui, template, undefind) {
     var Controller = {
         index: function () {
             Controller.events.search();
