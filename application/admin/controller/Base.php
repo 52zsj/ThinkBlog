@@ -34,9 +34,9 @@ class Base extends Controller
     protected $model=null;
     //引入
     use Backend;
-    protected $middleware = [
-        'auth_check' => ['except', ['login']],
-    ];
+    // protected $middleware = [
+    //     'auth_check' => ['except', ['login']],
+    // ];
     public function initialize() {
         //根目录
         $this->rootPath = Env::get('root_path');
