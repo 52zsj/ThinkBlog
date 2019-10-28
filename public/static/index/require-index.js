@@ -9,7 +9,6 @@ require.config({
         'toastr': '../libs/toastr/toastr.min',
         'layer': '../libs/layer/dist/layer',
         'scrollreveal': '../libs/scrollreveal/dist/scrollreveal',
-        'hcsticky': '../libs/hc-sticky/dist/hc-sticky',
         'lucklyJack': '../common/js/luckly-jack',
         'layui':'../libs/layui/dist/layui.all',
         'common': 'js/common',
@@ -32,7 +31,6 @@ require.config({
         ],
         'layui': {deps: ['css!../libs/layui/dist/css/layui.css'], exports: "layui",},
         'scrollreveal': {exports: 'scrollreveal'},
-        'hcsticky': {exports: '$.fn.hcsticky'},
         'toastr': ['css!../libs/toastr/toastr.min.css'],
         'albumplugin': {exports: "albumplugin"},
         'treeview': {deps: ['jquery','css!../libs/bootstrap-treeview/dist/bootstrap-treeview.min.css']},
@@ -44,7 +42,7 @@ require.config({
             'css': '../libs/require-css/css.min'
         }
     },
-    baseUrl: 'static/index/', //资源基础路径
+    baseUrl: '/static/index/', //资源基础路径
 });
 //初始化
 require(['jquery'], function ($) {
