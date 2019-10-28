@@ -44,6 +44,8 @@ require.config({
             'css': '../libs/require-css/css.min'
         }
     },
+    waitSeconds: 30,
+    charset: 'utf-8', // 文件编码
     baseUrl: '/static/index/', //资源基础路径
 });
 //初始化

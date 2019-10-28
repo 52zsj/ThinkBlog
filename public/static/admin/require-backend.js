@@ -57,6 +57,8 @@ require.config({
         }
     },
     baseUrl: '/static/admin/', //资源基础路径
+    waitSeconds: 30,
+    charset: 'utf-8' // 文件编码
 });
 //初始化
 require(['jquery'], function ($) {
