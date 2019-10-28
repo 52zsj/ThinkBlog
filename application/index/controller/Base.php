@@ -33,8 +33,8 @@ class Base extends Controller
         //获取网站页脚
         $request = Request::instance();
         $moduleName = $request->module();
-        $controllerName = $request->controller();
-        $actionName = $request->action();
+        $controllerName = strtolower($request->controller());
+        $actionName = strtolower($request->action());
         $config = [
             'moduleName' => $moduleName,
             'controllerName' => $controllerName,
