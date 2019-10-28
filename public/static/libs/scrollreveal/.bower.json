@@ -1,0 +1,14 @@
+{
+  "name": "scrollreveal",
+  "homepage": "https://github.com/jlmakes/scrollreveal.js",
+  "version": "4.0.5",
+  "_release": "4.0.5",
+  "_resolution": {
+    "type": "version",
+    "tag": "v4.0.5",
+    "commit": "710a6380da29c18d3a1e7e75008df9d353716264"
+  },
+  "_source": "https://github.com/jlmakes/scrollreveal.js.git",
+  "_target": "~4.0.5",
+  "_originalSource": "scrollreveal"
+}
