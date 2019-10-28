@@ -44,7 +44,7 @@ require.config({
             'css': '../libs/require-css/css.min'
         }
     },
-    baseUrl: '/static/index/', //资源基础路径
+    baseUrl: 'static/index/', //资源基础路径
 });
 //初始化
 require(['jquery'], function ($) {
