@@ -21,9 +21,9 @@ class Base extends Controller
     //无需鉴权的方法,但需要登录
     protected $noNeedRight = [];
     //默认的提示语
-    protected $defaultMsg = '欢迎光临菜鸟杰的博客';
+    protected $defaultMsg = '欢迎光临张世杰的博客';
     //默认标题
-    protected $title = '欢迎光临菜鸟杰的博客';
+    protected $title = '张世杰的博客';
     //alioss配置项
     protected $ossConfig = [];
     //上传文件存放区域

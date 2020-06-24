@@ -62,7 +62,7 @@ class Base extends Controller
     public function assignSeoData($data = []) {
         $keywords = isset($data['webKeywords']) && !empty($data['webKeywords']) ? $data['webKeywords'] : $this->webKeywords;
         $description = isset($data['webDescription']) && !empty($data['webDescription']) ? $data['webDescription'] : $this->webDescription;
-        $title = isset($data['title']) && !empty($data['title']) ? $data['title'] : '博客';
+        $title = isset($data['title']) && !empty($data['title']) ? $data['title'] : '张世杰的博客';
         $assign_array = ['webKeywords' => $keywords, 'webDescription' => $description, 'title' => $title];
         $this->assign($assign_array);
     }
