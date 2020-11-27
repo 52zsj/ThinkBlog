@@ -151,10 +151,10 @@ return [
     //alioss配置
     'alioss' => [
         'open'=>0,
-        'accessKeyId' => 'LTAICl0jhpCWB5El',
-        'accessKeySecret' => '363XukOdOm7sXgqm4WzX3nZ0cBXu1v',
-        'endpoint' => 'oss-cn-beijing.aliyuncs.com',
-        'bucket' => 'lucklyjack-blog',
+        'accessKeyId' => '',
+        'accessKeySecret' => '',
+        'endpoint' => '',
+        'bucket' => '',
     ],
 
 ];
