@@ -1,5 +1,3 @@
-![](https://box.kancloud.cn/5a0aaa69a5ff42657b5c4715f3d49221) 
-
 ThinkPHP 5.1（LTS版本） —— 创建的博客网站
 ===============
 
