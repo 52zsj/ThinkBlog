@@ -20,7 +20,7 @@
     "babel-plugin-transform-es2015-shorthand-properties": "^6.24.1",
     "cheerio": "^0.22.0",
     "glob": "^7.1.2",
-    "gulp": "^3.9.1",
+    "gulp": "^4.0.2",
     "gulp-autoprefixer": "^4.0.0",
     "gulp-babel": "^7.0.0",
     "gulp-browserify": "^0.5.1",
